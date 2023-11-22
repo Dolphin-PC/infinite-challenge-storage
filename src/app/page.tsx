@@ -8,7 +8,7 @@ export default function Home() {
           className=""
           width={389}
           height={322}
-          src="/logo2.png"
+          src="/main_logo.png"
           layout="responsive"
           alt="main-logo"
         />

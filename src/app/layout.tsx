@@ -3,7 +3,11 @@ import { Inter } from "next/font/google";
 import "./components/globals.css";
 import Sidenav from "./components/layout/Sidenav";
 import { useEffect } from "react";
-import { setInitialColorMode } from "./lib/util";
+import {
+  getInitialColorMode,
+  setColorMode,
+  setInitialColorMode,
+} from "./lib/util";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +21,9 @@ export const metadata: Metadata = {
 
 const ScriptTag = () => {
   const codeToRunOnClient = `(function() {
+    ${getInitialColorMode.toString()}
     ${setInitialColorMode.toString()}
+    ${setColorMode.toString()}
     setInitialColorMode();
   })()`;
   return <script dangerouslySetInnerHTML={{ __html: codeToRunOnClient }} />;
@@ -36,7 +42,7 @@ export default function RootLayout({
           <div className="w-full flex-none md:w-64">
             <Sidenav />
           </div>
-          <div className="flex-grow p-6 md:overflow-y-auto md:p-12">
+          <div className="flex-grow p-6 dark:bg-primary md:overflow-y-auto md:p-12">
             {children}
           </div>
         </div>

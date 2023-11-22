@@ -36,8 +36,8 @@ export default function NavLinks() {
         <Link
           key={m.title}
           href={m.href}
-          className={clsx("flex items-center p-6 text-primary", {
-            "bg-primary text-white": pathname.startsWith(m.href),
+          className={clsx("flex items-center p-6", {
+            "bg-primary text-white ": pathname.startsWith(m.href),
           })}
         >
           {m.icon}

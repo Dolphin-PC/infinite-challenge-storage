@@ -1,7 +1,7 @@
 import Link from "next/link";
-import React from "react";
 import NavLinks from "./NavLinks";
 import Image from "next/image";
+import Switch from "../Switch";
 
 export default function Sidenav() {
   return (
@@ -14,6 +14,7 @@ export default function Sidenav() {
         </div>
       </Link>
       <NavLinks />
+      <Switch />
     </div>
   );
 }

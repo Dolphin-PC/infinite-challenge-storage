@@ -6,15 +6,25 @@ import React from "react";
 import AccountCircle from "../images/AccountCircle";
 import ArrowCircle from "../images/ArrowCircle";
 import Home from "../images/Home";
+import clsx from "clsx";
 
+export const menuObj = {
+  meme_life: "meme_life",
+  episode_info: "episode_info",
+  mbti_test: "mbti_test",
+};
 export const menu = [
   {
     title: "짤&명언",
-    href: "",
+    href: `/${menuObj.meme_life}`,
     icon: <AccountCircle />,
   },
-  { title: "회차정보", href: "", icon: <ArrowCircle /> },
-  { title: "무한도전MBTI", href: "", icon: <Home /> },
+  {
+    title: "회차정보",
+    href: `/${menuObj.episode_info}`,
+    icon: <ArrowCircle />,
+  },
+  { title: "무한도전MBTI", href: `/${menuObj.mbti_test}`, icon: <Home /> },
 ];
 
 export default function NavLinks() {
@@ -26,7 +36,9 @@ export default function NavLinks() {
         <Link
           key={m.title}
           href={m.href}
-          className="flex items-center p-6 text-primary hover:bg-primary hover:text-white"
+          className={clsx("flex items-center p-6 text-primary", {
+            "bg-primary text-white": pathname.startsWith(m.href),
+          })}
         >
           {m.icon}
           <p className="text-2xl">{m.title}</p>

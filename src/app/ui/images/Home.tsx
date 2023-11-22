@@ -10,7 +10,7 @@ export default function Home() {
         fill="currentColor"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g clip-path="url(#clip0_4_7)">
+        <g clipPath="url(#clip0_4_7)">
           <path
             d="M20.8334 41.6667V29.1667H29.1667V41.6667H39.5834V25H45.8334L25 6.25L4.16669 25H10.4167V41.6667H20.8334Z"
             fill="currentColor"

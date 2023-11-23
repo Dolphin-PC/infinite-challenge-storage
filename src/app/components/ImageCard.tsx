@@ -17,7 +17,7 @@ export function ImageCardWrapper(props: { datas: DataType[] }) {
       gap={5}
       flexWrap="wrap"
       direction="row"
-      justifyContent="center"
+      justifyContent="flex-start"
       alignItems="flex-start"
     >
       {props.datas.map((data: DataType) => {

@@ -9,3 +9,7 @@
 body.dark {
   color: white;
 }
+
+input {
+  outline: none;
+}

@@ -10,3 +10,9 @@ export type DataType = {
     nanoseconds: number;
   };
 };
+
+export type SearchType = {
+  searchParams?: {
+    search?: string;
+  };
+};

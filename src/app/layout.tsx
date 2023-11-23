@@ -8,6 +8,9 @@ import {
   setColorMode,
   setInitialColorMode,
 } from "./lib/util";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+config.autoAddCss = false;
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +22,7 @@ export const metadata: Metadata = {
   description: "우리가 사랑한 무한도전 정보를 모아둔 저장소 사이트입니다.",
 };
 
-const ScriptTag = () => {
+export const ScriptTag = () => {
   const codeToRunOnClient = `(function() {
     ${getInitialColorMode.toString()}
     ${setInitialColorMode.toString()}

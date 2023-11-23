@@ -14,9 +14,10 @@ const db = getFirestore(app);
 
 const collections = {
   meme_life: collection(db, "meme_life"),
+  episode_info: collection(db, "episode_info"),
 };
 
-export const getData = async (): Promise<DataType[]> => {
+export const getMemeLife = async (searchText?: string): Promise<DataType[]> => {
   const querySnapshot = await getDocs(collections.meme_life);
   let res: DataType[] = [];
 
@@ -24,6 +25,28 @@ export const getData = async (): Promise<DataType[]> => {
     res = mock_data.meme_life;
   } else {
     res = querySnapshot.docs.map((doc: DocumentData) => doc.data());
+  }
+
+  if (searchText) {
+    res = res.filter((e) => e.title.includes(searchText));
+  }
+
+  return res;
+};
+export const getEpisodeInfo = async (
+  searchText?: string,
+): Promise<DataType[]> => {
+  const querySnapshot = await getDocs(collections.episode_info);
+  let res: DataType[] = [];
+
+  if (isLocal) {
+    res = mock_data.episode_info;
+  } else {
+    res = querySnapshot.docs.map((doc: DocumentData) => doc.data());
+  }
+
+  if (searchText) {
+    res = res.filter((e) => e.title.includes(searchText));
   }
 
   return res;

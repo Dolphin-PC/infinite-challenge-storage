@@ -1,13 +1,14 @@
-import { DataType, getData } from "@/app/lib/firestore";
+import ImageCard, { ImageCardWrapper } from "@/app/components/ImageCard";
+import { getData } from "@/app/lib/firestore";
+import { DataType } from "@/app/lib/types";
+import Image from "next/image";
 
 export default async function page() {
-  const res = await getData();
+  const datas = await getData();
+
   return (
     <div>
-      meme
-      {res.map((r: DataType) => (
-        <p>{r.title}</p>
-      ))}
+      <ImageCardWrapper datas={datas} />
     </div>
   );
 }

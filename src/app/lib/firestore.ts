@@ -1,3 +1,5 @@
+const isLocal = true;
+
 import {
   DocumentData,
   collection,
@@ -6,6 +8,7 @@ import {
 } from "firebase/firestore";
 import { app } from "../../../firebase.config";
 import { DataType } from "./types";
+import { mock_data } from "./mock_data";
 
 const db = getFirestore(app);
 
@@ -15,9 +18,13 @@ const collections = {
 
 export const getData = async (): Promise<DataType[]> => {
   const querySnapshot = await getDocs(collections.meme_life);
-  const res: DataType[] = querySnapshot.docs.map((doc: DocumentData) =>
-    doc.data(),
-  );
+  let res: DataType[] = [];
+
+  if (isLocal) {
+    res = mock_data.meme_life;
+  } else {
+    res = querySnapshot.docs.map((doc: DocumentData) => doc.data());
+  }
 
   return res;
 };

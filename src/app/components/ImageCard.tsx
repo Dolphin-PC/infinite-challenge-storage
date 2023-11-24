@@ -6,6 +6,7 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  Skeleton,
   Stack,
   ToggleButton,
   Typography,
@@ -15,6 +16,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { getMemeLife } from "../lib/firestore";
 import { Suspense, useCallback, useEffect, useState } from "react";
 import { useSpyScroll } from "../lib/hooks";
+import NothingSearch from "./NothingSearch";
 
 export function ImageCardWrapper({
   searchText,
@@ -44,6 +46,7 @@ export function ImageCardWrapper({
   };
   useEffect(() => fetchMore(), [isBottom]);
 
+  if (data?.pages[0].page.totalPage == 0) return <NothingSearch />;
   return (
     <div>
       <Stack
@@ -53,13 +56,14 @@ export function ImageCardWrapper({
         justifyContent="flex-start"
         alignItems="flex-start"
       >
-        {data?.pages.flat().map(({ data }) => {
-          return data.map((d) => <ImageCard key={d.title} {...d} />);
-        })}
+        {isFetching ? (
+          <ImageCard.Skeleton count={10} />
+        ) : (
+          data?.pages.map(({ data }) => {
+            return data.map((d) => <ImageCard key={d.title} {...d} />);
+          })
+        )}
       </Stack>
-      {/* <Button hidden={true} fullWidth variant="outlined" onClick={fetchMore}>
-        LOAD MORE
-      </Button> */}
     </div>
   );
 }
@@ -84,3 +88,25 @@ export default function ImageCard(props: DataType) {
     </Card>
   );
 }
+
+export function ImageCardSkeleton({ count = 3 }: { count: number }) {
+  return Array(count)
+    .fill(0)
+    .map((v, i) => (
+      <Card key={i} className="w-3/12">
+        <Skeleton variant="rectangular" height={200} className="w-full" />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            <Skeleton variant="rectangular" width={210} height={30} />
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <Skeleton variant="rectangular" width={50} height={30} />
+          <Skeleton variant="rectangular" width={50} height={30} />
+          {/* <Button size="small">Share</Button>
+      <Button size="small">Learn More</Button> */}
+        </CardActions>
+      </Card>
+    ));
+}
+ImageCard.Skeleton = ImageCardSkeleton;

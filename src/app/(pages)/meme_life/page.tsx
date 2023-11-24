@@ -1,14 +1,16 @@
 import { ImageCardWrapper } from "@/app/components/ImageCard";
-import { getMemeLife } from "@/app/lib/firestore";
-import { SearchType } from "@/app/lib/types";
+import { mock_data } from "@/app/lib/mock_data";
 
-export default async function page({ searchParams }: SearchType) {
-  const query = searchParams?.search || "";
-  const datas = await getMemeLife(query);
-
+export default async function page({
+  searchParams,
+}: {
+  searchParams?: {
+    search?: string;
+  };
+}) {
   return (
     <div>
-      <ImageCardWrapper datas={datas} />
+      <ImageCardWrapper searchText={searchParams?.search} />
     </div>
   );
 }

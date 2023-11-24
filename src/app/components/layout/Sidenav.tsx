@@ -11,7 +11,7 @@ export default function Sidenav() {
     <div
       className={`flex h-full flex-col items-center justify-between border-solid border-r-primary dark:border-r-white dark:bg-primary md:border-r-4`}
     >
-      <div>
+      <div className="w-full">
         <Link href="/" className={``}>
           <div className="m-3 flex justify-center">
             <Image src={"/logo.png"} width={200} height={180} alt="logo" />
@@ -20,7 +20,7 @@ export default function Sidenav() {
         <NavLinks />
       </div>
       <FormControlLabel
-        control={<Switch checked={checked} onChange={handleChange} />}
+        control={<Switch checked={checked} onChange={(e) => handleChange(e)} />}
         label={`${checked ? "Dark" : "Light"} Mode`}
       />
     </div>

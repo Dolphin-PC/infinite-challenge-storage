@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getInitialColorMode, setColorMode } from "./util";
 import {
   ReadonlyURLSearchParams,
@@ -38,10 +38,34 @@ export const useSearch = (): {
   const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
 
+    // params.set("page", "1");
+    // params.set("limit", "10");
+
     term ? params.set("search", term) : params.delete("search");
 
     replace(`${pathname}?${params.toString()}`);
   }, 300);
 
   return { searchParams, handleSearch, searchText };
+};
+
+export const useSpyScroll = (eleId: string): { isBottom: Boolean } => {
+  const [isBottom, setIsBottom] = useState(false);
+
+  const detectBottom = useDebouncedCallback((event) => {
+    const { clientHeight, scrollHeight, scrollTop } = event.target;
+
+    setIsBottom(clientHeight === scrollHeight - scrollTop);
+  }, 300);
+
+  useEffect(() => {
+    const ele = document.getElementById(eleId) || document.body;
+
+    ele.addEventListener("scroll", detectBottom);
+    return () => {
+      ele.removeEventListener("scroll", detectBottom);
+    };
+  }, []);
+
+  return { isBottom };
 };

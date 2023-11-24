@@ -9,7 +9,7 @@ export default function SearchBar() {
   return (
     <div
       className="flex w-1/3 justify-center rounded-full border-2 border-solid border-primary
-    p-4"
+    p-4 dark:bg-white dark:text-primary"
     >
       <FontAwesomeIcon icon={faSearch} width={30} className="m-auto" />
       <input

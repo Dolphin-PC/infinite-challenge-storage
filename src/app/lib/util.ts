@@ -1,3 +1,7 @@
+// "use client";
+
+import { PageType } from "./types";
+
 // 초기 테마를 설정하는 함수
 export function setInitialColorMode(): void {
   //현재 테마 모드
@@ -33,3 +37,20 @@ export function getInitialColorMode(): "light" | "dark" {
 
   return "light";
 }
+
+export const getPageObj = (
+  currentPage?: number,
+  totalLength: number = 0,
+  limit: number = 5,
+): PageType => {
+  let nextPage = undefined;
+  if (currentPage) {
+    if (currentPage * limit < totalLength) {
+      nextPage = currentPage + 1;
+    }
+  }
+  return {
+    nextPage: nextPage,
+    totalPage: Math.ceil(totalLength / limit),
+  };
+};

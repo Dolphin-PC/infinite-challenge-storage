@@ -1,3 +1,13 @@
+export type PromiseDataType = {
+  data: DataType[];
+  page: PageType;
+};
+
+export type PageType = {
+  nextPage: number | undefined;
+  totalPage: number | null;
+};
+
 export type DataType = {
   title: string;
   img_src: string;
@@ -14,5 +24,7 @@ export type DataType = {
 export type SearchType = {
   searchParams?: {
     search?: string;
+    page?: string;
+    limit?: string;
   };
 };

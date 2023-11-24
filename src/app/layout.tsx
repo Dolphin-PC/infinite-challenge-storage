@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./components/globals.css";
 import Sidenav from "./components/layout/Sidenav";
-import { useEffect } from "react";
 import {
   getInitialColorMode,
   setColorMode,
@@ -10,6 +9,8 @@ import {
 } from "./lib/util";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import Providers from "./providers";
+
 config.autoAddCss = false;
 
 const inter = Inter({ subsets: ["latin"] });
@@ -45,8 +46,11 @@ export default function RootLayout({
           <div className="w-full flex-none md:w-64">
             <Sidenav />
           </div>
-          <div className="flex-grow p-6 dark:bg-primary md:overflow-y-auto md:p-12">
-            {children}
+          <div
+            id="layout"
+            className="flex-grow p-6 dark:bg-primary md:overflow-scroll md:p-12"
+          >
+            <Providers>{children}</Providers>
           </div>
         </div>
       </body>

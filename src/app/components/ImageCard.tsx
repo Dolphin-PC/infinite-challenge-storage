@@ -1,29 +1,66 @@
+"use client";
+
 import {
   Button,
   Card,
   CardActions,
   CardContent,
   CardMedia,
-  ListItem,
   Stack,
+  ToggleButton,
   Typography,
 } from "@mui/material";
-import React from "react";
 import { DataType } from "../lib/types";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { getMemeLife } from "../lib/firestore";
+import { Suspense, useCallback, useEffect, useState } from "react";
+import { useSpyScroll } from "../lib/hooks";
 
-export function ImageCardWrapper(props: { datas: DataType[] }) {
+export function ImageCardWrapper({
+  searchText,
+}: {
+  searchText: string | undefined;
+}) {
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
+    queryKey: ["meme_life", searchText],
+    queryFn: ({ pageParam = 0 }) => getMemeLife(searchText, pageParam),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => lastPage.page.nextPage,
+    staleTime: 1000 * 60 * 60,
+  });
+
+  const { isBottom } = useSpyScroll("layout");
+
+  const fetchMore = () => {
+    if (hasNextPage && isBottom) fetchNextPage();
+  };
+  useEffect(() => fetchMore(), [isBottom]);
+
   return (
-    <Stack
-      gap={5}
-      flexWrap="wrap"
-      direction="row"
-      justifyContent="flex-start"
-      alignItems="flex-start"
-    >
-      {props.datas.map((data: DataType) => {
-        return <ImageCard key={data.title} {...data} />;
-      })}
-    </Stack>
+    <div>
+      <Stack
+        gap={5}
+        flexWrap="wrap"
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="flex-start"
+      >
+        {data?.pages.flat().map(({ data }) => {
+          return data.map((d) => <ImageCard key={d.title} {...d} />);
+        })}
+      </Stack>
+      {/* <Button hidden={true} fullWidth variant="outlined" onClick={fetchMore}>
+        LOAD MORE
+      </Button> */}
+    </div>
   );
 }
 

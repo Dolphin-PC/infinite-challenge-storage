@@ -7,6 +7,7 @@ import {
   useSearchParams,
 } from "next/navigation";
 import { DebouncedState, useDebouncedCallback } from "use-debounce";
+import { TagInterface } from "./types";
 
 export const useDarkMode = (): [boolean, Function] => {
   const [checked, setChecked] = useState<boolean>(false);
@@ -27,7 +28,7 @@ export const useDarkMode = (): [boolean, Function] => {
 
 export const useSearch = (): {
   searchParams: ReadonlyURLSearchParams;
-  handleSearch: DebouncedState<(term: string) => void>;
+  handleSearch: Function;
   searchText: string | null;
 } => {
   const searchParams = useSearchParams();
@@ -35,16 +36,13 @@ export const useSearch = (): {
   const { replace } = useRouter();
   const searchText = searchParams.get("search");
 
-  const handleSearch = useDebouncedCallback((term: string) => {
+  const handleSearch = (term: string) => {
     const params = new URLSearchParams(searchParams);
-
-    // params.set("page", "1");
-    // params.set("limit", "10");
 
     term ? params.set("search", term) : params.delete("search");
 
     replace(`${pathname}?${params.toString()}`);
-  }, 300);
+  };
 
   return { searchParams, handleSearch, searchText };
 };
@@ -68,4 +66,57 @@ export const useSpyScroll = (eleId: string): { isBottom: Boolean } => {
   }, []);
 
   return { isBottom };
+};
+
+export const useRecentSearch = (): {
+  tags: TagInterface[];
+  addTag: Function;
+  deleteTag: Function;
+} => {
+  "use client";
+
+  const pathname = usePathname();
+  const [tags, setTags] = useState<TagInterface[]>([]);
+  const [localKey, setLocalKey] = useState<string>("");
+
+  useEffect(() => setLocalKey(`recent_search_${pathname}`), [pathname]);
+
+  const handleTags = async (newTags: TagInterface[]) => {
+    if (newTags.length > 5) {
+      newTags.splice(0, 1);
+    }
+    localStorage.setItem(localKey, JSON.stringify(newTags));
+    setTags(newTags);
+  };
+
+  useEffect(() => {
+    const getTagDatas = JSON.parse(localStorage.getItem(localKey) || "[]");
+    setTags(getTagDatas);
+  }, [localKey]);
+
+  const addTag = (searchText: string): void => {
+    if (searchText == "") return;
+
+    const dupArr = tags.filter((tag) => tag.searchText === searchText);
+
+    const newTag: TagInterface = {
+      searchText: searchText,
+      priority: new Date().getTime(),
+    };
+
+    // 중복된 검색어가 없다면
+    if (dupArr.length == 0) {
+      handleTags([...tags, newTag]);
+    } else {
+      const filteredTags = tags.filter((tag) => tag.searchText !== searchText);
+      handleTags([...filteredTags, newTag]);
+    }
+  };
+
+  const deleteTag = (searchText: string): void => {
+    const shiftTags = tags.filter((tag) => tag.searchText !== searchText);
+    handleTags(shiftTags);
+  };
+
+  return { tags, addTag, deleteTag };
 };

@@ -28,3 +28,8 @@ export type SearchType = {
     limit?: string;
   };
 };
+
+export interface TagInterface {
+  searchText: string;
+  priority: number;
+}

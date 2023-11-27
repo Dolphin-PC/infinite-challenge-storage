@@ -6,11 +6,11 @@ import {
   getDocs,
   getFirestore,
 } from "firebase/firestore";
-import { app } from "../../../firebase.config";
 import { DataType, PageType, PromiseDataType } from "./types";
 import { mock_data } from "./mock_data";
 import { DATA_LIMIT } from "./data";
 import { getPageObj } from "./util";
+import { app } from "../../../firebase.config.js";
 
 const db = getFirestore(app);
 
@@ -23,13 +23,13 @@ export const getMemeLife = async (
   searchText?: string,
   pageParam?: number,
 ): Promise<PromiseDataType> => {
-  const querySnapshot = await getDocs(collections.meme_life);
+  // const querySnapshot = await getDocs(collections.meme_life);
   let data: DataType[] = [];
 
   if (isLocal) {
     data = mock_data.meme_life;
   } else {
-    data = querySnapshot.docs.map((doc: DocumentData) => doc.data());
+    // data = querySnapshot.docs.map((doc: DocumentData) => doc.data());
   }
 
   if (searchText) {

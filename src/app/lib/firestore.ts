@@ -6,7 +6,12 @@ import {
   getDocs,
   getFirestore,
 } from "firebase/firestore";
-import { DataType, PageType, PromiseDataType } from "./types";
+import {
+  DataType,
+  MemeLifeInterface,
+  PageType,
+  PromiseDataType,
+} from "./types";
 import { mock_data } from "./mock_data";
 import { DATA_LIMIT } from "./data";
 import { getPageObj } from "./util";
@@ -24,7 +29,7 @@ export const getMemeLife = async (
   pageParam?: number,
 ): Promise<PromiseDataType> => {
   // const querySnapshot = await getDocs(collections.meme_life);
-  let data: DataType[] = [];
+  let data: MemeLifeInterface[] = [];
 
   if (isLocal) {
     data = mock_data.meme_life;
@@ -33,7 +38,7 @@ export const getMemeLife = async (
   }
 
   if (searchText) {
-    data = data.filter((e) => e.title.includes(searchText));
+    data = data.filter((e) => e.alt.includes(searchText));
   }
 
   let page: PageType = getPageObj(pageParam, data.length, DATA_LIMIT);

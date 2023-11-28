@@ -52,5 +52,6 @@ export const getPageObj = (
   return {
     nextPage: nextPage,
     totalPage: Math.ceil(totalLength / limit),
+    totalCnt: totalLength,
   };
 };

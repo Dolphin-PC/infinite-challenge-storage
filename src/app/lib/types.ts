@@ -1,11 +1,23 @@
+export interface MemeLifeInterface {
+  key: string;
+  href: string;
+  thumnail_src: string;
+  alt: string;
+  tag: string[];
+  img_src: string;
+  like_cnt: number;
+  download_cnt: number;
+}
+
 export type PromiseDataType = {
-  data: DataType[];
+  data: MemeLifeInterface[];
   page: PageType;
 };
 
 export type PageType = {
   nextPage: number | undefined;
   totalPage: number | null;
+  totalCnt: number;
 };
 
 export type DataType = {

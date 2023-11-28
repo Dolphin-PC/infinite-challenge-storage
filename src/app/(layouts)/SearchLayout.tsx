@@ -15,10 +15,7 @@ export default function SearchLayout({
       <Stack gap={2}>
         <SearchBar addTag={addTag} />
 
-        <div>
-          <Typography variant="caption">최근검색어</Typography>
-          <RecentSearchTag tags={tags} addTag={addTag} deleteTag={deleteTag} />
-        </div>
+        <RecentSearchTag tags={tags} addTag={addTag} deleteTag={deleteTag} />
 
         {children}
       </Stack>

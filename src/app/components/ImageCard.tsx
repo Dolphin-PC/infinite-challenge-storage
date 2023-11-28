@@ -6,12 +6,13 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  Chip,
   Skeleton,
   Stack,
   ToggleButton,
   Typography,
 } from "@mui/material";
-import { DataType } from "../lib/types";
+import { DataType, MemeLifeInterface } from "../lib/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getMemeLife } from "../lib/firestore";
 import { Suspense, useCallback, useEffect, useState } from "react";
@@ -46,9 +47,12 @@ export function ImageCardWrapper({
   };
   useEffect(() => fetchMore(), [isBottom]);
 
-  if (data?.pages[0].page.totalPage == 0) return <NothingSearch />;
+  let totalCnt = data?.pages[0].page.totalCnt;
+
+  if (totalCnt == 0) return <NothingSearch />;
   return (
     <div>
+      <Typography variant="caption">총 {totalCnt}개</Typography>
       <Stack
         gap={5}
         flexWrap="wrap"
@@ -60,7 +64,7 @@ export function ImageCardWrapper({
           <ImageCard.Skeleton count={10} />
         ) : (
           data?.pages.map(({ data }) => {
-            return data.map((d) => <ImageCard key={d.title} {...d} />);
+            return data.map((d) => <ImageCard {...d} key={d.key} />);
           })
         )}
       </Stack>
@@ -68,18 +72,14 @@ export function ImageCardWrapper({
   );
 }
 
-export default function ImageCard(props: DataType) {
+export default function ImageCard(props: MemeLifeInterface) {
   return (
-    <Card className="w-3/12">
-      <CardMedia
-        sx={{ height: 200 }}
-        image={props.img_src}
-        title={props.title}
-      />
+    <Card className="w-5/12 md:w-3/12">
+      <CardMedia image={props.img_src} sx={{ height: 200 }} />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {props.title}
-        </Typography>
+        {props.tag.map((tag) => (
+          <Chip key={tag} label={tag} size="small" />
+        ))}
       </CardContent>
       <CardActions>
         <Button size="small">Share</Button>
@@ -93,7 +93,7 @@ export function ImageCardSkeleton({ count = 3 }: { count: number }) {
   return Array(count)
     .fill(0)
     .map((v, i) => (
-      <Card key={i} className="w-3/12">
+      <Card key={i} className="w-5/12 md:w-3/12">
         <Skeleton variant="rectangular" height={200} className="w-full" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">

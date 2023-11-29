@@ -16,6 +16,8 @@ export default function EpisodeTab({
   };
 
   useEffect(() => {
+    const tabContainer = document.getElementById("tab-panel-container");
+
     seasonList.forEach((season, i) => {
       const tabPanel = document.getElementById(`tab-panel-${i}`);
       if (i == tab) {
@@ -24,6 +26,8 @@ export default function EpisodeTab({
         tabPanel?.classList.add("hidden");
       }
     });
+
+    tabContainer?.classList.remove("hidden");
   }, [tab, seasonList]);
 
   useEffect(() => {
@@ -35,7 +39,12 @@ export default function EpisodeTab({
   return (
     <Tabs value={tab} onChange={handleChange}>
       {seasonList.map((season, i) => {
-        return <Tab key={i} label={season.info.title} />;
+        return (
+          <Tab
+            key={i}
+            label={`${season.info.title} (${season.episode_info.length})`}
+          />
+        );
       })}
       {/* <Tab label="Item Two" aria-controls={`tabpanel-${tab}`} />
       <Tab label="Item Three" aria-controls={`tabpanel-${tab}`} /> */}

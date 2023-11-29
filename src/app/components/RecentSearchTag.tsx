@@ -21,9 +21,9 @@ export default function RecentSearchTag({
   };
   const handleDelete = (searchText: string) => deleteTag(searchText);
 
-  if (tags.length == 0) return <></>;
+  if (tags.length == 0) return <div className="h-12"></div>;
   return (
-    <div>
+    <div className="h-12">
       <Typography variant="caption">최근검색어</Typography>
       <div className="flex flex-row-reverse justify-end">
         {tags.map((e) => (

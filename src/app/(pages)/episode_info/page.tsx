@@ -14,7 +14,7 @@ export default async function page({ searchParams }: SearchType) {
       <EpisodeTab seasonList={data} />
       <Divider className="mb-4 " />
 
-      <div id="tab-panel-container">
+      <div id="tab-panel-container" className="hidden">
         {data.map((d, i) => {
           const { info, episode_info } = d;
           return (

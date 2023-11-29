@@ -8,6 +8,7 @@ import {
 } from "firebase/firestore";
 import {
   DataType,
+  EpisodeInterface,
   MemeLifeInterface,
   PageType,
   PromiseDataType,
@@ -48,20 +49,32 @@ export const getMemeLife = async (
 
   return { data, page };
 };
-export const getEpisodeInfo = async (
-  searchText?: string,
-): Promise<DataType[]> => {
-  const querySnapshot = await getDocs(collections.episode_info);
-  let res: DataType[] = [];
+export const getEpisodeInfo = async (searchText?: string, season?: string) => {
+  // const querySnapshot = await getDocs(collections.episode_info);
+  let res: EpisodeInterface[] = [];
 
   if (isLocal) {
     res = mock_data.episode_info;
   } else {
-    res = querySnapshot.docs.map((doc: DocumentData) => doc.data());
+    // res = querySnapshot.docs.map((doc: DocumentData) => doc.data());
+  }
+
+  if (season) {
+    res = res.filter((r) => r.info.season == season);
   }
 
   if (searchText) {
-    res = res.filter((e) => e.title.includes(searchText));
+    res = res.map((i) => {
+      let { info, episode_info } = i;
+      let filter_episode_info = episode_info.filter((epi) => {
+        if (epi.title.includes(searchText)) return true;
+        if (epi.actor.join("").includes(searchText)) return true;
+
+        return false;
+      });
+
+      return { info, episode_info: filter_episode_info };
+    });
   }
 
   return res;

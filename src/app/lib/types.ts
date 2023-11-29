@@ -38,10 +38,28 @@ export type SearchType = {
     search?: string;
     page?: string;
     limit?: string;
+    season?: string;
   };
 };
 
 export interface TagInterface {
   searchText: string;
   priority: number;
+}
+
+export interface EpisodeInterface {
+  info: {
+    season: string;
+    title: string;
+    description: string;
+    outline: string;
+    actor: string[];
+  };
+  episode_info: EpisodeInfoInterface[];
+}
+
+export interface EpisodeInfoInterface {
+  title: string;
+  actor: string[];
+  air_date: string;
 }

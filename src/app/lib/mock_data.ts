@@ -1,4 +1,4 @@
-import { DataType, MemeLifeInterface } from "./types";
+import { DataType, EpisodeInterface, MemeLifeInterface } from "./types";
 
 const memeLife: MemeLifeInterface[] = [
   {
@@ -9446,149 +9446,67 @@ const memeLife: MemeLifeInterface[] = [
     download_cnt: 0,
   },
 ];
-const episodeInfo: DataType[] = [
+const episodeInfo: EpisodeInterface[] = [
   {
-    title: "title1",
-    img_src:
-      "https://firebasestorage.googleapis.com/v0/b/infinite-challenge-storage.appspot.com/o/meme_life%2Fimage1.png?alt=media&token=ec35232f-c0ec-4150-b812-b64d6f0fe898",
-    create_time: {
-      seconds: 1,
-      nanoseconds: 1,
+    info: {
+      season: "season1",
+      title: "무한도전 시즌1: 무모한도전",
+      description:
+        "대한민국 평균 이하임을 자처하는 남자들이 매주 새로운 상황 속에서 펼치는 좌충우돌 도전기",
+      outline: "MBC, 2005~2005",
+      actor: ["유재석", "정형돈", "노홍철", "박명수", "이윤석", "김성수"],
     },
-    update_time: {
-      seconds: 1,
-      nanoseconds: 1,
-    },
+    episode_info: [
+      {
+        title: "26. 놀이기구 립스틱",
+        actor: ["슈가"],
+        air_date: "2005-10-15 토",
+      },
+      {
+        title: "26. 놀이기구",
+        actor: ["이켠", "슈가"],
+        air_date: "2005-10-15 토",
+      },
+    ],
   },
   {
-    title: "title1",
-    img_src:
-      "https://firebasestorage.googleapis.com/v0/b/infinite-challenge-storage.appspot.com/o/meme_life%2Fimage1.png?alt=media&token=ec35232f-c0ec-4150-b812-b64d6f0fe898",
-    create_time: {
-      seconds: 1,
-      nanoseconds: 1,
+    info: {
+      season: "season2",
+      title: "무한도전 시즌2: 무리한도전",
+      description:
+        "대한민국 평균 이하임을 자처하는 남자들이 매주 새로운 상황 속에서 펼치는 좌충우돌 도전기",
+      outline: "MBC, 2005~2005",
+      actor: ["유재석", "정형돈", "노홍철", "박명수", "이윤석", "김성수"],
     },
-    update_time: {
-      seconds: 1,
-      nanoseconds: 1,
-    },
+    episode_info: [
+      {
+        title: "26. 놀이기구 립스틱",
+        actor: ["이켠", "슈가"],
+        air_date: "2005-10-15 토",
+      },
+      {
+        title: "26. 놀이기구 립스틱",
+        actor: ["이켠", "슈가"],
+        air_date: "2005-10-15 토",
+      },
+    ],
   },
   {
-    title: "title1",
-    img_src:
-      "https://firebasestorage.googleapis.com/v0/b/infinite-challenge-storage.appspot.com/o/meme_life%2Fimage1.png?alt=media&token=ec35232f-c0ec-4150-b812-b64d6f0fe898",
-    create_time: {
-      seconds: 1,
-      nanoseconds: 1,
+    info: {
+      season: "season3",
+      title: "무한도전 시즌3: 무한도전",
+      description:
+        "대한민국 평균 이하임을 자처하는 남자들이 매주 새로운 상황 속에서 펼치는 좌충우돌 도전기",
+      outline: "MBC, 2005~2005",
+      actor: ["유재석", "정형돈", "노홍철", "박명수", "이윤석", "김성수"],
     },
-    update_time: {
-      seconds: 1,
-      nanoseconds: 1,
-    },
-  },
-  {
-    title: "title1",
-    img_src:
-      "https://firebasestorage.googleapis.com/v0/b/infinite-challenge-storage.appspot.com/o/meme_life%2Fimage1.png?alt=media&token=ec35232f-c0ec-4150-b812-b64d6f0fe898",
-    create_time: {
-      seconds: 1,
-      nanoseconds: 1,
-    },
-    update_time: {
-      seconds: 1,
-      nanoseconds: 1,
-    },
-  },
-  {
-    title: "title1",
-    img_src:
-      "https://firebasestorage.googleapis.com/v0/b/infinite-challenge-storage.appspot.com/o/meme_life%2Fimage1.png?alt=media&token=ec35232f-c0ec-4150-b812-b64d6f0fe898",
-    create_time: {
-      seconds: 1,
-      nanoseconds: 1,
-    },
-    update_time: {
-      seconds: 1,
-      nanoseconds: 1,
-    },
-  },
-  {
-    title: "title1",
-    img_src:
-      "https://firebasestorage.googleapis.com/v0/b/infinite-challenge-storage.appspot.com/o/meme_life%2Fimage1.png?alt=media&token=ec35232f-c0ec-4150-b812-b64d6f0fe898",
-    create_time: {
-      seconds: 1,
-      nanoseconds: 1,
-    },
-    update_time: {
-      seconds: 1,
-      nanoseconds: 1,
-    },
-  },
-  {
-    title: "title1",
-    img_src:
-      "https://firebasestorage.googleapis.com/v0/b/infinite-challenge-storage.appspot.com/o/meme_life%2Fimage1.png?alt=media&token=ec35232f-c0ec-4150-b812-b64d6f0fe898",
-    create_time: {
-      seconds: 1,
-      nanoseconds: 1,
-    },
-    update_time: {
-      seconds: 1,
-      nanoseconds: 1,
-    },
-  },
-  {
-    title: "title1",
-    img_src:
-      "https://firebasestorage.googleapis.com/v0/b/infinite-challenge-storage.appspot.com/o/meme_life%2Fimage1.png?alt=media&token=ec35232f-c0ec-4150-b812-b64d6f0fe898",
-    create_time: {
-      seconds: 1,
-      nanoseconds: 1,
-    },
-    update_time: {
-      seconds: 1,
-      nanoseconds: 1,
-    },
-  },
-  {
-    title: "title1",
-    img_src:
-      "https://firebasestorage.googleapis.com/v0/b/infinite-challenge-storage.appspot.com/o/meme_life%2Fimage1.png?alt=media&token=ec35232f-c0ec-4150-b812-b64d6f0fe898",
-    create_time: {
-      seconds: 1,
-      nanoseconds: 1,
-    },
-    update_time: {
-      seconds: 1,
-      nanoseconds: 1,
-    },
-  },
-  {
-    title: "qweqw",
-    img_src:
-      "https://firebasestorage.googleapis.com/v0/b/infinite-challenge-storage.appspot.com/o/meme_life%2Fimage1.png?alt=media&token=ec35232f-c0ec-4150-b812-b64d6f0fe898",
-    create_time: {
-      seconds: 1,
-      nanoseconds: 1,
-    },
-    update_time: {
-      seconds: 1,
-      nanoseconds: 1,
-    },
-  },
-  {
-    title: "qwer",
-    img_src:
-      "https://firebasestorage.googleapis.com/v0/b/infinite-challenge-storage.appspot.com/o/meme_life%2Fimage1.png?alt=media&token=ec35232f-c0ec-4150-b812-b64d6f0fe898",
-    create_time: {
-      seconds: 1,
-      nanoseconds: 1,
-    },
-    update_time: {
-      seconds: 1,
-      nanoseconds: 1,
-    },
+    episode_info: [
+      {
+        title: "26. 놀이기구 립스틱",
+        actor: ["이켠", "슈가"],
+        air_date: "2005-10-15 토",
+      },
+    ],
   },
 ];
 

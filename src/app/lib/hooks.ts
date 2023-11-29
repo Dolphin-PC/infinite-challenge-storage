@@ -47,6 +47,26 @@ export const useSearch = (): {
   return { searchParams, handleSearch, searchText };
 };
 
+export const useAddParams = () => {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
+  function addParams(key: string, value: string) {
+    const params = new URLSearchParams(searchParams);
+    params.set(key, value);
+    replace(`${pathname}?${params.toString()}`);
+  }
+
+  function removeParams(key: string) {
+    const params = new URLSearchParams(searchParams);
+    params.delete(key);
+    replace(`${pathname}?${params.toString()}`);
+  }
+
+  return { addParams, removeParams };
+};
+
 export const useSpyScroll = (eleId: string): { isBottom: Boolean } => {
   const [isBottom, setIsBottom] = useState(false);
 

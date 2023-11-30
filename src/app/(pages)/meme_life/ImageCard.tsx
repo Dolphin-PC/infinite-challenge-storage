@@ -12,12 +12,12 @@ import {
   ToggleButton,
   Typography,
 } from "@mui/material";
-import { DataType, MemeLifeInterface } from "../lib/types";
+import { DataType, MemeLifeInterface } from "../../lib/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getMemeLife } from "../lib/firestore";
+import { getMemeLife } from "../../lib/firestore";
 import { Suspense, useCallback, useEffect, useState } from "react";
-import { useSpyScroll } from "../lib/hooks";
-import NothingSearch from "./NothingSearch";
+import { useSpyScroll } from "../../lib/hooks";
+import NothingSearch from "../../components/NothingSearch";
 
 export function ImageCardWrapper({
   searchText,

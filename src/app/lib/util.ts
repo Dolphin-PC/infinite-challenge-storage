@@ -55,3 +55,5 @@ export const getPageObj = (
     totalCnt: totalLength,
   };
 };
+
+export const fetcher = (...args) => fetch(...args).then((res) => res.json());

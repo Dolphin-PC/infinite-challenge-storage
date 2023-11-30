@@ -1,24 +1,24 @@
 "use client";
-import { EpisodeInterface } from "@/app/lib/types";
+import { EpisodeInterface, SeasonInterface } from "@/app/lib/types";
 import { Tab, Tabs } from "@mui/material";
 import { useEffect, useState } from "react";
 
 export default function EpisodeTab({
-  seasonList,
+  seasonInfo,
 }: {
-  seasonList: EpisodeInterface[];
+  seasonInfo: SeasonInterface[];
 }) {
   const [tab, setTab] = useState(0);
-  const [tabCount, setTabCount] = useState(seasonList.length);
+  const [tabCount, setTabCount] = useState(seasonInfo.length);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setTab(newValue);
   };
 
   useEffect(() => {
-    const tabContainer = document.getElementById("tab-panel-container");
+    // const tabContainer = document.getElementById("tab-panel-container");
 
-    seasonList.forEach((season, i) => {
+    seasonInfo.forEach((season, i) => {
       const tabPanel = document.getElementById(`tab-panel-${i}`);
       if (i == tab) {
         tabPanel?.classList.remove("hidden");
@@ -27,24 +27,19 @@ export default function EpisodeTab({
       }
     });
 
-    tabContainer?.classList.remove("hidden");
-  }, [tab, seasonList]);
+    // tabContainer?.classList.remove("hidden");
+  }, [tab, seasonInfo]);
 
   useEffect(() => {
-    if (tabCount != seasonList.length) {
+    if (tabCount != seasonInfo.length) {
       setTab(0);
-      setTabCount(seasonList.length);
+      setTabCount(seasonInfo.length);
     }
-  }, [tabCount, seasonList]);
+  }, [tabCount, seasonInfo]);
   return (
     <Tabs value={tab} onChange={handleChange}>
-      {seasonList.map((season, i) => {
-        return (
-          <Tab
-            key={i}
-            label={`${season.info.title} (${season.episode_info.length})`}
-          />
-        );
+      {seasonInfo.map((season, i) => {
+        return <Tab key={i} label={`${season.title}`} />;
       })}
       {/* <Tab label="Item Two" aria-controls={`tabpanel-${tab}`} />
       <Tab label="Item Three" aria-controls={`tabpanel-${tab}`} /> */}

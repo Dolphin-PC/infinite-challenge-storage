@@ -12,6 +12,7 @@ import {
   MemeLifeInterface,
   PageType,
   PromiseDataType,
+  SeasonInterface,
 } from "./types";
 import { mock_data } from "./mock_data";
 import { DATA_LIMIT } from "./data";
@@ -49,33 +50,44 @@ export const getMemeLife = async (
 
   return { data, page };
 };
-export const getEpisodeInfo = async (searchText?: string, season?: string) => {
+export const getSeasonInfo = async (season?: string) => {
+  let seasonInfo: SeasonInterface[] = [];
+  if (isLocal) {
+    seasonInfo = mock_data.season_info;
+  } else {
+  }
+
+  if (season) {
+    seasonInfo = seasonInfo.filter((_s) => _s.season === season);
+  }
+
+  return seasonInfo;
+};
+export const getEpisodeInfo = async ({
+  season,
+  searchText,
+}: {
+  season: string;
+  searchText?: string;
+}) => {
   // const querySnapshot = await getDocs(collections.episode_info);
-  let res: EpisodeInterface[] = [];
+  let episodeInfo: EpisodeInterface[] = [];
 
   if (isLocal) {
-    res = mock_data.episode_info;
+    episodeInfo = mock_data.episode_info;
   } else {
     // res = querySnapshot.docs.map((doc: DocumentData) => doc.data());
   }
 
-  if (season) {
-    res = res.filter((r) => r.info.season == season);
-  }
+  episodeInfo = episodeInfo.filter((_e) => _e.season === season);
 
   if (searchText) {
-    res = res.map((i) => {
-      let { info, episode_info } = i;
-      let filter_episode_info = episode_info.filter((epi) => {
-        if (epi.title.includes(searchText)) return true;
-        if (epi.actor.join("").includes(searchText)) return true;
-
-        return false;
-      });
-
-      return { info, episode_info: filter_episode_info };
+    episodeInfo = episodeInfo.filter((_e) => {
+      if (_e.actor.join("").includes(searchText)) return true;
+      if (_e.title.includes(searchText)) return true;
+      return false;
     });
   }
 
-  return res;
+  return episodeInfo;
 };

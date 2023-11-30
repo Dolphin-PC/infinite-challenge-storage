@@ -1,4 +1,9 @@
-import { DataType, EpisodeInterface, MemeLifeInterface } from "./types";
+import {
+  DataType,
+  EpisodeInterface,
+  MemeLifeInterface,
+  SeasonInterface,
+} from "./types";
 
 const memeLife: MemeLifeInterface[] = [
   {
@@ -9446,71 +9451,72 @@ const memeLife: MemeLifeInterface[] = [
     download_cnt: 0,
   },
 ];
+
+const seasonInfo: SeasonInterface[] = [
+  {
+    season: "season1",
+    title: "무한도전 시즌1: 무모한도전",
+    description:
+      "대한민국 평균 이하임을 자처하는 남자들이 매주 새로운 상황 속에서 펼치는 좌충우돌 도전기",
+    outline: "MBC, 2005~2005",
+    actor: ["유재석", "정형돈", "노홍철", "박명수", "이윤석", "김성수"],
+  },
+  {
+    season: "season2",
+    title: "무한도전 시즌2: 무리한도전",
+    description:
+      "대한민국 평균 이하임을 자처하는 남자들이 매주 새로운 상황 속에서 펼치는 좌충우돌 도전기",
+    outline: "MBC, 2005~2005",
+    actor: ["유재석", "정형돈", "노홍철", "박명수", "이윤석", "김성수"],
+  },
+  {
+    season: "season3",
+    title: "무한도전 시즌3: 무한도전",
+    description:
+      "대한민국 평균 이하임을 자처하는 남자들이 매주 새로운 상황 속에서 펼치는 좌충우돌 도전기",
+    outline: "MBC, 2005~2005",
+    actor: ["유재석", "정형돈", "노홍철", "박명수", "이윤석", "김성수"],
+  },
+];
 const episodeInfo: EpisodeInterface[] = [
   {
-    info: {
-      season: "season1",
-      title: "무한도전 시즌1: 무모한도전",
-      description:
-        "대한민국 평균 이하임을 자처하는 남자들이 매주 새로운 상황 속에서 펼치는 좌충우돌 도전기",
-      outline: "MBC, 2005~2005",
-      actor: ["유재석", "정형돈", "노홍철", "박명수", "이윤석", "김성수"],
-    },
-    episode_info: [
-      {
-        title: "26. 놀이기구 립스틱",
-        actor: ["슈가"],
-        air_date: "2005-10-15 토",
-      },
-      {
-        title: "26. 놀이기구",
-        actor: ["이켠", "슈가"],
-        air_date: "2005-10-15 토",
-      },
-    ],
+    season: "season1",
+
+    title: "26. 놀이기구 립스틱",
+    actor: ["슈가"],
+    air_date: "2005-10-15 토",
   },
   {
-    info: {
-      season: "season2",
-      title: "무한도전 시즌2: 무리한도전",
-      description:
-        "대한민국 평균 이하임을 자처하는 남자들이 매주 새로운 상황 속에서 펼치는 좌충우돌 도전기",
-      outline: "MBC, 2005~2005",
-      actor: ["유재석", "정형돈", "노홍철", "박명수", "이윤석", "김성수"],
-    },
-    episode_info: [
-      {
-        title: "26. 놀이기구 립스틱",
-        actor: ["이켠", "슈가"],
-        air_date: "2005-10-15 토",
-      },
-      {
-        title: "26. 놀이기구 립스틱",
-        actor: ["이켠", "슈가"],
-        air_date: "2005-10-15 토",
-      },
-    ],
+    season: "season1",
+
+    title: "26. 놀이기구",
+    actor: ["이켠", "슈가"],
+    air_date: "2005-10-15 토",
   },
   {
-    info: {
-      season: "season3",
-      title: "무한도전 시즌3: 무한도전",
-      description:
-        "대한민국 평균 이하임을 자처하는 남자들이 매주 새로운 상황 속에서 펼치는 좌충우돌 도전기",
-      outline: "MBC, 2005~2005",
-      actor: ["유재석", "정형돈", "노홍철", "박명수", "이윤석", "김성수"],
-    },
-    episode_info: [
-      {
-        title: "26. 놀이기구 립스틱",
-        actor: ["이켠", "슈가"],
-        air_date: "2005-10-15 토",
-      },
-    ],
+    season: "season2",
+
+    title: "26. 놀이기구 립스틱",
+    actor: ["이켠", "슈가"],
+    air_date: "2005-10-15 토",
+  },
+  {
+    season: "season2",
+
+    title: "26. 놀이기구 립스틱",
+    actor: ["이켠", "슈가"],
+    air_date: "2005-10-15 토",
+  },
+  {
+    season: "season3",
+    title: "26. 놀이기구 립스틱",
+    actor: ["이켠", "슈가"],
+    air_date: "2005-10-15 토",
   },
 ];
 
 export const mock_data = {
   meme_life: memeLife,
+  season_info: seasonInfo,
   episode_info: episodeInfo,
 };

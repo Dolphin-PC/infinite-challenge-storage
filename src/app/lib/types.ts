@@ -47,18 +47,29 @@ export interface TagInterface {
   priority: number;
 }
 
-export interface EpisodeInterface {
-  info: {
-    season: string;
-    title: string;
-    description: string;
-    outline: string;
-    actor: string[];
-  };
-  episode_info: EpisodeInfoInterface[];
+// export interface EpisodeInterface {
+//   info: {
+//     season: string;
+//     title: string;
+//     description: string;
+//     outline: string;
+//     actor: string[];
+//   };
+//   episode_info: EpisodeInfoInterface[];
+// }
+
+// export interface EpisodeInfoInterface {}
+
+export interface SeasonInterface {
+  season: string;
+  title: string;
+  description: string;
+  outline: string;
+  actor: string[];
 }
 
-export interface EpisodeInfoInterface {
+export interface EpisodeInterface {
+  season: string;
   title: string;
   actor: string[];
   air_date: string;

@@ -12,7 +12,7 @@ export default function Sidenav() {
       <div className="w-full">
         <Link href="/" className="h-1/12 flex items-center justify-center">
           <div className="m-3 flex w-6/12 justify-center md:w-full">
-            <Image src={LogoImage} alt="logo" />
+            <Image src={LogoImage} alt="logo" priority={true} />
           </div>
         </Link>
         <NavLinks />

@@ -18,6 +18,7 @@ import { mock_data } from "./mock_data";
 import { DATA_LIMIT } from "./data";
 import { getPageObj } from "./util";
 import { app } from "../../../firebase.config.js";
+import { parseArgs } from "util";
 
 const db = getFirestore(app);
 
@@ -63,13 +64,11 @@ export const getSeasonInfo = async (season?: string) => {
 
   return seasonInfo;
 };
-export const getEpisodeInfo = async ({
-  season,
-  searchText,
-}: {
-  season: string;
-  searchText?: string;
-}) => {
+export const getEpisodeInfo = async (
+  season: string,
+  searchText?: string,
+  pageParam?: number,
+) => {
   // const querySnapshot = await getDocs(collections.episode_info);
   let episodeInfo: EpisodeInterface[] = [];
 
@@ -89,5 +88,13 @@ export const getEpisodeInfo = async ({
     });
   }
 
-  return episodeInfo;
+  let page: PageType = getPageObj(pageParam, episodeInfo.length, DATA_LIMIT);
+  if (pageParam) {
+    episodeInfo = episodeInfo.slice(
+      (pageParam - 1) * DATA_LIMIT,
+      pageParam * DATA_LIMIT,
+    );
+  }
+
+  return { episodeInfo, page };
 };

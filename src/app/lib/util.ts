@@ -57,3 +57,9 @@ export const getPageObj = (
 };
 
 export const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+export const useInfiniteQueryOptions = {
+  initialPageParam: 1,
+  getNextPageParam: (lastPage, allPages) => lastPage.page.nextPage,
+  staleTime: 1000 * 60 * 60,
+};

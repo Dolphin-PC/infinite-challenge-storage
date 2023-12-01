@@ -9494,15 +9494,132 @@ const episodeInfo: EpisodeInterface[] = [
     air_date: "2005-10-15 토",
   },
   {
-    season: "season2",
+    season: "season1",
 
+    title: "26. 놀이기구",
+    actor: ["이켠", "슈가"],
+    air_date: "2005-10-15 토",
+  },
+  {
+    season: "season1",
+
+    title: "26. 놀이기구",
+    actor: ["이켠", "슈가"],
+    air_date: "2005-10-15 토",
+  },
+  {
+    season: "season1",
+
+    title: "26. 놀이기구",
+    actor: ["이켠", "슈가"],
+    air_date: "2005-10-15 토",
+  },
+  {
+    season: "season1",
+
+    title: "26. 놀이기구",
+    actor: ["이켠", "슈가"],
+    air_date: "2005-10-15 토",
+  },
+  {
+    season: "season1",
+
+    title: "26. 놀이기구",
+    actor: ["이켠", "슈가"],
+    air_date: "2005-10-15 토",
+  },
+  {
+    season: "season1",
+
+    title: "26. 놀이기구",
+    actor: ["이켠", "슈가"],
+    air_date: "2005-10-15 토",
+  },
+  {
+    season: "season1",
+
+    title: "26. 놀이기구",
+    actor: ["이켠", "슈가"],
+    air_date: "2005-10-15 토",
+  },
+  {
+    season: "season1",
+
+    title: "26. 놀이기구",
+    actor: ["이켠", "슈가"],
+    air_date: "2005-10-15 토",
+  },
+  {
+    season: "season1",
+
+    title: "26. 놀이기구",
+    actor: ["이켠", "슈가"],
+    air_date: "2005-10-15 토",
+  },
+  {
+    season: "season1",
+
+    title: "26. 놀이기구",
+    actor: ["이켠", "슈가"],
+    air_date: "2005-10-15 토",
+  },
+  {
+    season: "season1",
+
+    title: "26. 놀이기구",
+    actor: ["이켠", "슈가"],
+    air_date: "2005-10-15 토",
+  },
+  {
+    season: "season1",
+
+    title: "26. 놀이기구",
+    actor: ["이켠", "슈가"],
+    air_date: "2005-10-15 토",
+  },
+  {
+    season: "season1",
+
+    title: "26. 놀이기구",
+    actor: ["이켠", "슈가"],
+    air_date: "2005-10-15 토",
+  },
+  {
+    season: "season1",
+
+    title: "26. 놀이기구",
+    actor: ["이켠", "슈가"],
+    air_date: "2005-10-15 토",
+  },
+  {
+    season: "season1",
+
+    title: "26. 놀이기구",
+    actor: ["이켠", "슈가"],
+    air_date: "2005-10-15 토",
+  },
+  {
+    season: "season1",
+
+    title: "26. 놀이기구",
+    actor: ["이켠", "슈가"],
+    air_date: "2005-10-15 토",
+  },
+  {
+    season: "season1",
+
+    title: "26. 놀이기구",
+    actor: ["이켠", "슈가"],
+    air_date: "2005-10-15 토",
+  },
+  {
+    season: "season2",
     title: "26. 놀이기구 립스틱",
     actor: ["이켠", "슈가"],
     air_date: "2005-10-15 토",
   },
   {
     season: "season2",
-
     title: "26. 놀이기구 립스틱",
     actor: ["이켠", "슈가"],
     air_date: "2005-10-15 토",

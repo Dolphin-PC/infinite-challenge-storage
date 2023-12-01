@@ -19,7 +19,11 @@ export default async function page({ searchParams }: SearchType) {
         {seasonInfo.map((_season, i) => {
           const { season, actor, description, outline, title } = _season;
           return (
-            <div key={i} id={`tab-panel-${i}`}>
+            <div
+              key={i}
+              id={`tab-panel-${i}`}
+              className={i > 0 ? "hidden" : ""}
+            >
               <Paper elevation={3} className="mt-2 p-5">
                 <Typography variant="h5">{title}</Typography>
                 <Divider_2_4 />
@@ -46,9 +50,7 @@ export default async function page({ searchParams }: SearchType) {
                 <Typography variant="h5">에피소드</Typography>
 
                 <Divider_2_4 />
-                {/* <Suspense fallback={<p>loading...</p>}> */}
                 <EpisodeWrapper season={season} search={searchParams?.search} />
-                {/* </Suspense> */}
               </Paper>
             </div>
           );

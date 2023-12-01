@@ -2,8 +2,12 @@
 import { getEpisodeInfo } from "@/app/lib/firestore";
 import { EpisodeInterface } from "@/app/lib/types";
 import { Skeleton, Stack, Typography } from "@mui/material";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import useSWR from "swr";
-
+import useSWRInfinite from "swr/infinite";
+import { useInfiniteQueryOptions } from "@/app/lib/util";
+import { useSpyScroll } from "@/app/lib/hooks";
+import { memo, useEffect, useMemo } from "react";
 export const EpisodeWrapper = ({
   season,
   search,
@@ -11,21 +15,49 @@ export const EpisodeWrapper = ({
   season: string;
   search?: string;
 }) => {
-  const { data: episodeInfo, isLoading } = useSWR(
-    { season, search },
-    getEpisodeInfo,
-  );
+  const {
+    data: episodeInfo,
+    isLoading,
+    hasNextPage,
+    fetchNextPage,
+  } = useInfiniteQuery({
+    queryKey: ["episode_info", season, search],
+    queryFn: ({ pageParam = 0 }) => getEpisodeInfo(season, search, pageParam),
+    ...useInfiniteQueryOptions,
+  });
+
+  const { isBottom, setIsBottom } = useSpyScroll(`layout`);
+  useEffect(() => {
+    if (hasNextPage && isBottom) {
+      fetchNextPage();
+      setIsBottom(false);
+    }
+  }, [isBottom]);
+
+  if (isLoading) {
+    return Array(2).map((_, i) => {
+      return <EpisodeCard_Skeleton key={i} />;
+    });
+  }
 
   return (
-    <Stack flexWrap="wrap" direction="row" rowGap={1} className="w-full">
-      {episodeInfo?.map((episode, i) => {
-        return <EpisodeCard key={i} {...episode} />;
-      })}
+    <Stack
+      flexWrap="wrap"
+      direction="row"
+      rowGap={1}
+      className="w-full"
+      id={`episode-${season}-container`}
+    >
+      {episodeInfo?.pages
+        .flatMap((ele) => ele.episodeInfo)
+        .map((epi, i) => {
+          return <EpisodeCard key={i} {...epi} />;
+        })}
     </Stack>
   );
 };
 
-const EpisodeCard = (props: EpisodeInterface) => {
+const EpisodeCard = memo((props: EpisodeInterface) => {
   return (
     <div className="flex w-full pr-4 lg:w-6/12">
       <div className="w-6/12">
@@ -38,7 +70,8 @@ const EpisodeCard = (props: EpisodeInterface) => {
       </div>
     </div>
   );
-};
+});
+EpisodeCard.displayName = "EpisodeCard";
 
 const EpisodeCard_Skeleton = () => {
   return (
@@ -57,4 +90,3 @@ const EpisodeCard_Skeleton = () => {
     </div>
   );
 };
-EpisodeCard.Skeleton = EpisodeCard_Skeleton;

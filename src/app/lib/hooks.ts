@@ -67,7 +67,16 @@ export const useAddParams = () => {
   return { addParams, removeParams };
 };
 
-export const useSpyScroll = (eleId: string): { isBottom: Boolean } => {
+/**
+ * 스크롤바닥 감지
+ * @param eleId : 감지대상 ele ID
+ * @returns {
+ * isBottom : Boolean
+ * }
+ */
+export const useSpyScroll = (
+  eleId: string,
+): { isBottom: Boolean; setIsBottom: Function } => {
   const [isBottom, setIsBottom] = useState(false);
 
   const detectBottom = useDebouncedCallback((event) => {
@@ -85,7 +94,7 @@ export const useSpyScroll = (eleId: string): { isBottom: Boolean } => {
     };
   }, []);
 
-  return { isBottom };
+  return { isBottom, setIsBottom };
 };
 
 export const useRecentSearch = (): {

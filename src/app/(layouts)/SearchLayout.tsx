@@ -11,7 +11,7 @@ export default function SearchLayout({
 }) {
   const { tags, addTag, deleteTag } = useRecentSearch();
   return (
-    <div>
+    <div className="p-10">
       <Stack gap={2}>
         <SearchBar addTag={addTag} />
 

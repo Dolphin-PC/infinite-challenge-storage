@@ -7,17 +7,33 @@ import {
   CardContent,
   CardMedia,
   Chip,
+  Drawer,
   Skeleton,
   Stack,
-  ToggleButton,
   Typography,
 } from "@mui/material";
-import { DataType, MemeLifeInterface } from "../../lib/types";
+import { MemeLifeInterface } from "../../lib/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getMemeLife } from "../../lib/firestore";
-import { Suspense, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect } from "react";
 import { useSpyScroll } from "../../lib/hooks";
 import NothingSearch from "../../components/NothingSearch";
+import {
+  RecoilRoot,
+  useRecoilState,
+  useRecoilValue,
+  useSetRecoilState,
+} from "recoil";
+import { StateDrawerOpen, StateImageCard } from "@/app/lib/atoms";
+import Image from "next/image";
+import {
+  ButtonDownLoad,
+  ButtonKakaoShare,
+  ButtonUrlCopy,
+} from "@/app/components/Buttons";
+import DrawerLayout, {
+  DrawerHeader,
+} from "@/app/components/layout/DrawerLayout";
 
 export function ImageCardWrapper({
   searchText,
@@ -40,12 +56,19 @@ export function ImageCardWrapper({
     staleTime: 1000 * 60 * 60,
   });
 
-  const { isBottom } = useSpyScroll("layout");
+  const { isBottom, setIsBottom } = useSpyScroll("layout");
 
-  const fetchMore = () => {
-    if (hasNextPage && isBottom) fetchNextPage();
-  };
-  useEffect(() => fetchMore(), [isBottom]);
+  const fetchMore = useCallback(() => {
+    if (hasNextPage && isBottom) {
+      fetchNextPage();
+      setIsBottom(false);
+    }
+  }, [hasNextPage, isBottom, fetchNextPage, setIsBottom]);
+
+  useEffect(() => {
+    fetchMore();
+    return () => fetchMore();
+  }, [isBottom, setIsBottom, fetchMore, hasNextPage]);
 
   let totalCnt = data?.pages[0].page.totalCnt;
 
@@ -53,28 +76,38 @@ export function ImageCardWrapper({
   return (
     <div>
       <Typography variant="caption">총 {totalCnt}개</Typography>
-      <Stack
-        gap={5}
-        flexWrap="wrap"
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-      >
-        {isFetching ? (
-          <ImageCard.Skeleton count={10} />
-        ) : (
-          data?.pages.map(({ data }) => {
-            return data.map((d) => <ImageCard {...d} key={d.key} />);
-          })
-        )}
-      </Stack>
+      <RecoilRoot>
+        <Stack
+          gap={5}
+          flexWrap="wrap"
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="flex-start"
+        >
+          {isFetching ? (
+            <ImageCard_Skeleton count={10} />
+          ) : (
+            data?.pages.map(({ data }) => {
+              return data.map((d) => <ImageCard {...d} key={d.card_key} />);
+            })
+          )}
+        </Stack>
+        <ImageCard_Drawer />
+      </RecoilRoot>
     </div>
   );
 }
 
-export default function ImageCard(props: MemeLifeInterface) {
+const ImageCard = memo(function ImageCard(props: MemeLifeInterface) {
+  const setOpen = useSetRecoilState(StateDrawerOpen);
+  const setImageCardState = useSetRecoilState(StateImageCard);
+
+  function handleClick() {
+    setOpen(true);
+    setImageCardState(props);
+  }
   return (
-    <Card className="w-5/12 md:w-3/12">
+    <Card className="w-5/12 md:w-3/12" onClick={handleClick}>
       <CardMedia image={props.img_src} sx={{ height: 200 }} />
       <CardContent>
         {props.tag.map((tag) => (
@@ -87,9 +120,13 @@ export default function ImageCard(props: MemeLifeInterface) {
       </CardActions>
     </Card>
   );
-}
+});
 
-export function ImageCardSkeleton({ count = 3 }: { count: number }) {
+const ImageCard_Skeleton = memo(function ImageCard_Skeleton({
+  count = 3,
+}: {
+  count: number;
+}) {
   return Array(count)
     .fill(0)
     .map((v, i) => (
@@ -108,5 +145,51 @@ export function ImageCardSkeleton({ count = 3 }: { count: number }) {
         </CardActions>
       </Card>
     ));
-}
-ImageCard.Skeleton = ImageCardSkeleton;
+});
+
+const ImageCard_Drawer = () => {
+  const data = useRecoilValue(StateImageCard);
+
+  if (data == null) return "loooading";
+  return (
+    <DrawerLayout>
+      <div>
+        {/* 제목 */}
+        <DrawerHeader title={data.alt} />
+
+        {/* 내용 */}
+        <div className="flex flex-wrap p-10">
+          <div className="flex w-5/12">
+            <Image
+              src={data?.img_src}
+              className="h-full w-full rounded-3xl"
+              alt={data!.alt}
+              width={1000}
+              height={1000}
+              priority={true}
+            />
+          </div>
+          <div className="flex w-5/12 flex-col justify-between">
+            <div className="flex flex-row flex-wrap">
+              {data.tag.map((tagName, i) => {
+                return (
+                  <div
+                    key={i}
+                    className="mb-2 ml-2 rounded-lg bg-primary p-2 text-white"
+                  >
+                    {tagName}
+                  </div>
+                );
+              })}
+            </div>
+            <div className="flex w-full flex-row justify-start">
+              <ButtonUrlCopy url={data.img_src} />
+              <ButtonDownLoad img_src={data.img_src} />
+              <ButtonKakaoShare />
+            </div>
+          </div>
+        </div>
+      </div>
+    </DrawerLayout>
+  );
+};

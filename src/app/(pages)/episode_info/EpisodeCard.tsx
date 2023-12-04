@@ -3,11 +3,9 @@ import { getEpisodeInfo } from "@/app/lib/firestore";
 import { EpisodeInterface } from "@/app/lib/types";
 import { Skeleton, Stack, Typography } from "@mui/material";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import useSWR from "swr";
-import useSWRInfinite from "swr/infinite";
 import { useInfiniteQueryOptions } from "@/app/lib/util";
 import { useSpyScroll } from "@/app/lib/hooks";
-import { memo, useEffect, useMemo } from "react";
+import { memo, useEffect } from "react";
 export const EpisodeWrapper = ({
   season,
   search,
@@ -32,7 +30,7 @@ export const EpisodeWrapper = ({
       fetchNextPage();
       setIsBottom(false);
     }
-  }, [isBottom]);
+  }, [isBottom, fetchNextPage, setIsBottom, hasNextPage]);
 
   if (isLoading) {
     return Array(2).map((_, i) => {
@@ -57,7 +55,7 @@ export const EpisodeWrapper = ({
   );
 };
 
-const EpisodeCard = memo((props: EpisodeInterface) => {
+const EpisodeCard = memo(function EpisodeCard(props: EpisodeInterface) {
   return (
     <div className="flex w-full pr-4 lg:w-6/12">
       <div className="w-6/12">
@@ -71,7 +69,6 @@ const EpisodeCard = memo((props: EpisodeInterface) => {
     </div>
   );
 });
-EpisodeCard.displayName = "EpisodeCard";
 
 const EpisodeCard_Skeleton = () => {
   return (

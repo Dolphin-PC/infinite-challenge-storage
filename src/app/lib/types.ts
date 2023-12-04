@@ -1,5 +1,5 @@
 export interface MemeLifeInterface {
-  key: string;
+  card_key: string;
   href: string;
   thumnail_src: string;
   alt: string;

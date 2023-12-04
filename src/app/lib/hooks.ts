@@ -92,7 +92,7 @@ export const useSpyScroll = (
     return () => {
       ele.removeEventListener("scroll", detectBottom);
     };
-  }, []);
+  }, [eleId, detectBottom]);
 
   return { isBottom, setIsBottom };
 };

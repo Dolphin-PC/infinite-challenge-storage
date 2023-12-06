@@ -23,7 +23,9 @@ export default function FloatingButton({
         alignItems: "center",
       }}
     >
-      <Fab onClick={onClickEvent}>{Icon && <Icon />}</Fab>
+      <Fab onClick={onClickEvent} color="primary" className="bg-primary">
+        {Icon && <Icon />}
+      </Fab>
     </Box>
   );
 }

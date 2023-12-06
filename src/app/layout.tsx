@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./components/globals.css";
+import "./style/globals.css";
 import Sidenav from "./components/layout/Sidenav";
 import {
   getInitialColorMode,

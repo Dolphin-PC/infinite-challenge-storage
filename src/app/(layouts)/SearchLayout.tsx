@@ -3,6 +3,8 @@ import SearchBar from "@/app/components/SearchBar";
 import { Stack, Typography } from "@mui/material";
 import RecentSearchTag from "../components/RecentSearchTag";
 import { useRecentSearch, useSearch } from "../lib/hooks";
+import FloatingButton from "../components/FloatingButton";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 export default function SearchLayout({
   children,
@@ -12,6 +14,14 @@ export default function SearchLayout({
   const { searchParams, handleSearch, searchText, setSearchText } = useSearch();
 
   const { tags, addTag, deleteTag } = useRecentSearch();
+
+  function handleMoveTop() {
+    const ele = document.getElementById("layout");
+    ele?.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
   return (
     <div className="">
       <Stack gap={2}>
@@ -33,6 +43,7 @@ export default function SearchLayout({
           />
         </div>
 
+        <FloatingButton Icon={ArrowUpwardIcon} onClickEvent={handleMoveTop} />
         <div className="pl-10">{children}</div>
       </Stack>
     </div>

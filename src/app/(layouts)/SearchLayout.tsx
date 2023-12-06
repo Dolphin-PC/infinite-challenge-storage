@@ -25,7 +25,7 @@ export default function SearchLayout({
   return (
     <div className="">
       <Stack gap={2}>
-        <div className="sticky top-0 bg-white pl-10 pt-10 opacity-80">
+        <div className="sticky top-0 bg-white pb-3 pl-10 pt-10 opacity-80">
           <SearchBar
             searchText={searchText}
             setSearchText={setSearchText}

@@ -62,7 +62,7 @@ export interface TagInterface {
 
 export interface SeasonInterface {
   img_url: string;
-  season: string;
+  season: SeasonType;
   title: string;
   description: string;
   outline: string;

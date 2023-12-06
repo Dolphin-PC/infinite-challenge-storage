@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { getInitialColorMode, setColorMode } from "./util";
 import {
   ReadonlyURLSearchParams,
@@ -30,21 +36,27 @@ export const useSearch = (): {
   searchParams: ReadonlyURLSearchParams;
   handleSearch: Function;
   searchText: string | null;
+  setSearchText: Dispatch<SetStateAction<string | null>>;
 } => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
-  const searchText = searchParams.get("search");
+  const [searchText, setSearchText] = useState(searchParams.get("search"));
 
   const handleSearch = (term: string) => {
     const params = new URLSearchParams(searchParams);
 
-    term ? params.set("search", term) : params.delete("search");
+    if (term) {
+      params.set("search", term);
+      setSearchText(term);
+    } else {
+      params.delete("search");
+    }
 
     replace(`${pathname}?${params.toString()}`);
   };
 
-  return { searchParams, handleSearch, searchText };
+  return { searchParams, handleSearch, searchText, setSearchText };
 };
 
 export const useAddParams = () => {

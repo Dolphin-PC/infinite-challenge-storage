@@ -8,13 +8,13 @@ export default function RecentSearchTag({
   tags,
   addTag,
   deleteTag,
+  handleSearch,
 }: {
   tags: TagInterface[];
   addTag: Function;
   deleteTag: Function;
+  handleSearch: Function;
 }) {
-  const { handleSearch } = useSearch();
-
   const handleClick = (searchText: string) => {
     handleSearch(searchText);
     addTag(searchText);

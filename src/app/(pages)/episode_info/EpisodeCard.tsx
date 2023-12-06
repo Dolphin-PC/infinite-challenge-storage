@@ -7,6 +7,7 @@ import { useInfiniteQueryOptions } from "@/app/lib/util";
 import { useSpyScroll } from "@/app/lib/hooks";
 import { memo, useEffect } from "react";
 import Image from "next/image";
+import { Divider_2_4 } from "@/app/components/Dividers";
 export const EpisodeWrapper = ({
   season,
   search,
@@ -76,7 +77,11 @@ const EpisodeCard = memo(function EpisodeCard({
         </div>
         <div className="w-6/12 pl-4">
           <Typography variant="h6">{data.title}</Typography>
-          <small>방영일 : {data.air_date}</small>
+          <Typography variant="subtitle2">
+            방영일 : {data.air_date}, {data.air_time}
+          </Typography>
+          <Divider_2_4 />
+          <Typography className="line-clamp-4">{data.desc}</Typography>
         </div>
         <Typography variant="body2">출연 : {data.actor.join(", ")}</Typography>
       </Paper>

@@ -20,8 +20,10 @@ import { DATA_LIMIT } from "./data";
 import { getPageObj } from "./util";
 import { app } from "../../../firebase.config.js";
 import { parseArgs } from "util";
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
 
 const db = getFirestore(app);
+const storage = getStorage(app);
 
 const collections = {
   meme_life: collection(db, "meme_life"),
@@ -104,3 +106,23 @@ export const getEpisodeInfo = async (
 
   return { episodeInfo, page };
 };
+
+export async function getImageDownloadUrl() {
+  getDownloadURL(ref(storage, "meme_life/image/1002.jpg"))
+    .then((url) => {
+      console.log(url);
+      // `url` is the download URL for 'images/stars.jpg'
+
+      // This can be downloaded directly:
+      // const xhr = new XMLHttpRequest();
+      // xhr.responseType = "blob";
+      // xhr.onload = (event) => {
+      //   const blob = xhr.response;
+      // };
+      // xhr.open("GET", url);
+      // xhr.send();
+    })
+    .catch((error) => {
+      // Handle any errors
+    });
+}

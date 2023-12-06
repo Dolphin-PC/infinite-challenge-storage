@@ -56,10 +56,41 @@ export const getPageObj = (
   };
 };
 
-export const fetcher = (...args) => fetch(...args).then((res) => res.json());
-
 export const useInfiniteQueryOptions = {
   initialPageParam: 1,
   getNextPageParam: (lastPage, allPages) => lastPage.page.nextPage,
   staleTime: 1000 * 60 * 60,
 };
+
+export async function copyString(str: string) {
+  await navigator.clipboard.writeText(str);
+}
+
+export async function downloadImage(
+  imageSrc: string,
+  nameOfDownload: string = "my-image.png",
+) {
+  const response = await fetch(imageSrc, {});
+
+  const blobImage = await response.blob();
+
+  const href = URL.createObjectURL(blobImage);
+
+  const anchorElement = document.createElement("a");
+  anchorElement.href = href;
+  anchorElement.download = nameOfDownload;
+
+  document.body.appendChild(anchorElement);
+  anchorElement.click();
+
+  document.body.removeChild(anchorElement);
+  window.URL.revokeObjectURL(href);
+}
+
+export function makeImageFileName(key: string, src: string) {
+  let ext = src.split(".").at(-1)?.split("?")[0];
+
+  if (!["png", "jpg", "gif"].includes(ext || "")) ext = "";
+
+  return key + "." + ext;
+}

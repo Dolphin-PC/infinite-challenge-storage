@@ -1,13 +1,11 @@
 "use client";
 
 import {
-  Button,
   Card,
   CardActions,
   CardContent,
   CardMedia,
   Chip,
-  Drawer,
   Skeleton,
   Stack,
   Typography,
@@ -18,23 +16,10 @@ import { getMemeLife } from "../../lib/firestore";
 import { memo, useCallback, useEffect } from "react";
 import { useSpyScroll } from "../../lib/hooks";
 import NothingSearch from "../../components/NothingSearch";
-import {
-  RecoilRoot,
-  useRecoilState,
-  useRecoilValue,
-  useSetRecoilState,
-} from "recoil";
+import { RecoilRoot, useSetRecoilState } from "recoil";
 import { StateDrawerOpen, StateImageCard } from "@/app/lib/atoms";
-import Image from "next/image";
-import {
-  ButtonDownLoad,
-  ButtonKakaoShare,
-  ButtonUrlCopy,
-} from "@/app/components/Buttons";
-import DrawerLayout, {
-  DrawerHeader,
-} from "@/app/components/layout/DrawerLayout";
 import clsx from "clsx";
+import { ImageCard_Drawer } from "./DrawerDetail";
 
 export function ImageCardWrapper({
   searchText,
@@ -166,50 +151,3 @@ const ImageCard_Skeleton = memo(function ImageCard_Skeleton({
       </Card>
     ));
 });
-
-const ImageCard_Drawer = () => {
-  const data = useRecoilValue(StateImageCard);
-
-  if (data == null) return "loooading";
-  return (
-    <DrawerLayout>
-      <div>
-        {/* 제목 */}
-        <DrawerHeader title={data.alt} />
-
-        {/* 내용 */}
-        <div className="flex flex-wrap p-10">
-          <div className="flex w-5/12">
-            <Image
-              src={data?.img_src}
-              className="h-full w-full rounded-3xl"
-              alt={data!.alt}
-              width={1000}
-              height={1000}
-              priority={true}
-            />
-          </div>
-          <div className="flex w-5/12 flex-col justify-between">
-            <div className="flex flex-row flex-wrap">
-              {data.tag.map((tagName, i) => {
-                return (
-                  <div
-                    key={i}
-                    className="mb-2 ml-2 rounded-lg bg-primary p-2 text-white"
-                  >
-                    {tagName}
-                  </div>
-                );
-              })}
-            </div>
-            <div className="flex w-full flex-row justify-start">
-              <ButtonUrlCopy url={data.img_src} />
-              <ButtonDownLoad img_src={data.img_src} />
-              <ButtonKakaoShare />
-            </div>
-          </div>
-        </div>
-      </div>
-    </DrawerLayout>
-  );
-};

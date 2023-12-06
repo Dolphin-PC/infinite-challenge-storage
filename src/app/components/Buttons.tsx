@@ -1,4 +1,11 @@
 import { memo } from "react";
+import {
+  copyString,
+  downloadImage,
+  downloadResource,
+  imgDownload,
+} from "../lib/util";
+import { getImageDownloadUrl } from "../lib/firestore";
 
 export const ButtonUrlCopy = memo(function ButtonUrlCopy({
   url,
@@ -6,8 +13,12 @@ export const ButtonUrlCopy = memo(function ButtonUrlCopy({
   url: string;
 }) {
   return (
-    <button className="m-1 rounded-lg bg-primary p-2 text-white">
+    <button
+      className="m-1 rounded-lg bg-primary p-2 text-white"
+      onClick={() => copyString(url)}
+    >
       <div className="flex flex-col items-center">
+        {/* link icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -27,12 +38,20 @@ export const ButtonUrlCopy = memo(function ButtonUrlCopy({
 
 export const ButtonDownLoad = memo(function ButtonDownLoad({
   img_src,
+  file_name,
 }: {
   img_src: string;
+  file_name: string;
 }) {
   return (
-    <button className="m-1 rounded-lg bg-primary p-2 text-white">
+    <button
+      className="m-1 rounded-lg bg-primary p-2 text-white"
+      onClick={() => {
+        downloadImage(img_src, file_name);
+      }}
+    >
       <div className="flex flex-col items-center">
+        {/* download icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -55,6 +74,7 @@ export const ButtonKakaoShare = memo(function ButtonKakaoShare() {
   return (
     <button className="m-1 rounded-lg bg-primary p-2 text-white">
       <div className="flex flex-col items-center">
+        {/* kakao talk icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"

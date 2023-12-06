@@ -1,16 +1,17 @@
 "use client";
 import { getEpisodeInfo } from "@/app/lib/firestore";
-import { EpisodeInterface } from "@/app/lib/types";
-import { Skeleton, Stack, Typography } from "@mui/material";
+import { EpisodeInterface, SeasonType } from "@/app/lib/types";
+import { Paper, Skeleton, Stack, Typography } from "@mui/material";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInfiniteQueryOptions } from "@/app/lib/util";
 import { useSpyScroll } from "@/app/lib/hooks";
 import { memo, useEffect } from "react";
+import Image from "next/image";
 export const EpisodeWrapper = ({
   season,
   search,
 }: {
-  season: string;
+  season: SeasonType;
   search?: string;
 }) => {
   const {
@@ -49,23 +50,36 @@ export const EpisodeWrapper = ({
       {episodeInfo?.pages
         .flatMap((ele) => ele.episodeInfo)
         .map((epi, i) => {
-          return <EpisodeCard key={i} {...epi} />;
+          return <EpisodeCard key={i} data={epi} />;
         })}
     </Stack>
   );
 };
 
-const EpisodeCard = memo(function EpisodeCard(props: EpisodeInterface) {
+const EpisodeCard = memo(function EpisodeCard({
+  data,
+}: {
+  data: EpisodeInterface;
+}) {
   return (
-    <div className="flex w-full pr-4 lg:w-6/12">
-      <div className="w-6/12">
-        <Skeleton variant="rounded" height={100} className="mb-2 w-full" />
-        <Typography variant="body2">출연 : {props.actor.join(", ")}</Typography>
-      </div>
-      <div className="w-6/12 pl-4">
-        <Typography variant="h6">{props.title}</Typography>
-        <small>방영일 : {props.air_date}</small>
-      </div>
+    <div className="w-full lg:w-6/12">
+      <Paper className="m-2 flex flex-wrap p-2">
+        <div className="w-6/12">
+          <Image
+            width={300}
+            height={300}
+            className="mb-2 w-full"
+            src={data.img_src}
+            alt={data.key}
+          />
+          {/* <Skeleton variant="rounded" height={100} className="mb-2 w-full" /> */}
+        </div>
+        <div className="w-6/12 pl-4">
+          <Typography variant="h6">{data.title}</Typography>
+          <small>방영일 : {data.air_date}</small>
+        </div>
+        <Typography variant="body2">출연 : {data.actor.join(", ")}</Typography>
+      </Paper>
     </div>
   );
 });

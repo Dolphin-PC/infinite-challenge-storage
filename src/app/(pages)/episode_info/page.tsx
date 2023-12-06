@@ -5,6 +5,8 @@ import { Paper, Skeleton, Typography } from "@mui/material";
 import EpisodeTab from "./EpisodeTab";
 import { EpisodeWrapper } from "./EpisodeCard";
 import { Divider_2_4 } from "@/app/components/Dividers";
+import Image from "next/image";
+import { IconLink } from "@/app/lib/icons";
 
 export default async function page({ searchParams }: SearchType) {
   const seasonInfo = await getSeasonInfo(searchParams?.season);
@@ -16,8 +18,7 @@ export default async function page({ searchParams }: SearchType) {
       <EpisodeTab seasonInfo={seasonInfo} />
 
       <div id="tab-panel-container">
-        {seasonInfo.map((_season, i) => {
-          const { season, actor, description, outline, title } = _season;
+        {seasonInfo.map((ssn, i) => {
           return (
             <div
               key={i}
@@ -25,21 +26,48 @@ export default async function page({ searchParams }: SearchType) {
               className={i > 0 ? "hidden" : ""}
             >
               <Paper elevation={3} className="mt-2 p-5">
-                <Typography variant="h5">{title}</Typography>
+                <Typography variant="h5">{ssn.title}</Typography>
                 <Divider_2_4 />
                 <div className="flex w-full">
-                  <Skeleton variant="rounded" width={200} height={300} />
-                  <div className="pl-4">
-                    <small>{description}</small>
-                    <div className="mt-4 flex">
-                      <div className="w-3/12">
-                        <p>개요</p>
-                        <p>출연</p>
+                  <div className="w-3/12">
+                    <Image
+                      src={ssn.img_url}
+                      alt={ssn.season}
+                      width={0}
+                      height={0}
+                      sizes="100vw"
+                      style={{ width: "100%", height: "auto" }}
+                      priority
+                      className="rounded-xl"
+                    />
+                  </div>
+                  <div className="flex w-9/12 flex-col justify-between pl-4">
+                    <div>
+                      <Typography variant="h5">{ssn.description}</Typography>
+                      <div className="mt-4 flex">
+                        <div className="mr-4">
+                          <Typography variant="h6">개요</Typography>
+                          <Typography variant="h6">출연</Typography>
+                        </div>
+                        <div className="w-9/12">
+                          <Typography variant="h6">{ssn.outline}</Typography>
+                          <Typography variant="h6">
+                            {ssn.actor.join(", ")}
+                          </Typography>
+                        </div>
                       </div>
-                      <div className="w-9/12">
-                        <p>{outline}</p>
-                        <p>{actor.join(", ")}</p>
-                      </div>
+                    </div>
+                    <div className="flex justify-end">
+                      <a
+                        className="flex rounded-lg bg-primary p-3 text-white"
+                        href={ssn.view_url}
+                        target="_blank"
+                      >
+                        <div className="mr-2">
+                          <IconLink />
+                        </div>
+                        다시보기 링크
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -50,7 +78,10 @@ export default async function page({ searchParams }: SearchType) {
                 <Typography variant="h5">에피소드</Typography>
 
                 <Divider_2_4 />
-                <EpisodeWrapper season={season} search={searchParams?.search} />
+                <EpisodeWrapper
+                  season={ssn.season}
+                  search={searchParams?.search}
+                />
               </Paper>
             </div>
           );

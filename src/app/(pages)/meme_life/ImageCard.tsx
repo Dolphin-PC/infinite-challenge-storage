@@ -34,6 +34,7 @@ import {
 import DrawerLayout, {
   DrawerHeader,
 } from "@/app/components/layout/DrawerLayout";
+import clsx from "clsx";
 
 export function ImageCardWrapper({
   searchText,
@@ -88,7 +89,9 @@ export function ImageCardWrapper({
             <ImageCard_Skeleton count={10} />
           ) : (
             data?.pages.map(({ data }) => {
-              return data.map((d) => <ImageCard {...d} key={d.card_key} />);
+              return data.map((d) => (
+                <ImageCard key={d.card_key} data={d} searchText={searchText} />
+              ));
             })
           )}
         </Stack>
@@ -98,25 +101,42 @@ export function ImageCardWrapper({
   );
 }
 
-const ImageCard = memo(function ImageCard(props: MemeLifeInterface) {
+const ImageCard = memo(function ImageCard({
+  data,
+  searchText,
+}: {
+  data: MemeLifeInterface;
+  searchText: string | undefined;
+}) {
   const setOpen = useSetRecoilState(StateDrawerOpen);
   const setImageCardState = useSetRecoilState(StateImageCard);
 
+  useEffect(() => {
+    setImageCardState(data);
+  }, [data, setImageCardState]);
+
   function handleClick() {
     setOpen(true);
-    setImageCardState(props);
+    setImageCardState(data);
   }
   return (
     <Card className="w-5/12 md:w-3/12" onClick={handleClick}>
-      <CardMedia image={props.img_src} sx={{ height: 200 }} />
+      <CardMedia image={data.img_src} sx={{ height: 200 }} />
       <CardContent>
-        {props.tag.map((tag) => (
-          <Chip key={tag} label={tag} size="small" />
+        {data.tag.map((tag, i) => (
+          <Chip
+            key={tag}
+            label={tag}
+            size="small"
+            className={clsx("m-1", {
+              "bg-primary text-white": searchText && tag.startsWith(searchText),
+            })}
+          />
         ))}
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+        {/* <Button size="small">Share</Button>
+        <Button size="small">Learn More</Button> */}
       </CardActions>
     </Card>
   );

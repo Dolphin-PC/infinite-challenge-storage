@@ -13,6 +13,7 @@ import {
   PageType,
   PromiseDataType,
   SeasonInterface,
+  SeasonType,
 } from "./types";
 import { mock_data } from "./mock_data";
 import { DATA_LIMIT } from "./data";
@@ -24,20 +25,25 @@ const db = getFirestore(app);
 
 const collections = {
   meme_life: collection(db, "meme_life"),
-  episode_info: collection(db, "episode_info"),
+  season_info: collection(db, "season_info"),
+  episode_info: {
+    season1: collection(db, "episode_info_season1"),
+    season2: collection(db, "episode_info_season2"),
+    season3: collection(db, "episode_info_season3"),
+  },
 };
 
 export const getMemeLife = async (
   searchText?: string,
   pageParam?: number,
 ): Promise<PromiseDataType> => {
-  // const querySnapshot = await getDocs(collections.meme_life);
   let data: MemeLifeInterface[] = [];
 
   if (isLocal) {
     data = mock_data.meme_life;
   } else {
-    // data = querySnapshot.docs.map((doc: DocumentData) => doc.data());
+    const querySnapshot = await getDocs(collections.meme_life);
+    data = querySnapshot.docs.map((doc: DocumentData) => doc.data());
   }
 
   if (searchText) {
@@ -56,6 +62,8 @@ export const getSeasonInfo = async (season?: string) => {
   if (isLocal) {
     seasonInfo = mock_data.season_info;
   } else {
+    const querySnapshot = await getDocs(collections.season_info);
+    seasonInfo = querySnapshot.docs.map((doc: DocumentData) => doc.data());
   }
 
   if (season) {
@@ -65,20 +73,18 @@ export const getSeasonInfo = async (season?: string) => {
   return seasonInfo;
 };
 export const getEpisodeInfo = async (
-  season: string,
+  season: SeasonType,
   searchText?: string,
   pageParam?: number,
 ) => {
-  // const querySnapshot = await getDocs(collections.episode_info);
   let episodeInfo: EpisodeInterface[] = [];
 
   if (isLocal) {
-    episodeInfo = mock_data.episode_info;
+    episodeInfo = mock_data.episode[season];
   } else {
-    // res = querySnapshot.docs.map((doc: DocumentData) => doc.data());
+    const querySnapshot = await getDocs(collections.episode_info[season]);
+    episodeInfo = querySnapshot.docs.map((doc: DocumentData) => doc.data());
   }
-
-  episodeInfo = episodeInfo.filter((_e) => _e.season === season);
 
   if (searchText) {
     episodeInfo = episodeInfo.filter((_e) => {

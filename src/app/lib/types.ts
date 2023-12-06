@@ -61,16 +61,23 @@ export interface TagInterface {
 // export interface EpisodeInfoInterface {}
 
 export interface SeasonInterface {
+  img_url: string;
   season: string;
   title: string;
   description: string;
   outline: string;
   actor: string[];
+  view_url: string;
 }
 
 export interface EpisodeInterface {
-  season: string;
+  key: string;
+  img_src: string;
   title: string;
-  actor: string[];
+  air_time: string;
   air_date: string;
+  desc: string;
+  actor: string[];
 }
+
+export type SeasonType = "season1" | "season2" | "season3";

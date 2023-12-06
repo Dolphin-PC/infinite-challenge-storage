@@ -37,7 +37,7 @@ export default function SearchBar({
       <input
         value={searchText || ""}
         onChange={onChangeSearchInput}
-        className="w-full"
+        className="w-full "
         placeholder="검색어를 입력해주세요."
       />
     </div>

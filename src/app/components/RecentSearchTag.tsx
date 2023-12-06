@@ -23,7 +23,7 @@ export default function RecentSearchTag({
 
   if (tags.length == 0) return <div className="h-12"></div>;
   return (
-    <div className="h-12">
+    <div className="">
       <Typography variant="caption">최근검색어</Typography>
       <div className="flex flex-row-reverse justify-end">
         {tags.map((e) => (

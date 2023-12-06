@@ -13,23 +13,27 @@ export default function SearchLayout({
 
   const { tags, addTag, deleteTag } = useRecentSearch();
   return (
-    <div className="p-10">
+    <div className="">
       <Stack gap={2}>
-        <SearchBar
-          searchText={searchText}
-          setSearchText={setSearchText}
-          addTag={addTag}
-          handleSearch={handleSearch}
-        />
+        <div className="sticky top-0 bg-white pl-10 pt-10 opacity-80">
+          <SearchBar
+            searchText={searchText}
+            setSearchText={setSearchText}
+            addTag={addTag}
+            handleSearch={handleSearch}
+          />
+        </div>
 
-        <RecentSearchTag
-          tags={tags}
-          addTag={addTag}
-          deleteTag={deleteTag}
-          handleSearch={handleSearch}
-        />
+        <div className="-z-10 pl-10">
+          <RecentSearchTag
+            tags={tags}
+            addTag={addTag}
+            deleteTag={deleteTag}
+            handleSearch={handleSearch}
+          />
+        </div>
 
-        {children}
+        <div className="pl-10">{children}</div>
       </Stack>
     </div>
   );

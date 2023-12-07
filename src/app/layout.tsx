@@ -53,6 +53,7 @@ export default function RootLayout({
             <Providers>{children}</Providers>
           </div>
         </div>
+        <div id="toast"></div>
       </body>
     </html>
   );

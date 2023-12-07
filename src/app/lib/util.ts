@@ -62,29 +62,42 @@ export const useInfiniteQueryOptions = {
   staleTime: 1000 * 60 * 60,
 };
 
-export async function copyString(str: string) {
-  await navigator.clipboard.writeText(str);
+export async function copyString(str: string): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(str);
+
+    return true;
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
 }
 
 export async function downloadImage(
   imageSrc: string,
   nameOfDownload: string = "my-image.png",
-) {
-  const response = await fetch(imageSrc, {});
+): Promise<boolean> {
+  try {
+    const response = await fetch(imageSrc, {});
 
-  const blobImage = await response.blob();
+    const blobImage = await response.blob();
 
-  const href = URL.createObjectURL(blobImage);
+    const href = URL.createObjectURL(blobImage);
 
-  const anchorElement = document.createElement("a");
-  anchorElement.href = href;
-  anchorElement.download = nameOfDownload;
+    const anchorElement = document.createElement("a");
+    anchorElement.href = href;
+    anchorElement.download = nameOfDownload;
 
-  document.body.appendChild(anchorElement);
-  anchorElement.click();
+    document.body.appendChild(anchorElement);
+    anchorElement.click();
 
-  document.body.removeChild(anchorElement);
-  window.URL.revokeObjectURL(href);
+    document.body.removeChild(anchorElement);
+    window.URL.revokeObjectURL(href);
+    return true;
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
 }
 
 export function makeImageFileName(key: string, src: string) {

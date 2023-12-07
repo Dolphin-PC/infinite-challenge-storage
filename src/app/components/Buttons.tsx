@@ -1,22 +1,32 @@
-import { memo } from "react";
-import {
-  copyString,
-  downloadImage,
-  downloadResource,
-  imgDownload,
-} from "../lib/util";
-import { getImageDownloadUrl } from "../lib/firestore";
+import { memo, useState } from "react";
+import { copyString, downloadImage } from "../lib/util";
+import { Toasts, ToastsPortal } from "./Toasts";
+import { Typography } from "@mui/material";
 
 export const ButtonUrlCopy = memo(function ButtonUrlCopy({
   url,
 }: {
   url: string;
 }) {
+  const [show, setShow] = useState(false);
+
+  function handleClick() {
+    copyString(url).then((is) => {
+      if (is) setShow(true);
+    });
+  }
   return (
     <button
       className="m-1 rounded-lg bg-primary p-2 text-white"
-      onClick={() => copyString(url)}
+      onClick={handleClick}
     >
+      <ToastsPortal>
+        {show && (
+          <Toasts severity="success" setShow={setShow}>
+            <Typography variant="body1">URL이 복사되었습니다.</Typography>
+          </Toasts>
+        )}
+      </ToastsPortal>
       <div className="flex flex-col items-center">
         {/* link icon */}
         <svg
@@ -43,13 +53,25 @@ export const ButtonDownLoad = memo(function ButtonDownLoad({
   img_src: string;
   file_name: string;
 }) {
+  const [show, setShow] = useState(false);
+
+  async function handleClick() {
+    downloadImage(img_src, file_name).then((is) => {
+      if (is) setShow(true);
+    });
+  }
   return (
     <button
       className="m-1 rounded-lg bg-primary p-2 text-white"
-      onClick={() => {
-        downloadImage(img_src, file_name);
-      }}
+      onClick={handleClick}
     >
+      <ToastsPortal>
+        {show && (
+          <Toasts severity="success" setShow={setShow}>
+            <Typography variant="body1">다운로드가 완료되었습니다.</Typography>
+          </Toasts>
+        )}
+      </ToastsPortal>
       <div className="flex flex-col items-center">
         {/* download icon */}
         <svg

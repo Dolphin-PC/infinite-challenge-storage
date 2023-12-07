@@ -13,3 +13,18 @@ body.dark {
 input {
   outline: none;
 }
+.slide-up {
+  transform: translateY(100px);
+  animation: slideDown 3s;
+}
+
+@keyframes slideDown {
+  0%,
+  100% {
+    -webkit-transform: translateY(100px);
+  }
+  10%,
+  90% {
+    -webkit-transform: translateY(0px);
+  }
+}

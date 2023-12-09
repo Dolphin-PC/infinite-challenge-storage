@@ -37,3 +37,4 @@ next-env.d.ts
 
 /crawling_node
 firebase.config.js
+.env.production

@@ -1,6 +1,6 @@
 // "use client";
 
-import { PageType } from "./types";
+import { MemeLifeInterface, PageType } from "./types";
 
 // 초기 테마를 설정하는 함수
 export function setInitialColorMode(): void {
@@ -111,4 +111,28 @@ export function makeImageFileName(key: string, src: string) {
   if (!["png", "jpg", "gif"].includes(ext || "")) ext = "";
 
   return key + "." + ext;
+}
+
+export function kakaoInit() {
+  window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
+  console.log("kakao init");
+}
+export function kakaoShare(data: MemeLifeInterface) {
+  const { card_key } = data;
+  let params = [`key=${card_key}`];
+  const SITE_URL = process.env.NEXT_PUBLIC_HOME_SITE_URL;
+  const SITE_PORT = process.env.NEXT_PUBLIC_HOME_SITE_PORT;
+
+  window.Kakao.Share.sendDefault({
+    objectType: "feed",
+    content: {
+      title: "무도 짤",
+      description: data.alt,
+      imageUrl: data.img_src,
+      link: {
+        mobileWebUrl: `${SITE_URL}:${SITE_PORT}/meme_life?` + params.join("&"),
+        webUrl: `${SITE_URL}:${SITE_PORT}/meme_life?` + params.join("&"),
+      },
+    },
+  });
 }

@@ -1,5 +1,11 @@
 import { ReactNode, memo, useEffect, useState } from "react";
-import { copyString, downloadImage, getImageUrltoObject } from "../lib/util";
+import {
+  copyString,
+  downloadImage,
+  getImageUrltoObject,
+  kakaoInit,
+  kakaoShare,
+} from "../lib/util";
 import { Toasts, ToastsPortal } from "./Toasts";
 import { Typography } from "@mui/material";
 import Script from "next/script";
@@ -99,25 +105,6 @@ export const ButtonKakaoShare = ({
 }: {
   data: MemeLifeInterface;
 }): ReactNode => {
-  function kakaoInit() {
-    window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
-    console.log("kakao init");
-  }
-
-  function kakaoShare() {
-    window.Kakao.Share.sendDefault({
-      objectType: "feed",
-      content: {
-        title: "무도 짤",
-        description: data.alt,
-        imageUrl: data.img_src,
-        link: {
-          mobileWebUrl: "http://localhost:3000/meme_life",
-          webUrl: "http://localhost:3000/meme_life",
-        },
-      },
-    });
-  }
   return (
     <>
       <Script
@@ -126,7 +113,7 @@ export const ButtonKakaoShare = ({
       ></Script>
       <button
         className="m-1 rounded-lg bg-primary p-2 text-white"
-        onClick={kakaoShare}
+        onClick={() => kakaoShare(data)}
       >
         <div className="flex flex-col items-center">
           {/* kakao talk icon */}

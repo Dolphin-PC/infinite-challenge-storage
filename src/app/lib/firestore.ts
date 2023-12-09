@@ -1,4 +1,4 @@
-const isLocal = true;
+const isLocal = process.env.NEXT_PUBLIC_ENVIRONMENT == "LOCAL";
 
 import {
   DocumentData,

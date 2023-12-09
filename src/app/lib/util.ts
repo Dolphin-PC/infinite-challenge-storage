@@ -73,14 +73,19 @@ export async function copyString(str: string): Promise<boolean> {
   }
 }
 
+export async function getImageUrltoObject(img_src: string): Promise<Blob> {
+  const response = await fetch(img_src, {});
+
+  const blobImage = await response.blob();
+  return blobImage;
+}
+
 export async function downloadImage(
   imageSrc: string,
   nameOfDownload: string = "my-image.png",
 ): Promise<boolean> {
   try {
-    const response = await fetch(imageSrc, {});
-
-    const blobImage = await response.blob();
+    const blobImage = await getImageUrltoObject(imageSrc);
 
     const href = URL.createObjectURL(blobImage);
 

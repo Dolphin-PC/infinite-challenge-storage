@@ -25,6 +25,7 @@ export const ImageCard_Drawer = () => {
         <div className="flex flex-wrap p-10">
           <div className="flex w-5/12">
             <Image
+              id={data.card_key}
               src={data?.img_src}
               className="h-full w-full rounded-3xl"
               alt={data!.alt}
@@ -52,7 +53,7 @@ export const ImageCard_Drawer = () => {
                 img_src={data.img_src}
                 file_name={makeImageFileName(data.card_key, data.img_src)}
               />
-              <ButtonKakaoShare />
+              <ButtonKakaoShare data={data} />
             </div>
           </div>
         </div>

@@ -13,10 +13,10 @@ import {
 import { MemeLifeInterface } from "../../lib/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getMemeLife } from "../../lib/firestore";
-import { memo, useCallback, useEffect } from "react";
+import { memo, useEffect } from "react";
 import { useSpyScroll } from "../../lib/hooks";
 import NothingSearch from "../../components/NothingSearch";
-import { RecoilRoot, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { StateDrawerOpen, StateImageCard } from "@/app/lib/atoms";
 import clsx from "clsx";
 import { ImageCard_Drawer } from "./DrawerDetail";
@@ -27,61 +27,74 @@ export function ImageCardWrapper({
   searchText: string | undefined;
 }) {
   const {
-    data,
-    error,
+    data: memeInfo,
     fetchNextPage,
     hasNextPage,
-    isFetching,
-    isFetchingNextPage,
-    status,
+    isLoading,
   } = useInfiniteQuery({
     queryKey: ["meme_life", searchText],
     queryFn: ({ pageParam = 0 }) => getMemeLife(searchText, pageParam),
     initialPageParam: 1,
-    getNextPageParam: (lastPage, allPages) => lastPage.page.nextPage,
+    getNextPageParam: (lastPage) => lastPage.page.nextPage,
     staleTime: 1000 * 60 * 60,
   });
 
   const { isBottom, setIsBottom } = useSpyScroll("layout");
 
-  const fetchMore = useCallback(() => {
-    if (hasNextPage && isBottom) {
-      fetchNextPage();
-      setIsBottom(false);
-    }
-  }, [hasNextPage, isBottom, fetchNextPage, setIsBottom]);
-
   useEffect(() => {
+    const fetchMore = () => {
+      if (hasNextPage && isBottom) {
+        fetchNextPage();
+        setIsBottom(false);
+      }
+    };
     fetchMore();
     return () => fetchMore();
-  }, [isBottom, setIsBottom, fetchMore, hasNextPage]);
+  }, [isBottom, setIsBottom, hasNextPage, fetchNextPage]);
 
-  let totalCnt = data?.pages[0].page.totalCnt;
+  // const [drawerOpen, setDrawerOpen] = useRecoilState(StateDrawerOpen);
+  // const [imageCardState, setImageCardState] = useRecoilState(StateImageCard);
+  // const { addParams } = useParameter();
 
+  // const handleClick = useCallback(
+  //   (data: MemeLifeInterface) => {
+  //     setImageCardState(data);
+  //     setDrawerOpen(true);
+  //     addParams("key", data.card_key);
+  //   },
+  //   [setImageCardState],
+  // );
+
+  let totalCnt = memeInfo?.pages[0].page.totalCnt;
   if (totalCnt == 0) return <NothingSearch />;
   return (
     <div>
       <Typography variant="caption">총 {totalCnt}개</Typography>
-      <RecoilRoot>
-        <Stack
-          gap={5}
-          flexWrap="wrap"
-          direction="row"
-          justifyContent="flex-start"
-          alignItems="flex-start"
-        >
-          {isFetching ? (
-            <ImageCard_Skeleton count={10} />
-          ) : (
-            data?.pages.map(({ data }) => {
-              return data.map((d) => (
-                <ImageCard key={d.card_key} data={d} searchText={searchText} />
-              ));
+      <Stack
+        gap={5}
+        flexWrap="wrap"
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="flex-start"
+      >
+        {isLoading ? (
+          <ImageCard_Skeleton count={10} />
+        ) : (
+          memeInfo?.pages
+            .flatMap((ele) => ele.data)
+            .map((meme, i) => {
+              return (
+                <ImageCard
+                  key={i}
+                  data={meme}
+                  searchText={searchText}
+                  // handleClick={() => handleClick(meme)}
+                />
+              );
             })
-          )}
-        </Stack>
-        <ImageCard_Drawer />
-      </RecoilRoot>
+        )}
+      </Stack>
+      <ImageCard_Drawer />
     </div>
   );
 }
@@ -93,22 +106,20 @@ const ImageCard = memo(function ImageCard({
   data: MemeLifeInterface;
   searchText: string | undefined;
 }) {
-  const setOpen = useSetRecoilState(StateDrawerOpen);
+  const setDrawerOpen = useSetRecoilState(StateDrawerOpen);
   const setImageCardState = useSetRecoilState(StateImageCard);
-
-  useEffect(() => {
-    setImageCardState(data);
-  }, [data, setImageCardState]);
+  // const { addParams } = useParameter();
 
   function handleClick() {
-    setOpen(true);
     setImageCardState(data);
+    setDrawerOpen(true);
+    // addParams("key", data.card_key);
   }
   return (
     <Card className="w-5/12 md:w-3/12" onClick={handleClick}>
       <CardMedia image={data.img_src} sx={{ height: 200 }} />
       <CardContent>
-        {data.tag.map((tag, i) => (
+        {data.tag.map((tag) => (
           <Chip
             key={tag}
             label={tag}

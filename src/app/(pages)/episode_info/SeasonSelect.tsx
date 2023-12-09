@@ -2,7 +2,7 @@
 
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { ChangeEvent, useState } from "react";
-import { useAddParams } from "../../lib/hooks";
+import { useParameter } from "../../lib/hooks";
 
 export default function SeasonSelect({
   url_season = "",
@@ -10,7 +10,7 @@ export default function SeasonSelect({
   url_season?: string;
 }) {
   const [season, setSeason] = useState(url_season);
-  const { addParams } = useAddParams();
+  const { addParams } = useParameter();
 
   function handleChange(value: string) {
     setSeason(value);

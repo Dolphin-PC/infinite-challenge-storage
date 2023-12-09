@@ -11,8 +11,8 @@ export default async function page({
   };
 }) {
   return (
-    <SearchLayout>
+    <div>
       <ImageCardWrapper searchText={searchParams?.search} />
-    </SearchLayout>
+    </div>
   );
 }

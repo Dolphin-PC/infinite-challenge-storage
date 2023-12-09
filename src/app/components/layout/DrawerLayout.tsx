@@ -6,6 +6,9 @@ import { useRecoilState } from "recoil";
 export default function DrawerLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useRecoilState(StateDrawerOpen);
 
+  function onDrawerClose() {
+    setOpen(false);
+  }
   return (
     <Drawer
       PaperProps={{
@@ -22,7 +25,7 @@ export default function DrawerLayout({ children }: { children: ReactNode }) {
       }}
       anchor="right"
       open={open}
-      onClose={() => setOpen(false)}
+      onClose={onDrawerClose}
     >
       {children}
     </Drawer>

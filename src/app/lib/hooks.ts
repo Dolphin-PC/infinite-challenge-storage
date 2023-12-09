@@ -60,24 +60,33 @@ export const useSearch = (): {
   return { searchParams, handleSearch, searchText, setSearchText };
 };
 
-export const useAddParams = () => {
+type KeyTypes = "key" | "season" | "search";
+export const useParameter = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  function addParams(key: string, value: string) {
+  function addParams(key: KeyTypes, value: string) {
     const params = new URLSearchParams(searchParams);
+
     params.set(key, value);
     replace(`${pathname}?${params.toString()}`);
   }
 
-  function removeParams(key: string) {
+  function removeParams(key: KeyTypes) {
     const params = new URLSearchParams(searchParams);
+
     params.delete(key);
     replace(`${pathname}?${params.toString()}`);
   }
 
-  return { addParams, removeParams };
+  function getValue(key: KeyTypes) {
+    const params = new URLSearchParams(searchParams);
+
+    return params.get(key);
+  }
+
+  return { addParams, removeParams, getValue };
 };
 
 /**

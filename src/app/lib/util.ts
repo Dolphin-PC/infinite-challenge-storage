@@ -164,6 +164,12 @@ export function kakaoShare(data: MemeLifeInterface) {
   });
 }
 
+/**
+ * api 호출용 문자열 생성
+ * @param url api pathname
+ * @param prmObj api parameter
+ * @returns
+ */
 export function makeUrlParam(url: string, prmObj: SearchInterface) {
   let prm: string[] = [];
   Object.entries(prmObj).forEach(([key, value]) => {

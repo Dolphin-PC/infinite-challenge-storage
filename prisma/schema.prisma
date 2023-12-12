@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+}
+
+model episode_info {
+  	season String
+	  id Int @id @default(autoincrement())
+	  title String?
+	  description String?
+	  air_date String? 
+	  air_time String? 
+	  img_src String 
+	  actor String[]
+}
+
+model meme_info {
+  	id Int @id @default(autoincrement())
+	  img_src String
+	  thumnail_src String
+	  alt String?
+	  tag String[]
+	  download_cnt Int
+	  like_cnt Int
+}
+
+model season_info {
+  season          String @id
+  title           String?
+  description     String?
+  outline         String?
+  img_src         String 
+  view_url        String?
+  actor           String[]
+}

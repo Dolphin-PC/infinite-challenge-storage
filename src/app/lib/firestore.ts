@@ -35,6 +35,12 @@ const collections = {
   },
 };
 
+/**
+ * @deprecated
+ * @param searchText
+ * @param pageParam
+ * @returns
+ */
 export const getMemeLife = async (
   searchText?: string,
   pageParam?: number,

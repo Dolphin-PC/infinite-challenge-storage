@@ -1,6 +1,12 @@
 // "use client";
 
-import { MemeLifeInterface, PageType } from "./types";
+import { QueryFunction } from "@tanstack/react-query";
+import {
+  MemeLifeInterface,
+  PageType,
+  SearchInterface,
+  SearchType,
+} from "./types";
 
 // 초기 테마를 설정하는 함수
 export function setInitialColorMode(): void {
@@ -38,6 +44,13 @@ export function getInitialColorMode(): "light" | "dark" {
   return "light";
 }
 
+/**
+ * 페이지 객체 생성
+ * @param currentPage - 현재 페이지 번호
+ * @param totalLength - 데이터의 전체 길이
+ * @param limit       - 데이터 제한 개수
+ * @returns PageType
+ */
 export const getPageObj = (
   currentPage?: number,
   totalLength: number = 0,
@@ -61,6 +74,15 @@ export const useInfiniteQueryOptions = {
   getNextPageParam: (lastPage, allPages) => lastPage.page.nextPage,
   staleTime: 1000 * 60 * 60,
 };
+
+// export const fetcher = async (url: string, searchParams: SearchInterface) => {
+//   let params = Object.entries(searchParams)
+//     .map(([key, value]) => key + "=" + value)
+//     .join("&");
+//   url += "?" + params;
+//   return fetch(url).then((r) => r.json());
+// };
+export const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export async function copyString(str: string): Promise<boolean> {
   try {

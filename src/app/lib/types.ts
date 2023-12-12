@@ -1,3 +1,6 @@
+/**
+ * @deprecated to MemeInterface
+ */
 export interface MemeLifeInterface {
   card_key: string;
   href: string;
@@ -5,6 +8,15 @@ export interface MemeLifeInterface {
   alt: string;
   tag: string[];
   img_src: string;
+  like_cnt: number;
+  download_cnt: number;
+}
+export interface MemeInterface {
+  id: number;
+  img_src: string;
+  thumnail_src: string;
+  alt: string | null;
+  tag: string[];
   like_cnt: number;
   download_cnt: number;
 }
@@ -33,6 +45,9 @@ export type DataType = {
   };
 };
 
+/**
+ * @deprecated
+ */
 export type SearchType = {
   searchParams?: {
     search?: string;
@@ -41,6 +56,13 @@ export type SearchType = {
     season?: string;
   };
 };
+
+export interface SearchInterface {
+  search?: string;
+  page?: string | number;
+  limit?: string;
+  season?: string;
+}
 
 export interface TagInterface {
   searchText: string;

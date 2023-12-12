@@ -10,9 +10,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { MemeLifeInterface } from "../../lib/types";
+import { MemeInterface, PageType } from "../../lib/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getMemeLife } from "../../lib/firestore";
 import { memo, useEffect } from "react";
 import { useSpyScroll } from "../../lib/hooks";
 import NothingSearch from "../../components/NothingSearch";
@@ -20,6 +19,8 @@ import { useSetRecoilState } from "recoil";
 import { StateDrawerOpen, StateImageCard } from "@/app/lib/atoms";
 import clsx from "clsx";
 import { ImageCard_Drawer } from "./DrawerDetail";
+import { fetcher } from "@/app/lib/util";
+import useSWRInfinite from "swr/infinite";
 
 export function ImageCardWrapper({
   searchText,
@@ -27,45 +28,32 @@ export function ImageCardWrapper({
   searchText: string | undefined;
 }) {
   const {
-    data: memeInfo,
-    fetchNextPage,
-    hasNextPage,
+    data: memeInfos,
+    size,
+    setSize,
     isLoading,
-  } = useInfiniteQuery({
-    queryKey: ["meme_life", searchText],
-    queryFn: ({ pageParam = 0 }) => getMemeLife(searchText, pageParam),
-    initialPageParam: 1,
-    getNextPageParam: (lastPage) => lastPage.page.nextPage,
-    staleTime: 1000 * 60 * 60,
-  });
+  } = useSWRInfinite<{ rows: MemeInterface[]; page: PageType }>(
+    (
+      pageIndex: number,
+      previousPageData: { rows: MemeInterface[]; page: PageType },
+    ) => {
+      if (previousPageData && !previousPageData.rows.length) return null;
+      return `/api/meme?page=${pageIndex}&search=${searchText}`; // SWR 키
+    },
+    fetcher,
+  );
 
   const { isBottom, setIsBottom } = useSpyScroll("layout");
-
   useEffect(() => {
-    const fetchMore = () => {
-      if (hasNextPage && isBottom) {
-        fetchNextPage();
-        setIsBottom(false);
-      }
-    };
-    fetchMore();
-    return () => fetchMore();
-  }, [isBottom, setIsBottom, hasNextPage, fetchNextPage]);
+    if (isBottom) {
+      setSize(size + 1);
+      setIsBottom(false);
+    }
+  }, [isBottom, setSize, setIsBottom]);
 
-  // const [drawerOpen, setDrawerOpen] = useRecoilState(StateDrawerOpen);
-  // const [imageCardState, setImageCardState] = useRecoilState(StateImageCard);
-  // const { addParams } = useParameter();
+  if (isLoading) return <ImageCard_Skeleton count={10} />;
 
-  // const handleClick = useCallback(
-  //   (data: MemeLifeInterface) => {
-  //     setImageCardState(data);
-  //     setDrawerOpen(true);
-  //     addParams("key", data.card_key);
-  //   },
-  //   [setImageCardState],
-  // );
-
-  let totalCnt = memeInfo?.pages[0].page.totalCnt;
+  let totalCnt = (memeInfos && memeInfos[0].page.totalCnt) || 0;
   if (totalCnt == 0) return <NothingSearch />;
   return (
     <div>
@@ -77,22 +65,18 @@ export function ImageCardWrapper({
         justifyContent="flex-start"
         alignItems="flex-start"
       >
-        {isLoading ? (
-          <ImageCard_Skeleton count={10} />
-        ) : (
-          memeInfo?.pages
-            .flatMap((ele) => ele.data)
-            .map((meme, i) => {
-              return (
-                <ImageCard
-                  key={i}
-                  data={meme}
-                  searchText={searchText}
-                  // handleClick={() => handleClick(meme)}
-                />
-              );
-            })
-        )}
+        {memeInfos
+          ?.flatMap((ele) => ele.rows)
+          .map((meme, i) => {
+            return (
+              <ImageCard
+                key={i}
+                data={meme}
+                searchText={searchText}
+                // handleClick={() => handleClick(meme)}
+              />
+            );
+          })}
       </Stack>
       <ImageCard_Drawer />
     </div>
@@ -103,7 +87,7 @@ const ImageCard = memo(function ImageCard({
   data,
   searchText,
 }: {
-  data: MemeLifeInterface;
+  data: MemeInterface;
   searchText: string | undefined;
 }) {
   const setDrawerOpen = useSetRecoilState(StateDrawerOpen);

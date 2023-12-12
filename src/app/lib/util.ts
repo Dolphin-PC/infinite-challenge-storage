@@ -84,6 +84,11 @@ export const useInfiniteQueryOptions = {
 // };
 export const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
+/**
+ * 클립보드 텍스트 복사
+ * @param str 복사할 텍스트
+ * @returns
+ */
 export async function copyString(str: string): Promise<boolean> {
   try {
     await navigator.clipboard.writeText(str);
@@ -157,4 +162,15 @@ export function kakaoShare(data: MemeLifeInterface) {
       },
     },
   });
+}
+
+export function makeUrlParam(url: string, prmObj: SearchInterface) {
+  let prm: string[] = [];
+  Object.entries(prmObj).forEach(([key, value]) => {
+    if (value) {
+      prm.push(key + "=" + value);
+    }
+  });
+
+  return [url, prm.join("&")].join("?");
 }

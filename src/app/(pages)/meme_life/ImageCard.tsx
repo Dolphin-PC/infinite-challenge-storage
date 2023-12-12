@@ -10,7 +10,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { MemeInterface, PageType } from "../../lib/types";
+import { MemeInterface, PageType, SearchInterface } from "../../lib/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { memo, useEffect } from "react";
 import { useSpyScroll } from "../../lib/hooks";
@@ -19,13 +19,13 @@ import { useSetRecoilState } from "recoil";
 import { StateDrawerOpen, StateImageCard } from "@/app/lib/atoms";
 import clsx from "clsx";
 import { ImageCard_Drawer } from "./DrawerDetail";
-import { fetcher } from "@/app/lib/util";
+import { fetcher, makeUrlParam } from "@/app/lib/util";
 import useSWRInfinite from "swr/infinite";
 
 export function ImageCardWrapper({
-  searchText,
+  searchParams,
 }: {
-  searchText: string | undefined;
+  searchParams: SearchInterface;
 }) {
   const {
     data: memeInfos,
@@ -38,7 +38,11 @@ export function ImageCardWrapper({
       previousPageData: { rows: MemeInterface[]; page: PageType },
     ) => {
       if (previousPageData && !previousPageData.rows.length) return null;
-      return `/api/meme?page=${pageIndex}&search=${searchText}`; // SWR 키
+
+      return makeUrlParam("/api/meme", {
+        page: pageIndex,
+        search: searchParams.search,
+      }); // SWR 키
     },
     fetcher,
   );
@@ -72,7 +76,7 @@ export function ImageCardWrapper({
               <ImageCard
                 key={i}
                 data={meme}
-                searchText={searchText}
+                searchText={searchParams.search}
                 // handleClick={() => handleClick(meme)}
               />
             );
@@ -109,7 +113,7 @@ const ImageCard = memo(function ImageCard({
             label={tag}
             size="small"
             className={clsx("m-1", {
-              "bg-primary text-white": searchText && tag.startsWith(searchText),
+              "bg-primary text-white": searchText && tag.includes(searchText),
             })}
           />
         ))}

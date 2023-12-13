@@ -3,7 +3,6 @@ import { getEpisodeInfo } from "@/app/lib/firestore";
 import { EpisodeInterface, SeasonType } from "@/app/lib/types";
 import { Paper, Skeleton, Stack, Typography } from "@mui/material";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useInfiniteQueryOptions } from "@/app/lib/util";
 import { useSpyScroll } from "@/app/(front-end)/lib/hooks";
 import { memo, useEffect } from "react";
 import Image from "next/image";
@@ -23,7 +22,9 @@ export const EpisodeWrapper = ({
   } = useInfiniteQuery({
     queryKey: ["episode_info", season, search],
     queryFn: ({ pageParam = 0 }) => getEpisodeInfo(season, search, pageParam),
-    ...useInfiniteQueryOptions,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => lastPage.page.nextPage,
+    staleTime: 1000 * 60 * 60,
   });
 
   const { isBottom, setIsBottom } = useSpyScroll(`layout`);

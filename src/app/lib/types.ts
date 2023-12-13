@@ -21,6 +21,8 @@ export interface MemeInterface {
   download_cnt: number;
 }
 
+export type API_RES_MemeType = { data: MemeInterface | null };
+
 export type PromiseDataType = {
   data: MemeLifeInterface[];
   page: PageType;

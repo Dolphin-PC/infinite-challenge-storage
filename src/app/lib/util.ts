@@ -8,6 +8,7 @@ import {
   SearchInterface,
   SearchType,
 } from "./types";
+import { STATUS_CODE } from "./data";
 
 // 초기 테마를 설정하는 함수
 export function setInitialColorMode(): void {
@@ -70,12 +71,6 @@ export const getPageObj = (
   };
 };
 
-export const useInfiniteQueryOptions = {
-  initialPageParam: 1,
-  getNextPageParam: (lastPage, allPages) => lastPage.page.nextPage,
-  staleTime: 1000 * 60 * 60,
-};
-
 // export const fetcher = async (url: string, searchParams: SearchInterface) => {
 //   let params = Object.entries(searchParams)
 //     .map(([key, value]) => key + "=" + value)
@@ -83,7 +78,19 @@ export const useInfiniteQueryOptions = {
 //   url += "?" + params;
 //   return fetch(url).then((r) => r.json());
 // };
-export const fetcher = (url: string) => fetch(url).then((res) => res.json());
+export const fetcher = (url: string) => {
+  return fetch(url)
+    .then((res) => {
+      if (res.status == STATUS_CODE.OK) {
+        return res.json();
+      } else {
+        throw res;
+      }
+    })
+    .catch((e) => {
+      console.error(e);
+    });
+};
 
 /**
  * 클립보드 텍스트 복사

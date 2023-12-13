@@ -66,25 +66,25 @@ export const getMemeLife = async (
   return { data, page };
 };
 
-/**
- * @deprecated
- * @param key
- * @returns
- */
-export const getMemeLifeByKey = async (
-  key: string,
-): Promise<MemeLifeInterface> => {
-  let data: MemeLifeInterface;
+// /**
+//  * @deprecated
+//  * @param key
+//  * @returns
+//  */
+// export const getMemeLifeByKey = async (
+//   key: string,
+// ): Promise<MemeLifeInterface> => {
+//   let data: MemeLifeInterface;
 
-  if (isLocal) {
-    data = mock_data.meme_life.filter((meme) => meme.card_key == key)[0];
-  } else {
-    const querySnapshot = await getDocs(collections.meme_life);
-    // data = querySnapshot.docs.map((doc: DocumentData) => doc.data());
-  }
+//   if (isLocal) {
+//     data = mock_data.meme_life.filter((meme) => meme.card_key == key)[0];
+//   } else {
+//     const querySnapshot = await getDocs(collections.meme_life);
+//     // data = querySnapshot.docs.map((doc: DocumentData) => doc.data());
+//   }
 
-  return data;
-};
+//   return data;
+// };
 export const getSeasonInfo = async (season?: string) => {
   let seasonInfo: SeasonInterface[] = [];
   if (isLocal) {

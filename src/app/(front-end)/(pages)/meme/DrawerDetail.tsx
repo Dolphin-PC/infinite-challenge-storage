@@ -8,14 +8,13 @@ import DrawerLayout, {
   DrawerHeader,
 } from "@/app/(front-end)/components/layout/DrawerLayout";
 import { StateDrawerOpen, StateImageCard } from "@/app/(front-end)/lib/atoms";
-import { getMemeLifeByKey } from "@/app/lib/firestore";
 import { useParameter } from "@/app/(front-end)/lib/hooks";
 import { makeImageFileName } from "@/app/lib/util";
-import { getValue } from "@mui/system";
 import Image from "next/image";
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
+import { memeByOne } from "../../lib/api";
+import { MemeInterface } from "@/app/lib/types";
 
 export const ImageCard_Drawer = () => {
   const [drawerOpen, setDrawerOpen] = useRecoilState(StateDrawerOpen);
@@ -25,13 +24,15 @@ export const ImageCard_Drawer = () => {
 
   useEffect(() => {
     async function getData(id: string) {
-      let res = await getMemeLifeByKey(id);
-      setImageCard(res);
-      addParams("search", res.tag[0]);
+      let res: MemeInterface | null = await memeByOne(id);
+      if (res != null) {
+        setImageCard(res);
+        addParams("search", res.tag[0]);
+        setDrawerOpen(true);
+      }
     }
     const id = getValue("id");
     if (id && imageCard == null) {
-      setDrawerOpen(true);
       getData(id);
     }
   }, []);
@@ -75,7 +76,10 @@ export const ImageCard_Drawer = () => {
                 <ButtonUrlCopy url={imageCard.img_src} />
                 <ButtonDownLoad
                   img_src={imageCard.img_src}
-                  file_name={makeImageFileName(imageCard.id, imageCard.img_src)}
+                  file_name={makeImageFileName(
+                    imageCard.tag.join("_"),
+                    imageCard.img_src,
+                  )}
                 />
                 <ButtonKakaoShare data={imageCard} />
               </div>

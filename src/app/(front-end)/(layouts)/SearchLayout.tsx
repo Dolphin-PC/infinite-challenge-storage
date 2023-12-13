@@ -1,5 +1,5 @@
 "use client";
-import SearchBar from "@/app/components/SearchBar";
+import SearchBar from "@/app/(front-end)/components/SearchBar";
 import { Stack, Typography } from "@mui/material";
 import RecentSearchTag from "../components/RecentSearchTag";
 import { useRecentSearch, useSearch } from "../lib/hooks";

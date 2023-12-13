@@ -6,7 +6,7 @@ import {
   getInitialColorMode,
   setColorMode,
   setInitialColorMode,
-} from "./lib/util";
+} from "../lib/util";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import Providers from "./providers";

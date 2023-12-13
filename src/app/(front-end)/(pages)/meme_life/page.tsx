@@ -1,5 +1,5 @@
-import { ImageCardWrapper } from "@/app/(pages)/meme_life/ImageCard";
-import { mock_data } from "@/app/lib/mock_data";
+import { ImageCardWrapper } from "@/app/(front-end)/(pages)/meme_life/ImageCard";
+import { mock_data } from "@/app/(front-end)/lib/mock_data";
 import { Suspense } from "react";
 import SearchLayout from "../episode_info/layout";
 import { SearchInterface } from "@/app/lib/types";

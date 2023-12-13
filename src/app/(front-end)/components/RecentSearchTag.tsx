@@ -1,7 +1,7 @@
 "use client";
 
 import { Chip, ListItem, Paper, Typography } from "@mui/material";
-import { TagInterface } from "../lib/types";
+import { TagInterface } from "../../lib/types";
 import { useSearch } from "../lib/hooks";
 
 export default function RecentSearchTag({

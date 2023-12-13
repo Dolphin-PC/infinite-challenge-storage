@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
 import { MemeInterface, MemeLifeInterface, PageType } from "@/app/lib/types";
-import { offset_limit, prismaClient } from "@/app/lib/db";
+import { offset_limit, prismaClient } from "@/app/(back-end)/lib/db";
 import { getPageObj } from "@/app/lib/util";
 import { DATA_LIMIT } from "@/app/lib/data";
 

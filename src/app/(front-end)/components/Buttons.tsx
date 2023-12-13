@@ -5,11 +5,11 @@ import {
   getImageUrltoObject,
   kakaoInit,
   kakaoShare,
-} from "../lib/util";
+} from "../../lib/util";
 import { Toasts, ToastsPortal } from "./Toasts";
 import { Typography } from "@mui/material";
 import Script from "next/script";
-import { MemeLifeInterface } from "../lib/types";
+import { MemeInterface, MemeLifeInterface } from "../../lib/types";
 
 export const ButtonUrlCopy = ({ url }: { url: string }): ReactNode => {
   const [show, setShow] = useState(false);
@@ -103,7 +103,7 @@ declare global {
 export const ButtonKakaoShare = ({
   data,
 }: {
-  data: MemeLifeInterface;
+  data: MemeInterface;
 }): ReactNode => {
   return (
     <>

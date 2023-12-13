@@ -28,7 +28,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "crawling_node/firebase.js",
-    "src/app/(pages)/meme_life/[key]",
+    "src/app/(front-end)/(pages)/meme_life/[key]",
     "crawling_node/util.js"
   ],
   "exclude": ["node_modules", ".next"]

@@ -10,13 +10,13 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { MemeInterface, PageType, SearchInterface } from "../../lib/types";
+import { MemeInterface, PageType, SearchInterface } from "../../../lib/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { memo, useEffect } from "react";
 import { useSpyScroll } from "../../lib/hooks";
 import NothingSearch from "../../components/NothingSearch";
 import { useSetRecoilState } from "recoil";
-import { StateDrawerOpen, StateImageCard } from "@/app/lib/atoms";
+import { StateDrawerOpen, StateImageCard } from "@/app/(front-end)/lib/atoms";
 import clsx from "clsx";
 import { ImageCard_Drawer } from "./DrawerDetail";
 import { fetcher, makeUrlParam } from "@/app/lib/util";

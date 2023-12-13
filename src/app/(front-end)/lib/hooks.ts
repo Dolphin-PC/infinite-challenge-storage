@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { getInitialColorMode, setColorMode } from "./util";
+import { getInitialColorMode, setColorMode } from "../../lib/util";
 import {
   ReadonlyURLSearchParams,
   usePathname,
@@ -13,7 +13,7 @@ import {
   useSearchParams,
 } from "next/navigation";
 import { DebouncedState, useDebouncedCallback } from "use-debounce";
-import { TagInterface } from "./types";
+import { TagInterface } from "../../lib/types";
 import { useRecoilState } from "recoil";
 
 export const useDarkMode = (): [boolean, Function] => {
@@ -60,7 +60,7 @@ export const useSearch = (): {
   return { searchParams, handleSearch, searchText, setSearchText };
 };
 
-type KeyTypes = "key" | "season" | "search";
+type KeyTypes = "id" | "season" | "search";
 export const useParameter = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();

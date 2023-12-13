@@ -3,13 +3,13 @@ import {
   ButtonUrlCopy,
   ButtonDownLoad,
   ButtonKakaoShare,
-} from "@/app/components/Buttons";
+} from "@/app/(front-end)/components/Buttons";
 import DrawerLayout, {
   DrawerHeader,
-} from "@/app/components/layout/DrawerLayout";
-import { StateDrawerOpen, StateImageCard } from "@/app/lib/atoms";
+} from "@/app/(front-end)/components/layout/DrawerLayout";
+import { StateDrawerOpen, StateImageCard } from "@/app/(front-end)/lib/atoms";
 import { getMemeLifeByKey } from "@/app/lib/firestore";
-import { useParameter } from "@/app/lib/hooks";
+import { useParameter } from "@/app/(front-end)/lib/hooks";
 import { makeImageFileName } from "@/app/lib/util";
 import { getValue } from "@mui/system";
 import Image from "next/image";
@@ -24,15 +24,15 @@ export const ImageCard_Drawer = () => {
   const { getValue, addParams } = useParameter();
 
   useEffect(() => {
-    async function getData(key: string) {
-      let res = await getMemeLifeByKey(key);
+    async function getData(id: string) {
+      let res = await getMemeLifeByKey(id);
       setImageCard(res);
       addParams("search", res.tag[0]);
     }
-    const key = getValue("key");
-    if (key && imageCard == null) {
+    const id = getValue("id");
+    if (id && imageCard == null) {
       setDrawerOpen(true);
-      getData(key);
+      getData(id);
     }
   }, []);
 
@@ -43,16 +43,16 @@ export const ImageCard_Drawer = () => {
       ) : (
         <div>
           {/* 제목 */}
-          <DrawerHeader title={imageCard.alt} />
+          <DrawerHeader title={imageCard.alt ?? ""} />
 
           {/* 내용 */}
           <div className="flex flex-wrap p-10">
             <div className="flex w-5/12">
               <Image
-                id={imageCard.card_key}
+                id={String(imageCard.id)}
                 src={imageCard.img_src}
                 className="h-full w-full rounded-3xl"
-                alt={imageCard.alt}
+                alt={imageCard.alt ?? ""}
                 width={1000}
                 height={1000}
                 priority={true}
@@ -75,10 +75,7 @@ export const ImageCard_Drawer = () => {
                 <ButtonUrlCopy url={imageCard.img_src} />
                 <ButtonDownLoad
                   img_src={imageCard.img_src}
-                  file_name={makeImageFileName(
-                    imageCard.card_key,
-                    imageCard.img_src,
-                  )}
+                  file_name={makeImageFileName(imageCard.id, imageCard.img_src)}
                 />
                 <ButtonKakaoShare data={imageCard} />
               </div>

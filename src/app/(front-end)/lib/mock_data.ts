@@ -3,7 +3,7 @@ import {
   EpisodeInterface,
   MemeLifeInterface,
   SeasonInterface,
-} from "./types";
+} from "../../lib/types";
 
 const memeLife: MemeLifeInterface[] = [
   {

@@ -1,12 +1,12 @@
-import SeasonSelect from "@/app/(pages)/episode_info/SeasonSelect";
+import SeasonSelect from "@/app/(front-end)/(pages)/episode_info/SeasonSelect";
 import { getSeasonInfo } from "@/app/lib/firestore";
 import { SearchType } from "@/app/lib/types";
 import { Paper, Skeleton, Typography } from "@mui/material";
 import EpisodeTab from "./EpisodeTab";
 import { EpisodeWrapper } from "./EpisodeCard";
-import { Divider_2_4 } from "@/app/components/Dividers";
+import { Divider_2_4 } from "@/app/(front-end)/components/Dividers";
 import Image from "next/image";
-import { IconLink } from "@/app/lib/icons";
+import { IconLink } from "@/app/(front-end)/lib/icons";
 
 export default async function page({ searchParams }: SearchType) {
   const seasonInfo = await getSeasonInfo(searchParams?.season);

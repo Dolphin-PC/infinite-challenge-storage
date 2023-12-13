@@ -2,6 +2,7 @@
 
 import { QueryFunction } from "@tanstack/react-query";
 import {
+  MemeInterface,
   MemeLifeInterface,
   PageType,
   SearchInterface,
@@ -132,7 +133,7 @@ export async function downloadImage(
   }
 }
 
-export function makeImageFileName(key: string, src: string) {
+export function makeImageFileName(key: string | number, src: string) {
   let ext = src.split(".").at(-1)?.split("?")[0];
 
   if (!["png", "jpg", "gif"].includes(ext || "")) ext = "";
@@ -144,9 +145,9 @@ export function kakaoInit() {
   window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
   console.log("kakao init");
 }
-export function kakaoShare(data: MemeLifeInterface) {
-  const { card_key } = data;
-  let params = [`key=${card_key}`];
+export function kakaoShare(data: MemeInterface) {
+  const { id } = data;
+  let params = [`id=${id}`];
   const SITE_URL = process.env.NEXT_PUBLIC_HOME_SITE_URL;
   const SITE_PORT = process.env.NEXT_PUBLIC_HOME_SITE_PORT;
 

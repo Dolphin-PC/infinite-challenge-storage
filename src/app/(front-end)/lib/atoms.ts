@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { MemeInterface, MemeLifeInterface } from "./types";
+import { MemeInterface, MemeLifeInterface } from "../../lib/types";
 
 export const StateDrawerOpen = atom<boolean>({
   key: "state_drawer_open",

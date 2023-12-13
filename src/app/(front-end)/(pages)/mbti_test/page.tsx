@@ -1,8 +1,6 @@
-import { getMemeLife } from "@/app/lib/firestore";
 import MbtiLogo from "/public/assets/images/mbti_logo.jpg";
 
 import Image from "next/image";
-import { Button } from "@mui/material";
 export default function page() {
   return (
     <div className="flex h-full flex-col items-center justify-center">

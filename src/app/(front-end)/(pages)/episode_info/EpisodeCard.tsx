@@ -4,10 +4,10 @@ import { EpisodeInterface, SeasonType } from "@/app/lib/types";
 import { Paper, Skeleton, Stack, Typography } from "@mui/material";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInfiniteQueryOptions } from "@/app/lib/util";
-import { useSpyScroll } from "@/app/lib/hooks";
+import { useSpyScroll } from "@/app/(front-end)/lib/hooks";
 import { memo, useEffect } from "react";
 import Image from "next/image";
-import { Divider_2_4 } from "@/app/components/Dividers";
+import { Divider_2_4 } from "@/app/(front-end)/components/Dividers";
 export const EpisodeWrapper = ({
   season,
   search,

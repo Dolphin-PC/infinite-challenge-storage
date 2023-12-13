@@ -15,7 +15,7 @@ import {
   SeasonInterface,
   SeasonType,
 } from "./types";
-import { mock_data } from "./mock_data";
+import { mock_data } from "../(front-end)/lib/mock_data";
 import { DATA_LIMIT } from "./data";
 import { getPageObj } from "./util";
 import { app } from "../../../firebase.config.js";
@@ -66,6 +66,11 @@ export const getMemeLife = async (
   return { data, page };
 };
 
+/**
+ * @deprecated
+ * @param key
+ * @returns
+ */
 export const getMemeLifeByKey = async (
   key: string,
 ): Promise<MemeLifeInterface> => {

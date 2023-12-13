@@ -1,4 +1,4 @@
-import { StateDrawerOpen } from "@/app/lib/atoms";
+import { StateDrawerOpen } from "@/app/(front-end)/lib/atoms";
 import { Drawer, Typography } from "@mui/material";
 import { ReactNode } from "react";
 import { useRecoilState } from "recoil";

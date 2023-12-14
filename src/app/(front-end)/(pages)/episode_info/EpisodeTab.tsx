@@ -1,5 +1,5 @@
 "use client";
-import { EpisodeInterface, SeasonInterface } from "@/app/lib/types";
+import { SeasonInterface } from "@/app/lib/types";
 import { Tab, Tabs } from "@mui/material";
 import { useEffect, useState } from "react";
 
@@ -16,8 +16,6 @@ export default function EpisodeTab({
   };
 
   useEffect(() => {
-    // const tabContainer = document.getElementById("tab-panel-container");
-
     seasonInfo.forEach((season, i) => {
       const tabPanel = document.getElementById(`tab-panel-${i}`);
       if (i == tab) {
@@ -26,8 +24,6 @@ export default function EpisodeTab({
         tabPanel?.classList.add("hidden");
       }
     });
-
-    // tabContainer?.classList.remove("hidden");
   }, [tab, seasonInfo]);
 
   useEffect(() => {
@@ -41,8 +37,6 @@ export default function EpisodeTab({
       {seasonInfo.map((season, i) => {
         return <Tab key={i} label={`${season.title}`} />;
       })}
-      {/* <Tab label="Item Two" aria-controls={`tabpanel-${tab}`} />
-      <Tab label="Item Three" aria-controls={`tabpanel-${tab}`} /> */}
     </Tabs>
   );
 }

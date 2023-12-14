@@ -10,8 +10,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { MemeInterface, PageType, SearchInterface } from "../../../lib/types";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { ListResType, MemeType, SearchInterface } from "../../../lib/types";
 import { memo, useEffect } from "react";
 import { useSpyScroll } from "../../lib/hooks";
 import NothingSearch from "../../components/NothingSearch";
@@ -32,19 +31,17 @@ export function ImageCardWrapper({
     size,
     setSize,
     isLoading,
-  } = useSWRInfinite<{ rows: MemeInterface[]; page: PageType }>(
-    (
-      pageIndex: number,
-      previousPageData: { rows: MemeInterface[]; page: PageType },
-    ) => {
-      if (previousPageData && !previousPageData.rows.length) return null;
+  } = useSWRInfinite<ListResType<MemeType[]>>(
+    (pageIndex: number, previousPageData: ListResType<MemeType[]>) => {
+      if (previousPageData && !previousPageData.data.length) return null;
 
       return makeUrlParam("/api/meme", {
-        page: pageIndex,
+        page: pageIndex + 1,
         search: searchParams.search,
-      }); // SWR 키
+      });
     },
     fetcher,
+    { revalidateFirstPage: false },
   );
 
   const { isBottom, setIsBottom } = useSpyScroll("layout");
@@ -53,11 +50,11 @@ export function ImageCardWrapper({
       setSize(size + 1);
       setIsBottom(false);
     }
-  }, [isBottom, setSize, setIsBottom]);
+  }, [isBottom, setSize, size, setIsBottom]);
 
   if (isLoading) return <ImageCard_Skeleton count={10} />;
 
-  let totalCnt = (memeInfos && memeInfos[0].page.totalCnt) || 0;
+  let totalCnt = memeInfos?.[0]?.tot_cnt;
   if (totalCnt == 0) return <NothingSearch />;
   return (
     <div>
@@ -70,15 +67,10 @@ export function ImageCardWrapper({
         alignItems="flex-start"
       >
         {memeInfos
-          ?.flatMap((ele) => ele.rows)
+          ?.flatMap((ele) => ele.data)
           .map((meme, i) => {
             return (
-              <ImageCard
-                key={i}
-                data={meme}
-                searchText={searchParams.search}
-                // handleClick={() => handleClick(meme)}
-              />
+              <ImageCard key={i} data={meme} searchText={searchParams.search} />
             );
           })}
       </Stack>
@@ -91,7 +83,7 @@ const ImageCard = memo(function ImageCard({
   data,
   searchText,
 }: {
-  data: MemeInterface;
+  data: MemeType;
   searchText: string | undefined;
 }) {
   const setDrawerOpen = useSetRecoilState(StateDrawerOpen);

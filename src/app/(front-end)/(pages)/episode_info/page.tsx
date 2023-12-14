@@ -1,15 +1,19 @@
 import SeasonSelect from "@/app/(front-end)/(pages)/episode_info/SeasonSelect";
-import { getSeasonInfo } from "@/app/lib/firestore";
-import { SearchType } from "@/app/lib/types";
-import { Paper, Skeleton, Typography } from "@mui/material";
+import { SearchInterface } from "@/app/lib/types";
+import { Paper, Typography } from "@mui/material";
 import EpisodeTab from "./EpisodeTab";
 import { EpisodeWrapper } from "./EpisodeCard";
 import { Divider_2_4 } from "@/app/(front-end)/components/Dividers";
 import Image from "next/image";
 import { IconLink } from "@/app/(front-end)/lib/icons";
+import { getSeasonInfoList } from "@/app/(back-end)/lib/services/episodeService";
 
-export default async function page({ searchParams }: SearchType) {
-  const seasonInfo = await getSeasonInfo(searchParams?.season);
+export default async function page({
+  searchParams,
+}: {
+  searchParams: SearchInterface;
+}) {
+  const seasonInfo = await getSeasonInfoList(searchParams?.season);
 
   return (
     <div className="w-full">
@@ -31,7 +35,7 @@ export default async function page({ searchParams }: SearchType) {
                 <div className="flex w-full">
                   <div className="w-3/12">
                     <Image
-                      src={ssn.img_url}
+                      src={ssn.img_src}
                       alt={ssn.season}
                       width={0}
                       height={0}
@@ -60,7 +64,7 @@ export default async function page({ searchParams }: SearchType) {
                     <div className="flex justify-end">
                       <a
                         className="flex rounded-lg bg-primary p-3 text-white"
-                        href={ssn.view_url}
+                        href={ssn.view_url || ""}
                         target="_blank"
                       >
                         <div className="mr-2">

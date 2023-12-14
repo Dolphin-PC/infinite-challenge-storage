@@ -2,6 +2,7 @@ import pkg from "pg";
 import { DATA_LIMIT } from "../../lib/data";
 import { PrismaClient } from "@prisma/client";
 
+// export const prismaClient = new PrismaClient({ log: ["info", "query"] });
 export const prismaClient = new PrismaClient();
 
 /**

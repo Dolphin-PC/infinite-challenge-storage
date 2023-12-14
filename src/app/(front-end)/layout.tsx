@@ -48,7 +48,7 @@ export default function RootLayout({
           </div>
           <div
             id="layout"
-            className="flex-grow dark:bg-primary md:overflow-scroll "
+            className="flex-grow dark:bg-primary md:overflow-scroll"
           >
             <Providers>{children}</Providers>
           </div>

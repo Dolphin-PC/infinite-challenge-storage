@@ -1,6 +1,6 @@
 import { STATUS_CODE } from "@/app/lib/data";
 import { prismaClient } from "@/app/(back-end)/lib/db";
-import { API_RES_MemeType, MemeInterface } from "@/app/lib/types";
+import { API_RES_MemeType, MemeType } from "@/app/lib/types";
 import { STATUS_CODES } from "http";
 import { NextResponse } from "next/server";
 
@@ -10,7 +10,7 @@ export async function GET(
 ): Promise<NextResponse<API_RES_MemeType>> {
   const id = params.id;
 
-  let row: MemeInterface | null = await prismaClient.meme_info.findFirst({
+  let row: MemeType | null = await prismaClient.meme_info.findFirst({
     where: {
       id: {
         equals: Number(id),

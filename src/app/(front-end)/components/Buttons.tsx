@@ -9,7 +9,7 @@ import {
 import { Toasts, ToastsPortal } from "./Toasts";
 import { Typography } from "@mui/material";
 import Script from "next/script";
-import { MemeInterface, MemeLifeInterface } from "../../lib/types";
+import { MemeType, MemeLifeInterface } from "../../lib/types";
 
 export const ButtonUrlCopy = ({ url }: { url: string }): ReactNode => {
   const [show, setShow] = useState(false);
@@ -100,11 +100,7 @@ declare global {
     Kakao: any;
   }
 }
-export const ButtonKakaoShare = ({
-  data,
-}: {
-  data: MemeInterface;
-}): ReactNode => {
+export const ButtonKakaoShare = ({ data }: { data: MemeType }): ReactNode => {
   return (
     <>
       <Script

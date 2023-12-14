@@ -85,6 +85,12 @@ export const getMemeLife = async (
 
 //   return data;
 // };
+
+/**
+ * @deprecated
+ * @param season
+ * @returns
+ */
 export const getSeasonInfo = async (season?: string) => {
   let seasonInfo: SeasonInterface[] = [];
   if (isLocal) {
@@ -100,6 +106,13 @@ export const getSeasonInfo = async (season?: string) => {
 
   return seasonInfo;
 };
+/**
+ * @deprecated
+ * @param season
+ * @param searchText
+ * @param pageParam
+ * @returns
+ */
 export const getEpisodeInfo = async (
   season: SeasonType,
   searchText?: string,

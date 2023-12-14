@@ -1,39 +1,47 @@
 "use client";
-import { getEpisodeInfo } from "@/app/lib/firestore";
-import { EpisodeInterface, SeasonType } from "@/app/lib/types";
+import { EpisodeInterface, ListResType } from "@/app/lib/types";
 import { Paper, Skeleton, Stack, Typography } from "@mui/material";
-import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSpyScroll } from "@/app/(front-end)/lib/hooks";
 import { memo, useEffect } from "react";
 import Image from "next/image";
 import { Divider_2_4 } from "@/app/(front-end)/components/Dividers";
+import useSWRInfinite from "swr/infinite";
+import { fetcher, makeUrlParam } from "@/app/lib/util";
+import { DATA_LIMIT } from "@/app/lib/data";
 export const EpisodeWrapper = ({
   season,
   search,
 }: {
-  season: SeasonType;
+  season: string;
   search?: string;
 }) => {
   const {
-    data: episodeInfo,
+    data: episodeDataList,
     isLoading,
-    hasNextPage,
-    fetchNextPage,
-  } = useInfiniteQuery({
-    queryKey: ["episode_info", season, search],
-    queryFn: ({ pageParam = 0 }) => getEpisodeInfo(season, search, pageParam),
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, allPages) => lastPage.page.nextPage,
-    staleTime: 1000 * 60 * 60,
-  });
+    size,
+    setSize,
+  } = useSWRInfinite<ListResType<EpisodeInterface[]>>(
+    (page: number, previousPageData: ListResType<EpisodeInterface[]>) => {
+      if (previousPageData && previousPageData.data.length < DATA_LIMIT)
+        return null;
 
-  const { isBottom, setIsBottom } = useSpyScroll(`layout`);
+      return makeUrlParam("/api/episode/list", {
+        page: page + 1,
+        season,
+        search,
+      });
+    },
+    fetcher,
+    { revalidateFirstPage: false },
+  );
+
+  const { isBottom, setIsBottom } = useSpyScroll("layout");
   useEffect(() => {
-    if (hasNextPage && isBottom) {
-      fetchNextPage();
+    if (isBottom) {
+      setSize(size + 1);
       setIsBottom(false);
     }
-  }, [isBottom, fetchNextPage, setIsBottom, hasNextPage]);
+  }, [isBottom, setSize, size, setIsBottom]);
 
   if (isLoading) {
     return Array(2).map((_, i) => {
@@ -49,10 +57,10 @@ export const EpisodeWrapper = ({
       className="w-full"
       id={`episode-${season}-container`}
     >
-      {episodeInfo?.pages
-        .flatMap((ele) => ele.episodeInfo)
-        .map((epi, i) => {
-          return <EpisodeCard key={i} data={epi} />;
+      {episodeDataList
+        ?.flatMap((ele) => ele.data)
+        .map((episode, i) => {
+          return <EpisodeCard key={i} data={episode} />;
         })}
     </Stack>
   );
@@ -72,7 +80,8 @@ const EpisodeCard = memo(function EpisodeCard({
             height={300}
             className="mb-2 w-full"
             src={data.img_src}
-            alt={data.key}
+            alt={data.description ?? ""}
+            priority
           />
           {/* <Skeleton variant="rounded" height={100} className="mb-2 w-full" /> */}
         </div>
@@ -82,7 +91,7 @@ const EpisodeCard = memo(function EpisodeCard({
             방영일 : {data.air_date}, {data.air_time}
           </Typography>
           <Divider_2_4 />
-          <Typography className="line-clamp-4">{data.desc}</Typography>
+          <Typography className="line-clamp-4">{data.description}</Typography>
         </div>
         <Typography variant="body2">출연 : {data.actor.join(", ")}</Typography>
       </Paper>

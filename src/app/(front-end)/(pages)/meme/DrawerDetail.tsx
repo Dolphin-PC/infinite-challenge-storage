@@ -14,7 +14,7 @@ import Image from "next/image";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { memeByOne } from "../../lib/api";
-import { MemeInterface } from "@/app/lib/types";
+import { MemeType } from "@/app/lib/types";
 
 export const ImageCard_Drawer = () => {
   const [drawerOpen, setDrawerOpen] = useRecoilState(StateDrawerOpen);
@@ -24,7 +24,7 @@ export const ImageCard_Drawer = () => {
 
   useEffect(() => {
     async function getData(id: string) {
-      let res: MemeInterface | null = await memeByOne(id);
+      let res: MemeType | null = await memeByOne(id);
       if (res != null) {
         setImageCard(res);
         addParams("search", res.tag[0]);

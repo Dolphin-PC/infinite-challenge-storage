@@ -2,7 +2,7 @@
 
 import { QueryFunction } from "@tanstack/react-query";
 import {
-  MemeInterface,
+  MemeType,
   MemeLifeInterface,
   PageType,
   SearchInterface,
@@ -152,7 +152,7 @@ export function kakaoInit() {
   window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
   console.log("kakao init");
 }
-export function kakaoShare(data: MemeInterface) {
+export function kakaoShare(data: MemeType) {
   const { id } = data;
   let params = [`id=${id}`];
   const SITE_URL = process.env.NEXT_PUBLIC_HOME_SITE_URL;

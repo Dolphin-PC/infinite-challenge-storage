@@ -11,7 +11,7 @@ export interface MemeLifeInterface {
   like_cnt: number;
   download_cnt: number;
 }
-export interface MemeInterface {
+export type MemeType = {
   id: number;
   img_src: string;
   thumnail_src: string;
@@ -19,9 +19,10 @@ export interface MemeInterface {
   tag: string[];
   like_cnt: number;
   download_cnt: number;
-}
+  tot_cnt?: number;
+};
 
-export type API_RES_MemeType = { data: MemeInterface | null };
+export type API_RES_MemeType = { data: MemeType | null };
 
 export type PromiseDataType = {
   data: MemeLifeInterface[];
@@ -85,23 +86,26 @@ export interface TagInterface {
 // export interface EpisodeInfoInterface {}
 
 export interface SeasonInterface {
-  img_url: string;
-  season: SeasonType;
-  title: string;
-  description: string;
-  outline: string;
+  season: string;
+  title: string | null;
+  description: string | null;
+  outline: string | null;
+  img_src: string;
+  view_url: string | null;
   actor: string[];
-  view_url: string;
 }
 
 export interface EpisodeInterface {
-  key: string;
+  season: string;
+  id: number;
+  title: string | null;
+  description: string | null;
+  air_date: string | null;
+  air_time: string | null;
   img_src: string;
-  title: string;
-  air_time: string;
-  air_date: string;
-  desc: string;
   actor: string[];
 }
 
 export type SeasonType = "season1" | "season2" | "season3";
+
+export type ListResType<T> = { data: T; tot_cnt: number };

@@ -156,7 +156,6 @@ export function kakaoShare(data: MemeType) {
   const { id } = data;
   let params = [`id=${id}`];
   const SITE_URL = process.env.NEXT_PUBLIC_HOME_SITE_URL;
-  const SITE_PORT = process.env.NEXT_PUBLIC_HOME_SITE_PORT;
 
   window.Kakao.Share.sendDefault({
     objectType: "feed",
@@ -165,8 +164,8 @@ export function kakaoShare(data: MemeType) {
       description: data.alt,
       imageUrl: data.img_src,
       link: {
-        mobileWebUrl: `${SITE_URL}:${SITE_PORT}/meme_life?` + params.join("&"),
-        webUrl: `${SITE_URL}:${SITE_PORT}/meme_life?` + params.join("&"),
+        mobileWebUrl: `${SITE_URL}/meme?` + params.join("&"),
+        webUrl: `${SITE_URL}/meme?` + params.join("&"),
       },
     },
   });

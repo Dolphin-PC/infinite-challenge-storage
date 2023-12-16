@@ -9454,7 +9454,7 @@ const memeLife: MemeLifeInterface[] = [
 
 const seasonInfo: SeasonInterface[] = [
   {
-    img_url:
+    img_src:
       "https://firebasestorage.googleapis.com/v0/b/infinite-challenge-storage.appspot.com/o/season_info%2Fseason1_logo.webp?alt=media&token=1c980ce1-d37f-419e-a215-38889958d852",
     season: "season1",
     title: "무한도전 시즌1: 무모한도전",
@@ -9466,7 +9466,7 @@ const seasonInfo: SeasonInterface[] = [
       "https://www.wavve.com/player/vod?programid=M_T83165G01&history=season",
   },
   {
-    img_url:
+    img_src:
       "https://firebasestorage.googleapis.com/v0/b/infinite-challenge-storage.appspot.com/o/season_info%2Fseason2_logo.webp?alt=media&token=0802ca50-0f28-4817-8c13-35cdd335c7c8",
     season: "season2",
     title: "무한도전 시즌2: 무리한도전",
@@ -9478,7 +9478,7 @@ const seasonInfo: SeasonInterface[] = [
       "https://www.wavve.com/player/vod?programid=M_T83166G01&history=season",
   },
   {
-    img_url:
+    img_src:
       "https://firebasestorage.googleapis.com/v0/b/infinite-challenge-storage.appspot.com/o/season_info%2Fseason3_logo.webp?alt=media&token=41c78ef6-4510-47bf-8678-8d0008c343da",
     season: "season3",
     title: "무한도전 시즌3: 무한도전",

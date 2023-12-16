@@ -11,7 +11,5 @@ export async function GET(
 
   const { rows, rowCount } = await getEpisodeInfoList(season, search, page);
 
-  console.log("rows 요청", season);
-
   return NextResponse.json({ data: rows, tot_cnt: rowCount });
 }

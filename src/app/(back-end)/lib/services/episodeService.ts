@@ -39,7 +39,7 @@ export const getEpisodeInfoList = async (
   const condition = {
     where: {
       season: {
-        equals: season,
+        contains: season,
       },
       AND: {
         OR: [{ actor: { has: search } }, { title: { contains: search } }],

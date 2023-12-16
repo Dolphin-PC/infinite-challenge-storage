@@ -43,12 +43,6 @@ export const EpisodeWrapper = ({
     }
   }, [isBottom, setSize, size, setIsBottom]);
 
-  if (isLoading) {
-    return Array(2).map((_, i) => {
-      return <EpisodeCard_Skeleton key={i} />;
-    });
-  }
-
   return (
     <Stack
       flexWrap="wrap"
@@ -57,11 +51,15 @@ export const EpisodeWrapper = ({
       className="w-full"
       id={`episode-${season}-container`}
     >
-      {episodeDataList
-        ?.flatMap((ele) => ele.data)
-        .map((episode, i) => {
-          return <EpisodeCard key={i} data={episode} />;
-        })}
+      {isLoading
+        ? Array(2)
+            .fill(0)
+            .map((_, i) => <EpisodeCard_Skeleton key={i} />)
+        : episodeDataList
+            ?.flatMap((ele) => ele.data)
+            .map((episode, i) => {
+              return <EpisodeCard key={i} data={episode} />;
+            })}
     </Stack>
   );
 };
@@ -93,7 +91,11 @@ const EpisodeCard = memo(function EpisodeCard({
           <Divider_2_4 />
           <Typography className="line-clamp-4">{data.description}</Typography>
         </div>
-        <Typography variant="body2">출연 : {data.actor.join(", ")}</Typography>
+        <div className="w-full">
+          <Typography variant="body2">
+            출연 : {data.actor.join(", ")}
+          </Typography>
+        </div>
       </Paper>
     </div>
   );
@@ -101,18 +103,30 @@ const EpisodeCard = memo(function EpisodeCard({
 
 const EpisodeCard_Skeleton = () => {
   return (
-    <div className="flex w-full pr-4 lg:w-6/12">
-      <div className="w-6/12">
-        <Skeleton variant="rounded" height={100} className="mb-2 w-full" />
-        <Skeleton variant="rounded" height={20} className="w-full" />
-        {/* <Typography variant="body2">출연 : {props.actor.join(", ")}</Typography> */}
-      </div>
-      <div className="w-6/12 pl-4">
-        <Skeleton variant="rounded" height={30} className="mb-2 w-full" />
-        {/* <Typography variant="h6">{props.title}</Typography> */}
-        <Skeleton variant="rounded" height={20} className="w-full" />
-        {/* <small>방영일 : {props.air_date}</small> */}
-      </div>
+    <div className="w-full lg:w-6/12">
+      <Paper className="m-2 flex flex-wrap p-2">
+        <div className="w-6/12">
+          {/* <Divider_2_4 /> */}
+          <Skeleton height={300} variant="rounded" />
+        </div>
+        <div className="w-6/12 pl-4">
+          <Typography variant="h6">
+            <Skeleton variant="text" />
+          </Typography>
+          <Typography variant="subtitle2">
+            <Skeleton variant="text" />
+          </Typography>
+          <Divider_2_4 />
+          <Typography className="line-clamp-4">
+            <Skeleton variant="text" />
+          </Typography>
+        </div>
+        <div className="w-full">
+          <Typography variant="body2">
+            <Skeleton variant="text" />
+          </Typography>
+        </div>
+      </Paper>
     </div>
   );
 };

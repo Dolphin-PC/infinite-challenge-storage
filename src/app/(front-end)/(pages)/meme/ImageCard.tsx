@@ -52,7 +52,18 @@ export function ImageCardWrapper({
     }
   }, [isBottom, setSize, size, setIsBottom]);
 
-  if (isLoading) return <ImageCard_Skeleton count={10} />;
+  if (isLoading)
+    return (
+      <Stack
+        gap={5}
+        flexWrap="wrap"
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="flex-start"
+      >
+        <ImageCard_Skeleton count={10} />
+      </Stack>
+    );
 
   let totalCnt = memeInfos?.[0]?.tot_cnt;
   if (totalCnt == 0) return <NothingSearch />;
@@ -136,8 +147,6 @@ const ImageCard_Skeleton = memo(function ImageCard_Skeleton({
         <CardActions>
           <Skeleton variant="rectangular" width={50} height={30} />
           <Skeleton variant="rectangular" width={50} height={30} />
-          {/* <Button size="small">Share</Button>
-      <Button size="small">Learn More</Button> */}
         </CardActions>
       </Card>
     ));

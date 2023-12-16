@@ -1,14 +1,6 @@
-// "use client";
-
-import { QueryFunction } from "@tanstack/react-query";
-import {
-  MemeType,
-  MemeLifeInterface,
-  PageType,
-  SearchInterface,
-  SearchType,
-} from "./types";
+import { MemeType, PageType, SearchInterface } from "./types";
 import { STATUS_CODE } from "./data";
+import { useEffect } from "react";
 
 // 초기 테마를 설정하는 함수
 export function setInitialColorMode(): void {

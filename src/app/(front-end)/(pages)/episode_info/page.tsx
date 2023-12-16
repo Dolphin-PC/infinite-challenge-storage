@@ -1,6 +1,6 @@
 import SeasonSelect from "@/app/(front-end)/(pages)/episode_info/SeasonSelect";
 import { SearchInterface } from "@/app/lib/types";
-import { Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import EpisodeTab from "./EpisodeTab";
 import { EpisodeWrapper } from "./EpisodeCard";
 import { Divider_2_4 } from "@/app/(front-end)/components/Dividers";
@@ -24,7 +24,7 @@ export default async function page({
       <div id="tab-panel-container">
         {seasonInfo.map((ssn, i) => {
           return (
-            <div
+            <Box
               key={i}
               id={`tab-panel-${i}`}
               className={i > 0 ? "hidden" : ""}
@@ -87,7 +87,7 @@ export default async function page({
                   search={searchParams?.search}
                 />
               </Paper>
-            </div>
+            </Box>
           );
         })}
       </div>

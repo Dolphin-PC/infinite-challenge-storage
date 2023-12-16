@@ -28,7 +28,7 @@ export const ScriptTag = () => {
     ${getInitialColorMode.toString()}
     ${setInitialColorMode.toString()}
     ${setColorMode.toString()}
-    setInitialColorMode();
+    (${setInitialColorMode})()
   })()`;
   return <script dangerouslySetInnerHTML={{ __html: codeToRunOnClient }} />;
 };

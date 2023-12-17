@@ -39,21 +39,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="kr">
       <body className={`${inter.className}`} suppressHydrationWarning={true}>
         <ScriptTag />
-        <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
-          <div className="w-full flex-none md:w-64">
-            <Sidenav />
+        <Providers>
+          <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
+            <div className="w-full flex-none md:w-64">
+              <Sidenav />
+            </div>
+            <div id="layout" className="flex-grow md:overflow-scroll">
+              {children}
+            </div>
           </div>
-          <div
-            id="layout"
-            className="flex-grow dark:bg-primary md:overflow-scroll"
-          >
-            <Providers>{children}</Providers>
-          </div>
-        </div>
-        <div id="toast"></div>
+          <div id="toast"></div>
+        </Providers>
       </body>
     </html>
   );

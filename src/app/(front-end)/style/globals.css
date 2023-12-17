@@ -3,28 +3,29 @@
 @tailwind utilities;
 
 :root {
-  --color-primary: #3a2128;
+  --main-bg-color: #fff;
+  --main-color: #000;
 }
 
-body.dark {
-  color: white;
+.dark {
+  --main-bg-color: #000;
+  --main-color: #fff;
+
+  background-color: var(--main-bg-color);
+  color: var(--main-color);
+}
+
+.color {
+  background-color: var(--main-bg-color);
+  color: var(--main-color);
+}
+
+.nav-link {
+  color: var(--main-bg-color);
+  background-color: var(--main-color);
 }
 
 input {
   outline: none;
-}
-.slide-up {
-  transform: translateY(100px);
-  animation: slideDown 3s;
-}
-
-@keyframes slideDown {
-  0%,
-  100% {
-    -webkit-transform: translateY(100px);
-  }
-  10%,
-  90% {
-    -webkit-transform: translateY(0px);
-  }
+  background-color: transparent;
 }

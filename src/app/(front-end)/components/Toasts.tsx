@@ -21,11 +21,7 @@ export function Toasts({
 
   return (
     <div className="absolute bottom-3 left-0 w-full" style={{ zIndex: 2000 }}>
-      <Alert
-        severity={severity}
-        className="m-auto w-fit bg-primary"
-        variant="filled"
-      >
+      <Alert severity={severity} className="m-auto w-fit" variant="filled">
         {children}
       </Alert>
     </div>

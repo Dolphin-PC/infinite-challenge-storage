@@ -11,30 +11,22 @@ export function setInitialColorMode(): void {
 export function setColorMode(mode: "light" | "dark"): void {
   const element = document.body;
   if (mode === "dark") {
-    localStorage.setItem("theme", "dark");
+    localStorage.setItem("theme", JSON.stringify("dark"));
     element.classList.add("dark");
   } else {
-    localStorage.setItem("theme", "light");
+    localStorage.setItem("theme", JSON.stringify("light"));
     element.classList.remove("dark");
   }
 }
 
 // 로컬스토리지 or 시스템모드 에서 'theme' 값 가져오기
 export function getInitialColorMode(): "light" | "dark" {
-  const persistedPreferenceMode = window.localStorage.getItem("theme");
-  const hasPersistedPreference =
-    typeof persistedPreferenceMode === "string" &&
-    ("dark" === persistedPreferenceMode || "light" === persistedPreferenceMode);
+  const savedValue = window.localStorage.getItem("theme");
 
-  if (hasPersistedPreference) return persistedPreferenceMode;
-
-  const preference = window.matchMedia("(prefers-color-scheme: dark)");
-  const hasMediaQueryPreference = typeof preference.matches === "boolean";
-
-  if (hasMediaQueryPreference) {
-    return preference.matches ? "dark" : "light";
+  if (savedValue != null) {
+    const savedMode = JSON.parse(savedValue);
+    if (savedMode == "dark" || "light") return savedMode;
   }
-
   return "light";
 }
 

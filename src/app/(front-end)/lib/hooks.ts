@@ -15,9 +15,11 @@ import {
 import { DebouncedState, useDebouncedCallback } from "use-debounce";
 import { TagInterface } from "../../lib/types";
 import { useRecoilState } from "recoil";
+import { StateColorMode } from "./atoms";
 
 export const useDarkMode = (): [boolean, Function] => {
   const [checked, setChecked] = useState<boolean>(false);
+  const [color, setColor] = useRecoilState(StateColorMode);
 
   useEffect(() => {
     const mode = getInitialColorMode();
@@ -28,6 +30,7 @@ export const useDarkMode = (): [boolean, Function] => {
     let check = event.target.checked;
     setChecked(check);
     setColorMode(check ? "dark" : "light");
+    setColor(check ? "dark" : "light");
   };
 
   return [checked, handleChange];

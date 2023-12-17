@@ -115,9 +115,10 @@ const ImageCard = memo(function ImageCard({
             key={tag}
             label={tag}
             size="small"
-            className={clsx("m-1", {
-              "bg-primary text-white": searchText && tag.includes(searchText),
-            })}
+            className="m-1"
+            color={
+              searchText && tag.includes(searchText) ? "primary" : "default"
+            }
           />
         ))}
       </CardContent>

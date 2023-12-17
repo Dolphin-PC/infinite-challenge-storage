@@ -7,7 +7,7 @@ import {
   kakaoShare,
 } from "../../lib/util";
 import { Toasts, ToastsPortal } from "./Toasts";
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import Script from "next/script";
 import { MemeType, MemeLifeInterface } from "../../lib/types";
 
@@ -20,10 +20,7 @@ export const ButtonUrlCopy = ({ url }: { url: string }): ReactNode => {
     });
   }
   return (
-    <button
-      className="m-1 rounded-lg bg-primary p-2 text-white"
-      onClick={handleClick}
-    >
+    <Button onClick={handleClick} variant="outlined">
       <ToastsPortal>
         {show && (
           <Toasts severity="success" setShow={setShow}>
@@ -46,7 +43,7 @@ export const ButtonUrlCopy = ({ url }: { url: string }): ReactNode => {
         </svg>
         <p className="m-1">URL복사</p>
       </div>
-    </button>
+    </Button>
   );
 };
 
@@ -65,10 +62,7 @@ export const ButtonDownLoad = ({
     });
   }
   return (
-    <button
-      className="m-1 rounded-lg bg-primary p-2 text-white"
-      onClick={handleClick}
-    >
+    <Button onClick={handleClick} variant="outlined">
       <ToastsPortal>
         {show && (
           <Toasts severity="success" setShow={setShow}>
@@ -91,7 +85,7 @@ export const ButtonDownLoad = ({
         </svg>
         <p className="m-1">다운로드</p>
       </div>
-    </button>
+    </Button>
   );
 };
 
@@ -107,10 +101,7 @@ export const ButtonKakaoShare = ({ data }: { data: MemeType }): ReactNode => {
         src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"
         onLoad={kakaoInit}
       ></Script>
-      <button
-        className="m-1 rounded-lg bg-primary p-2 text-white"
-        onClick={() => kakaoShare(data)}
-      >
+      <Button variant="outlined" onClick={() => kakaoShare(data)}>
         <div className="flex flex-col items-center">
           {/* kakao talk icon */}
           <svg
@@ -126,7 +117,7 @@ export const ButtonKakaoShare = ({ data }: { data: MemeType }): ReactNode => {
           </svg>
           <p className="m-1">공유하기</p>
         </div>
-      </button>
+      </Button>
     </>
   );
 };

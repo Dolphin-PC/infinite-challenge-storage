@@ -36,7 +36,7 @@ export const DrawerHeader = ({ title }: { title: string }) => {
   const [open, setOpen] = useRecoilState(StateDrawerOpen);
 
   return (
-    <div className="flex items-center bg-primary p-6 text-white">
+    <div className="flex items-center p-6">
       <button className="w-10" onClick={() => setOpen(false)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"

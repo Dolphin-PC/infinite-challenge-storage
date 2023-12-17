@@ -7,7 +7,7 @@ import LogoImage from "/public/logo.png";
 export default function Sidenav() {
   return (
     <div
-      className={`flex h-full flex-col items-center justify-between border-solid border-r-primary dark:border-r-white dark:bg-primary md:border-r-4`}
+      className={`color flex h-full flex-col items-center justify-between  border-solid md:border-r-4`}
     >
       <div className="w-full">
         <Link href="/" className="h-1/12 flex items-center justify-center">

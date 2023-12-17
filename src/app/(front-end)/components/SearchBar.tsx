@@ -30,14 +30,14 @@ export default function SearchBar({
 
   return (
     <div
-      className="flex w-1/3 justify-center rounded-full border-2 border-solid border-primary
-    p-4 dark:bg-white dark:text-primary"
+      className="flex w-1/2 justify-center rounded-full border-2 border-solid border-primary
+    p-4"
     >
       <FontAwesomeIcon icon={faSearch} width={30} className="m-auto" />
       <input
         value={searchText || ""}
         onChange={onChangeSearchInput}
-        className="w-full "
+        className="w-full"
         placeholder="검색어를 입력해주세요."
       />
     </div>

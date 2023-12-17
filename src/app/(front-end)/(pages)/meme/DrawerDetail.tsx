@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { memeByOne } from "../../lib/api";
 import { MemeType } from "@/app/lib/types";
+import { Chip, Divider, Stack } from "@mui/material";
 
 export const ImageCard_Drawer = () => {
   const [drawerOpen, setDrawerOpen] = useRecoilState(StateDrawerOpen);
@@ -45,7 +46,7 @@ export const ImageCard_Drawer = () => {
         <div>
           {/* 제목 */}
           <DrawerHeader title={imageCard.alt ?? ""} />
-
+          <Divider />
           {/* 내용 */}
           <div className="flex flex-wrap p-10">
             <div className="flex w-5/12">
@@ -57,22 +58,24 @@ export const ImageCard_Drawer = () => {
                 width={1000}
                 height={1000}
                 priority={true}
+                placeholder="blur" // 추가
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg==" // 추가
               />
             </div>
-            <div className="flex w-5/12 flex-col justify-between">
-              <div className="flex flex-row flex-wrap">
+            <div className="flex w-5/12 flex-col justify-between pl-5">
+              <Stack direction="row" flexWrap={"wrap"}>
                 {imageCard.tag.map((tagName, i) => {
                   return (
-                    <div
+                    <Chip
                       key={i}
-                      className="mb-2 ml-2 rounded-lg bg-primary p-2 text-white"
-                    >
-                      {tagName}
-                    </div>
+                      label={tagName}
+                      className="m-2"
+                      size="medium"
+                    />
                   );
                 })}
-              </div>
-              <div className="flex w-full flex-row justify-start">
+              </Stack>
+              <Stack direction="row" gap={1}>
                 <ButtonUrlCopy url={imageCard.img_src} />
                 <ButtonDownLoad
                   img_src={imageCard.img_src}
@@ -82,7 +85,7 @@ export const ImageCard_Drawer = () => {
                   )}
                 />
                 <ButtonKakaoShare data={imageCard} />
-              </div>
+              </Stack>
             </div>
           </div>
         </div>

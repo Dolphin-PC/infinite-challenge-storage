@@ -20,6 +20,7 @@ export default function SeasonSelect({
     <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
       <InputLabel>시즌</InputLabel>
       <Select
+        color="primary"
         value={season}
         label="Season"
         onChange={(e) => handleChange(e.target.value)}

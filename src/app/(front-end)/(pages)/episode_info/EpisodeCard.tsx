@@ -43,6 +43,10 @@ export const EpisodeWrapper = ({
     }
   }, [isBottom, setSize, size, setIsBottom]);
 
+  const dataCount = episodeDataList?.flatMap((ele) => ele.data).length;
+
+  if (dataCount == 0)
+    return <Typography>검색결과가 존재하지 않습니다.</Typography>;
   return (
     <Stack
       flexWrap="wrap"

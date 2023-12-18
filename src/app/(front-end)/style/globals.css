@@ -3,11 +3,13 @@
 @tailwind utilities;
 
 :root {
+  --main-primary-color: #3a2128;
   --main-bg-color: #fff;
   --main-color: #000;
 }
 
 .dark {
+  --main-primary-color: #b5949e;
   --main-bg-color: #000;
   --main-color: #fff;
 
@@ -23,6 +25,10 @@
 .nav-link {
   color: var(--main-bg-color);
   background-color: var(--main-color);
+}
+
+.border-color {
+  border-color: var(--main-primary-color);
 }
 
 input {

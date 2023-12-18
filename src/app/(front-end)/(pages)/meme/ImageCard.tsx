@@ -52,38 +52,33 @@ export function ImageCardWrapper({
     }
   }, [isBottom, setSize, size, setIsBottom]);
 
-  if (isLoading)
-    return (
-      <Stack
-        gap={5}
-        flexWrap="wrap"
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-      >
-        <ImageCard_Skeleton count={10} />
-      </Stack>
-    );
-
   let totalCnt = memeInfos?.[0]?.tot_cnt;
   if (totalCnt == 0) return <NothingSearch />;
   return (
     <div>
       <Typography variant="caption">총 {totalCnt}개</Typography>
       <Stack
-        gap={5}
+        gap={3}
         flexWrap="wrap"
         direction="row"
         justifyContent="flex-start"
-        alignItems="flex-start"
+        alignItems="stretch"
       >
-        {memeInfos
-          ?.flatMap((ele) => ele.data)
-          .map((meme, i) => {
-            return (
-              <ImageCard key={i} data={meme} searchText={searchParams.search} />
-            );
-          })}
+        {isLoading ? (
+          <ImageCard_Skeleton count={10} />
+        ) : (
+          memeInfos
+            ?.flatMap((ele) => ele.data)
+            .map((meme, i) => {
+              return (
+                <ImageCard
+                  key={i}
+                  data={meme}
+                  searchText={searchParams.search}
+                />
+              );
+            })
+        )}
       </Stack>
       <ImageCard_Drawer />
     </div>

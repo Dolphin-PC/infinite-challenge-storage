@@ -5,12 +5,18 @@ import { useEffect } from "react";
 export const dark_theme = createTheme({
   palette: {
     mode: "dark",
+    primary: {
+      main: "#B5949E",
+    },
   },
 });
 
 export const light_theme = createTheme({
   palette: {
     mode: "light",
+    primary: {
+      main: "#3a2128",
+    },
   },
 });
 

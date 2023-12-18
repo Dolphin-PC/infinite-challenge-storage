@@ -63,7 +63,7 @@ export default async function page({
                     </div>
                     <div className="flex justify-end">
                       <a
-                        className="flex rounded-lg bg-primary p-3 text-white"
+                        className="color flex rounded-lg p-3"
                         href={ssn.view_url || ""}
                         target="_blank"
                       >

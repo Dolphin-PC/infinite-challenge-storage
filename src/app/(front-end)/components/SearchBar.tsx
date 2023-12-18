@@ -29,10 +29,7 @@ export default function SearchBar({
   }, 300);
 
   return (
-    <div
-      className="flex w-1/2 justify-center rounded-full border-2 border-solid border-primary
-    p-4"
-    >
+    <div className="border-color flex w-1/2 justify-center rounded-full border-2 border-solid p-4">
       <FontAwesomeIcon icon={faSearch} width={30} className="m-auto" />
       <input
         value={searchText || ""}

@@ -28,6 +28,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@babel/core", "npm:7.23.6"],\
           ["@babel/preset-env", "virtual:6aa187963771f6bb037f452a7b1b983f6d7d374ccaf35e989267974fdb8f82460619d257b6456da42b926908004ab17dba049c80e1653e84cd17186dc6f7762a#npm:7.23.6"],\
+          ["@babel/runtime", "npm:7.23.6"],\
           ["@emotion/cache", "npm:11.11.0"],\
           ["@emotion/react", "virtual:6aa187963771f6bb037f452a7b1b983f6d7d374ccaf35e989267974fdb8f82460619d257b6456da42b926908004ab17dba049c80e1653e84cd17186dc6f7762a#npm:11.11.1"],\
           ["@emotion/styled", "virtual:6aa187963771f6bb037f452a7b1b983f6d7d374ccaf35e989267974fdb8f82460619d257b6456da42b926908004ab17dba049c80e1653e84cd17186dc6f7762a#npm:11.11.0"],\
@@ -9872,6 +9873,7 @@ const RAW_RUNTIME_STATE =
           ["infinite-challenge-storage", "workspace:."],\
           ["@babel/core", "npm:7.23.6"],\
           ["@babel/preset-env", "virtual:6aa187963771f6bb037f452a7b1b983f6d7d374ccaf35e989267974fdb8f82460619d257b6456da42b926908004ab17dba049c80e1653e84cd17186dc6f7762a#npm:7.23.6"],\
+          ["@babel/runtime", "npm:7.23.6"],\
           ["@emotion/cache", "npm:11.11.0"],\
           ["@emotion/react", "virtual:6aa187963771f6bb037f452a7b1b983f6d7d374ccaf35e989267974fdb8f82460619d257b6456da42b926908004ab17dba049c80e1653e84cd17186dc6f7762a#npm:11.11.1"],\
           ["@emotion/styled", "virtual:6aa187963771f6bb037f452a7b1b983f6d7d374ccaf35e989267974fdb8f82460619d257b6456da42b926908004ab17dba049c80e1653e84cd17186dc6f7762a#npm:11.11.0"],\

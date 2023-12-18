@@ -1421,7 +1421,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.23.5, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.6.2, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7":
+"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.23.5, @babel/runtime@npm:^7.23.6, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.6.2, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7":
   version: 7.23.6
   resolution: "@babel/runtime@npm:7.23.6"
   dependencies:
@@ -3165,7 +3165,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0, @types/node@npm:^20":
+"@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0, @types/node@npm:^20.10.5":
   version: 20.10.5
   resolution: "@types/node@npm:20.10.5"
   dependencies:
@@ -3226,7 +3226,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^18":
+"@types/react@npm:*, @types/react@npm:^18.2.45":
   version: 18.2.45
   resolution: "@types/react@npm:18.2.45"
   dependencies:
@@ -5798,6 +5798,7 @@ __metadata:
   dependencies:
     "@babel/core": "npm:^7.23.6"
     "@babel/preset-env": "npm:^7.23.6"
+    "@babel/runtime": "npm:^7.23.6"
     "@emotion/cache": "npm:^11.11.0"
     "@emotion/react": "npm:^11.11.1"
     "@emotion/styled": "npm:^11.11.0"
@@ -5814,8 +5815,8 @@ __metadata:
     "@tanstack/react-query": "npm:^5.8.4"
     "@types/babel__core": "npm:^7"
     "@types/babel__preset-env": "npm:^7"
-    "@types/node": "npm:^20"
-    "@types/react": "npm:^18"
+    "@types/node": "npm:^20.10.5"
+    "@types/react": "npm:^18.2.45"
     "@types/react-dom": "npm:^18"
     "@vercel/postgres": "npm:^0.5.1"
     "@yarnpkg/pnpify": "npm:^4.0.1"
@@ -5830,8 +5831,8 @@ __metadata:
     next: "npm:14.0.3"
     pg: "npm:^8.11.3"
     postcss: "npm:^8"
-    prettier: "npm:^3.1.0"
-    prettier-plugin-tailwindcss: "npm:^0.5.7"
+    prettier: "npm:^3.1.1"
+    prettier-plugin-tailwindcss: "npm:^0.5.9"
     prisma: "npm:^5.7.0"
     react: "npm:^18"
     react-dom: "npm:^18"
@@ -5840,7 +5841,7 @@ __metadata:
     swr: "npm:^2.2.4"
     swr-devtools: "npm:^1.3.2"
     tailwindcss: "npm:^3.3.0"
-    typescript: "npm:^5"
+    typescript: "npm:^5.3.3"
     use-debounce: "npm:^10.0.0"
   languageName: unknown
   linkType: soft
@@ -7432,7 +7433,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-tailwindcss@npm:^0.5.7":
+"prettier-plugin-tailwindcss@npm:^0.5.9":
   version: 0.5.9
   resolution: "prettier-plugin-tailwindcss@npm:0.5.9"
   peerDependencies:
@@ -7483,7 +7484,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^3.1.0":
+"prettier@npm:^3.1.1":
   version: 3.1.1
   resolution: "prettier@npm:3.1.1"
   bin:
@@ -8582,7 +8583,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5":
+"typescript@npm:^5.3.3":
   version: 5.3.3
   resolution: "typescript@npm:5.3.3"
   bin:
@@ -8592,7 +8593,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A^5.3.3#optional!builtin<compat/typescript>":
   version: 5.3.3
   resolution: "typescript@patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=e012d7"
   bin:

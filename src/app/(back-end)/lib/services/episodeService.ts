@@ -1,6 +1,6 @@
 import { SeasonInterface } from "@/app/lib/types";
-import { prismaClient } from "../db";
 import { DATA_LIMIT } from "@/app/lib/data";
+import { prismaClient } from "../db";
 
 /**
  * 시즌 정보 목록 조회
@@ -32,6 +32,8 @@ export const getEpisodeInfoList = async (
   search: string | null,
   pageNumber: number,
 ) => {
+
+
   if (!season) season = "";
   if (!search) search = "";
   if (!pageNumber) pageNumber = 1;

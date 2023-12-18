@@ -1,19 +1,14 @@
 "use client";
 
-import { ThemeProvider, createTheme } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
-  custom_theme,
-  dark_theme,
-  getDesignTokens,
-  getTheme,
-  light_theme,
+  dark_theme, light_theme
 } from "./style/mui.theme";
 import { SWRDevTools } from "swr-devtools";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
-import { getInitialColorMode } from "../lib/util";
-import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
+// import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
+import { RecoilRoot, useRecoilState } from "recoil";
 import { StateColorMode } from "./lib/atoms";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
@@ -27,7 +22,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       <SWRDevTools>
         <RecoilRoot>
           <ThemeWrapper>
-            <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+          {children}
           </ThemeWrapper>
         </RecoilRoot>
       </SWRDevTools>

@@ -1,6 +1,5 @@
-import pkg from "pg";
 import { DATA_LIMIT } from "../../lib/data";
-import { PrismaClient } from "@prisma/client";
+import {PrismaClient} from "@prisma"
 
 // export const prismaClient = new PrismaClient({ log: ["info", "query"] });
 export const prismaClient = new PrismaClient();

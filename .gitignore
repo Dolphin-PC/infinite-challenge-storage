@@ -38,3 +38,12 @@ next-env.d.ts
 /crawling_node
 .env
 .env.production
+
+# yarn berry
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

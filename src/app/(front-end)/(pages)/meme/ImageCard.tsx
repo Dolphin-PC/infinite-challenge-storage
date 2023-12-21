@@ -31,7 +31,8 @@ export function ImageCardWrapper({
     data: memeInfos,
     size,
     setSize,
-    isLoading
+    isLoading,
+    isValidating
   } = useSWRInfinite<ListResType<MemeType[]>>(
     (pageIndex: number, previousPageData: ListResType<MemeType[]>) => {
       if (previousPageData && !previousPageData.data.length) return null
@@ -75,6 +76,8 @@ export function ImageCardWrapper({
             )
           })}
       </StackLayout>
+
+      {isValidating ? <Toast message="로딩 중입니다." init_show={true} /> : ''}
       <ImageCard_Drawer />
     </div>
   )

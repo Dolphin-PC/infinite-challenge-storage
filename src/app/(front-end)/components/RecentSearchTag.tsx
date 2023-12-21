@@ -1,28 +1,29 @@
-"use client";
+'use client'
 
-import { Chip, ListItem, Paper, Stack, Typography } from "@mui/material";
-import { TagInterface } from "../../lib/types";
-import { useSearch } from "../lib/hooks";
+import { Chip, ListItem, Paper, Stack, Typography } from '@mui/material'
+import { TagInterface } from '../../lib/types'
+import { useSearch } from '../lib/hooks'
 
 export default function RecentSearchTag({
   tags,
   addTag,
   deleteTag,
-  handleSearch,
+  handleSearch
 }: {
-  tags: TagInterface[];
-  addTag: Function;
-  deleteTag: Function;
-  handleSearch: Function;
+  tags: TagInterface[]
+  addTag: Function
+  deleteTag: Function
+  handleSearch: Function
 }) {
   const handleClick = (searchText: string) => {
-    handleSearch(searchText);
-    addTag(searchText);
-  };
-  const handleDelete = (searchText: string) => deleteTag(searchText);
+    handleSearch(searchText)
+    addTag(searchText)
+  }
+  const handleDelete = (searchText: string) => deleteTag(searchText)
 
+  if (tags.length == 0) return <></>
   return (
-    <div className="">
+    <>
       <Typography variant="caption">최근검색어</Typography>
       <Stack direction="row-reverse" spacing={1} className="justify-end">
         {tags.map((e) => (
@@ -36,6 +37,6 @@ export default function RecentSearchTag({
           />
         ))}
       </Stack>
-    </div>
-  );
+    </>
+  )
 }

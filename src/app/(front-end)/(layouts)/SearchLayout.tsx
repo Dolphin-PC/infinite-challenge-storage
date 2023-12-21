@@ -1,29 +1,29 @@
-"use client";
-import SearchBar from "@/app/(front-end)/components/SearchBar";
-import { Stack, Typography } from "@mui/material";
-import RecentSearchTag from "../components/RecentSearchTag";
-import { useRecentSearch, useSearch } from "../lib/hooks";
-import FloatingButton from "../components/FloatingButton";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+'use client'
+import SearchBar from '@/app/(front-end)/components/SearchBar'
+import { Stack, Typography } from '@mui/material'
+import RecentSearchTag from '../components/RecentSearchTag'
+import { useRecentSearch, useSearch } from '../lib/hooks'
+import FloatingButton from '../components/FloatingButton'
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 
 export default function SearchLayout({
-  children,
+  children
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  const { searchParams, handleSearch, searchText, setSearchText } = useSearch();
+  const { searchParams, handleSearch, searchText, setSearchText } = useSearch()
 
-  const { tags, addTag, deleteTag } = useRecentSearch();
+  const { tags, addTag, deleteTag } = useRecentSearch()
 
   function handleMoveTop() {
-    const ele = document.getElementById("layout");
+    const ele = document.getElementById('layout')
     ele?.scrollTo({
       top: 0,
-      behavior: "smooth",
-    });
+      behavior: 'smooth'
+    })
   }
   return (
-    <div className="">
+    <>
       <Stack gap={2}>
         <div className="color sticky top-0 z-10 pb-3 pl-10 pt-10 opacity-80">
           <SearchBar
@@ -46,6 +46,6 @@ export default function SearchLayout({
         <FloatingButton Icon={ArrowUpwardIcon} onClickEvent={handleMoveTop} />
         <div className="pl-10">{children}</div>
       </Stack>
-    </div>
-  );
+    </>
+  )
 }

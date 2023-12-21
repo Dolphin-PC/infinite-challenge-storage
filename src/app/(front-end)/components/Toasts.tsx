@@ -1,23 +1,47 @@
-"use client";
+'use client'
 
-import { Alert, AlertColor } from "@mui/material";
-import React, { ReactNode, useEffect, useState } from "react";
-import ReactDOM from "react-dom";
+import { Alert, AlertColor, Typography } from '@mui/material'
+import React, { ReactNode, useEffect, useState } from 'react'
+import ReactDOM from 'react-dom'
 
-export function Toasts({
+export const Toast = ({
+  message,
+  init_show
+}: {
+  message: string
+  init_show: boolean
+}) => {
+  const [show, setShow] = useState(init_show)
+
+  return (
+    <ToastsPortal>
+      {show && (
+        <div
+          className="absolute bottom-3 left-0 w-full"
+          style={{ zIndex: 2000 }}>
+          <Alert severity="info" className="m-auto w-fit" variant="filled">
+            <Typography variant="body1">{message}</Typography>
+          </Alert>
+        </div>
+      )}
+    </ToastsPortal>
+  )
+}
+
+export function AutoToasts({
   children,
   setShow,
-  severity,
+  severity
 }: {
-  severity: AlertColor;
-  children: ReactNode;
-  setShow: Function;
+  severity: AlertColor
+  children: ReactNode
+  setShow: Function
 }) {
   useEffect(() => {
     setTimeout(() => {
-      setShow(false);
-    }, 1000 * 3);
-  }, [setShow]);
+      setShow(false)
+    }, 1000 * 3)
+  }, [setShow])
 
   return (
     <div className="absolute bottom-3 left-0 w-full" style={{ zIndex: 2000 }}>
@@ -25,10 +49,17 @@ export function Toasts({
         {children}
       </Alert>
     </div>
-  );
+  )
 }
 
 export function ToastsPortal({ children }: { children: ReactNode }) {
-  const el: HTMLElement = document.getElementById("toast") || document.body;
-  return ReactDOM.createPortal(children, el);
+  const [el, setEl] = useState<HTMLElement | null>(null)
+
+  useEffect(() => {
+    setEl(document.getElementById('toast'))
+  }, [])
+  // const el: HTMLElement = document.getElementById('toast') || document.body
+
+  if (el == null) return <></>
+  return ReactDOM.createPortal(children, el)
 }

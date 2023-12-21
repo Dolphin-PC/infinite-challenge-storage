@@ -1,50 +1,38 @@
-import { getInitialColorMode } from "@/app/lib/util";
-import { PaletteMode, createTheme } from "@mui/material";
-import { useEffect } from "react";
+import { PaletteMode, ThemeOptions, createTheme } from '@mui/material'
+import { colors } from './colors'
 
-export const dark_theme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#B5949E",
-    },
-  },
-});
+export const getDesignTokens = (mode: PaletteMode): ThemeOptions => {
+  return {
+    palette: {
+      mode,
+      ...(mode === 'light'
+        ? // light mode
+          {
+            primary: {
+              main: colors.light.primary
+            },
+            info: {
+              main: colors.light.primary
+            },
+            text: {
+              primary: '#000'
+            }
+          }
+        : // dark mode
+          {
+            primary: {
+              main: colors.dark.primary
+            },
+            info: {
+              main: colors.dark.primary
+            },
+            text: {
+              primary: '#fff'
+            }
+          })
+    }
+  }
+}
 
-export const light_theme = createTheme({
-  palette: {
-    mode: "light",
-    primary: {
-      main: "#3a2128",
-    },
-  },
-});
-
-export const getDesignTokens = (mode: PaletteMode) => ({
-  palette: {
-    mode,
-    // ...(mode === 'light'
-    //   ? {
-    //       // palette values for light mode
-    //       primary: amber,
-    //       divider: amber[200],
-    //       text: {
-    //         primary: grey[900],
-    //         secondary: grey[800],
-    //       },
-    //     }
-    //   : {
-    //       // palette values for dark mode
-    //       primary: deepOrange,
-    //       divider: deepOrange[700],
-    //       background: {
-    //         default: deepOrange[900],
-    //         paper: deepOrange[900],
-    //       },
-    //       text: {
-    //         primary: '#fff',
-    //         secondary: grey[500],
-    //       },
-    //     }),
-  },
-});
+export const dark_theme = createTheme(getDesignTokens('dark'))
+export const light_theme = createTheme(getDesignTokens('light'))

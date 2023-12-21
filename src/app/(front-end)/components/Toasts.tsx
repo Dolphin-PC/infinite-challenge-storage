@@ -11,11 +11,9 @@ export const Toast = ({
   message: string
   init_show: boolean
 }) => {
-  const [show, setShow] = useState(init_show)
-
   return (
     <ToastsPortal>
-      {show && (
+      {init_show && (
         <div
           className="absolute bottom-3 left-0 w-full"
           style={{ zIndex: 2000 }}>

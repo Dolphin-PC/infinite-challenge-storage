@@ -6,7 +6,7 @@ import {
   kakaoInit,
   kakaoShare
 } from '../../lib/util'
-import { AutoToasts, ToastsPortal } from './Toasts'
+import { AutoToasts, Toast, ToastsPortal } from './Toasts'
 import { Button, Typography } from '@mui/material'
 import Script from 'next/script'
 import { MemeType, MemeLifeInterface } from '../../lib/types'
@@ -17,17 +17,18 @@ export const ButtonUrlCopy = ({ url }: { url: string }): ReactNode => {
   function handleClick() {
     copyString(url).then((is) => {
       if (is) setShow(true)
+      setTimeout(() => {
+        setShow(false)
+      }, 3 * 1000)
     })
   }
   return (
     <Button onClick={handleClick} variant="contained" color="primary">
-      <ToastsPortal>
-        {show && (
-          <AutoToasts severity="success" setShow={setShow}>
-            <Typography variant="body1">URL이 복사되었습니다.</Typography>
-          </AutoToasts>
-        )}
-      </ToastsPortal>
+      <Toast
+        init_show={show}
+        message="URL이 복사되었습니다."
+        hide_seconds={3}
+      />
       <div className="flex flex-col items-center">
         {/* link icon */}
         <svg
@@ -58,17 +59,14 @@ export const ButtonDownLoad = ({
   async function handleClick() {
     downloadImage(img_src, file_name).then((is) => {
       if (is) setShow(true)
+      setTimeout(() => {
+        setShow(false)
+      }, 3 * 1000)
     })
   }
   return (
     <Button onClick={handleClick} variant="contained" color="primary">
-      <ToastsPortal>
-        {show && (
-          <AutoToasts severity="success" setShow={setShow}>
-            <Typography variant="body1">다운로드가 완료되었습니다.</Typography>
-          </AutoToasts>
-        )}
-      </ToastsPortal>
+      <Toast init_show={show} message="다운로드가 완료되었습니다." />
       <div className="flex flex-col items-center">
         {/* download icon */}
         <svg

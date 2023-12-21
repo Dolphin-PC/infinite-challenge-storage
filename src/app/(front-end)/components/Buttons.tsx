@@ -20,7 +20,7 @@ export const ButtonUrlCopy = ({ url }: { url: string }): ReactNode => {
     })
   }
   return (
-    <Button onClick={handleClick} variant="outlined">
+    <Button onClick={handleClick} variant="contained" color="primary">
       <ToastsPortal>
         {show && (
           <AutoToasts severity="success" setShow={setShow}>
@@ -61,7 +61,7 @@ export const ButtonDownLoad = ({
     })
   }
   return (
-    <Button onClick={handleClick} variant="outlined">
+    <Button onClick={handleClick} variant="contained" color="primary">
       <ToastsPortal>
         {show && (
           <AutoToasts severity="success" setShow={setShow}>
@@ -98,7 +98,10 @@ export const ButtonKakaoShare = ({ data }: { data: MemeType }): ReactNode => {
       <Script
         src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"
         onLoad={kakaoInit}></Script>
-      <Button variant="outlined" onClick={() => kakaoShare(data)}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => kakaoShare(data)}>
         <div className="flex flex-col items-center">
           {/* kakao talk icon */}
           <svg

@@ -3,7 +3,7 @@ export const dark = {
 }
 
 export const light = {
-  primary: '#B5949E'
+  primary: '#fff'
 }
 
 export const colors = Object.assign({}, { dark }, { light })

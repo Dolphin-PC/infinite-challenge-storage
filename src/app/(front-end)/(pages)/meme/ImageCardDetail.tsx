@@ -1,51 +1,51 @@
-"use client";
+'use client'
 import {
   ButtonUrlCopy,
   ButtonDownLoad,
-  ButtonKakaoShare,
-} from "@/app/(front-end)/components/Buttons";
+  ButtonKakaoShare
+} from '@/app/(front-end)/components/Buttons'
 import DrawerLayout, {
-  DrawerHeader,
-} from "@/app/(front-end)/components/layout/DrawerLayout";
-import { StateDrawerOpen, StateImageCard } from "@/app/(front-end)/lib/atoms";
-import { useParameter } from "@/app/(front-end)/lib/hooks";
-import { makeImageFileName } from "@/app/lib/util";
-import Image from "next/image";
-import { useEffect } from "react";
-import { useRecoilState } from "recoil";
-import { memeByOne } from "../../lib/api";
-import { MemeType } from "@/app/lib/types";
-import { Chip, Divider, Stack } from "@mui/material";
+  DrawerHeader
+} from '@/app/(front-end)/components/layout/DrawerLayout'
+import { StateDrawerOpen, StateImageCard } from '@/app/(front-end)/lib/atoms'
+import { useParameter } from '@/app/(front-end)/lib/hooks'
+import { makeImageFileName } from '@/app/lib/util'
+import Image from 'next/image'
+import { useEffect } from 'react'
+import { useRecoilState } from 'recoil'
+import { memeByOne } from '../../lib/api'
+import { MemeType } from '@/app/lib/types'
+import { Chip, Divider, Stack } from '@mui/material'
 
 export const ImageCard_Drawer = () => {
-  const [drawerOpen, setDrawerOpen] = useRecoilState(StateDrawerOpen);
-  const [imageCard, setImageCard] = useRecoilState(StateImageCard);
+  const [drawerOpen, setDrawerOpen] = useRecoilState(StateDrawerOpen)
+  const [imageCard, setImageCard] = useRecoilState(StateImageCard)
 
-  const { getValue, addParams } = useParameter();
+  const { getValue, addParams } = useParameter()
 
   useEffect(() => {
     async function getData(id: string) {
-      let res: MemeType | null = await memeByOne(id);
+      let res: MemeType | null = await memeByOne(id)
       if (res != null) {
-        setImageCard(res);
-        addParams("search", res.tag[0]);
-        setDrawerOpen(true);
+        setImageCard(res)
+        // addParams("search", res.tag[0]);
+        setDrawerOpen(true)
       }
     }
-    const id = getValue("id");
+    const id = getValue('id')
     if (id && imageCard == null) {
-      getData(id);
+      getData(id)
     }
-  }, []);
+  }, [])
 
   return (
     <DrawerLayout>
       {imageCard == null ? (
-        "loading"
+        'loading'
       ) : (
         <div>
           {/* 제목 */}
-          <DrawerHeader title={imageCard.alt ?? ""} />
+          <DrawerHeader title={imageCard.alt ?? ''} />
           <Divider />
           {/* 내용 */}
           <div className="flex flex-wrap p-10">
@@ -54,7 +54,7 @@ export const ImageCard_Drawer = () => {
                 id={String(imageCard.id)}
                 src={imageCard.img_src}
                 className="h-full w-full rounded-3xl"
-                alt={imageCard.alt ?? ""}
+                alt={imageCard.alt ?? ''}
                 width={1000}
                 height={1000}
                 priority={true}
@@ -63,7 +63,7 @@ export const ImageCard_Drawer = () => {
               />
             </div>
             <div className="flex w-5/12 flex-col justify-between pl-5">
-              <Stack direction="row" flexWrap={"wrap"}>
+              <Stack direction="row" flexWrap={'wrap'}>
                 {imageCard.tag.map((tagName, i) => {
                   return (
                     <Chip
@@ -72,7 +72,7 @@ export const ImageCard_Drawer = () => {
                       className="m-2"
                       size="medium"
                     />
-                  );
+                  )
                 })}
               </Stack>
               <Stack direction="row" gap={1}>
@@ -80,8 +80,8 @@ export const ImageCard_Drawer = () => {
                 <ButtonDownLoad
                   img_src={imageCard.img_src}
                   file_name={makeImageFileName(
-                    imageCard.tag.join("_"),
-                    imageCard.img_src,
+                    imageCard.tag.join('_'),
+                    imageCard.img_src
                   )}
                 />
                 <ButtonKakaoShare data={imageCard} />
@@ -91,5 +91,5 @@ export const ImageCard_Drawer = () => {
         </div>
       )}
     </DrawerLayout>
-  );
-};
+  )
+}

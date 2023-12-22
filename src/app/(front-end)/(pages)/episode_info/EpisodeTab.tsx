@@ -1,42 +1,46 @@
-"use client";
-import { SeasonInterface } from "@/app/lib/types";
-import { Tab, Tabs } from "@mui/material";
-import { useEffect, useState } from "react";
+'use client'
+import { SeasonInterface } from '@/app/lib/types'
+import { Tab, Tabs } from '@mui/material'
+import { useEffect, useState } from 'react'
 
 export default function EpisodeTab({
-  seasonInfo,
+  seasonInfo
 }: {
-  seasonInfo: SeasonInterface[];
+  seasonInfo: SeasonInterface[]
 }) {
-  const [tab, setTab] = useState(0);
-  const [tabCount, setTabCount] = useState(seasonInfo.length);
+  const [tab, setTab] = useState(0)
+  const [tabCount, setTabCount] = useState(seasonInfo.length)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setTab(newValue);
-  };
+    setTab(newValue)
+  }
 
   useEffect(() => {
     seasonInfo.forEach((season, i) => {
-      const tabPanel = document.getElementById(`tab-panel-${i}`);
+      const tabPanel = document.getElementById(`tab-panel-${i}`)
       if (i == tab) {
-        tabPanel?.classList.remove("hidden");
+        tabPanel?.classList.remove('hidden')
       } else {
-        tabPanel?.classList.add("hidden");
+        tabPanel?.classList.add('hidden')
       }
-    });
-  }, [tab, seasonInfo]);
+    })
+  }, [tab, seasonInfo])
 
   useEffect(() => {
     if (tabCount != seasonInfo.length) {
-      setTab(0);
-      setTabCount(seasonInfo.length);
+      setTab(0)
+      setTabCount(seasonInfo.length)
     }
-  }, [tabCount, seasonInfo]);
+  }, [tabCount, seasonInfo])
   return (
-    <Tabs value={tab} onChange={handleChange}>
+    <Tabs
+      value={tab}
+      onChange={handleChange}
+      textColor="inherit"
+      indicatorColor="primary">
       {seasonInfo.map((season, i) => {
-        return <Tab key={i} label={`${season.title}`} />;
+        return <Tab key={i} label={`${season.title}`} />
       })}
     </Tabs>
-  );
+  )
 }

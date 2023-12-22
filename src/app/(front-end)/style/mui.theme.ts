@@ -8,27 +8,13 @@ export const getDesignTokens = (mode: PaletteMode): ThemeOptions => {
       ...(mode === 'light'
         ? // light mode
           {
-            primary: {
-              main: colors.light.primary
-            },
-            info: {
-              main: colors.light.primary
-            },
-            text: {
-              primary: '#000'
-            }
+            primary: colors.light_palette,
+            info: colors.light_palette
           }
         : // dark mode
           {
-            primary: {
-              main: colors.dark.primary
-            },
-            info: {
-              main: colors.dark.primary
-            },
-            text: {
-              primary: '#fff'
-            }
+            primary: colors.dark_palette,
+            info: colors.dark_palette
           })
     }
   }

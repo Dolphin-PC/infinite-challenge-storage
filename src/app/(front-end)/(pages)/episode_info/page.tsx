@@ -1,19 +1,20 @@
-import SeasonSelect from "@/app/(front-end)/(pages)/episode_info/SeasonSelect";
-import { SearchInterface } from "@/app/lib/types";
-import { Box, Paper, Typography } from "@mui/material";
-import EpisodeTab from "./EpisodeTab";
-import { EpisodeWrapper } from "./EpisodeCard";
-import { Divider_2_4 } from "@/app/(front-end)/components/Dividers";
-import Image from "next/image";
-import { IconLink } from "@/app/(front-end)/lib/icons";
-import { getSeasonInfoList } from "@/app/(back-end)/lib/services/episodeService";
+import SeasonSelect from '@/app/(front-end)/(pages)/episode_info/SeasonSelect'
+import { SearchInterface } from '@/app/lib/types'
+import { Box, Paper, Typography } from '@mui/material'
+import EpisodeTab from './EpisodeTab'
+import { EpisodeWrapper } from './EpisodeCard'
+import { Divider_2_4 } from '@/app/(front-end)/components/Dividers'
+import Image from 'next/image'
+import { IconLink } from '@/app/(front-end)/lib/icons'
+import { getSeasonInfoList } from '@/app/(back-end)/lib/services/episodeService'
+import Loading from '../../components/Loading'
 
 export default async function page({
-  searchParams,
+  searchParams
 }: {
-  searchParams: SearchInterface;
+  searchParams: SearchInterface
 }) {
-  const seasonInfo = await getSeasonInfoList(searchParams?.season);
+  const seasonInfo = await getSeasonInfoList(searchParams?.season)
 
   return (
     <div className="w-full">
@@ -27,8 +28,7 @@ export default async function page({
             <Box
               key={i}
               id={`tab-panel-${i}`}
-              className={i > 0 ? "hidden" : ""}
-            >
+              className={i > 0 ? 'hidden' : ''}>
               <Paper elevation={3} className="mt-2 p-5">
                 <Typography variant="h5">{ssn.title}</Typography>
                 <Divider_2_4 />
@@ -40,7 +40,7 @@ export default async function page({
                       width={0}
                       height={0}
                       sizes="100vw"
-                      style={{ width: "100%", height: "auto" }}
+                      style={{ width: '100%', height: 'auto' }}
                       priority
                       className="rounded-xl"
                     />
@@ -56,7 +56,7 @@ export default async function page({
                         <div className="w-9/12">
                           <Typography variant="h6">{ssn.outline}</Typography>
                           <Typography variant="h6">
-                            {ssn.actor.join(", ")}
+                            {ssn.actor.join(', ')}
                           </Typography>
                         </div>
                       </div>
@@ -64,9 +64,8 @@ export default async function page({
                     <div className="flex justify-end">
                       <a
                         className="color flex rounded-lg p-3"
-                        href={ssn.view_url || ""}
-                        target="_blank"
-                      >
+                        href={ssn.view_url || ''}
+                        target="_blank">
                         <div className="mr-2">
                           <IconLink />
                         </div>
@@ -88,9 +87,9 @@ export default async function page({
                 />
               </Paper>
             </Box>
-          );
+          )
         })}
       </div>
     </div>
-  );
+  )
 }

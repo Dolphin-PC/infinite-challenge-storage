@@ -1,60 +1,61 @@
-"use client";
-import { EpisodeInterface, ListResType } from "@/app/lib/types";
-import { Paper, Skeleton, Stack, Typography } from "@mui/material";
-import { useSpyScroll } from "@/app/(front-end)/lib/hooks";
-import { memo, useEffect } from "react";
-import Image from "next/image";
-import { Divider_2_4 } from "@/app/(front-end)/components/Dividers";
-import useSWRInfinite from "swr/infinite";
-import { fetcher, makeUrlParam } from "@/app/lib/util";
-import { DATA_LIMIT } from "@/app/lib/data";
+'use client'
+import { EpisodeInterface, ListResType } from '@/app/lib/types'
+import { Paper, Skeleton, Stack, Typography } from '@mui/material'
+import { useSpyScroll } from '@/app/(front-end)/lib/hooks'
+import { memo, useEffect } from 'react'
+import Image from 'next/image'
+import { Divider_2_4 } from '@/app/(front-end)/components/Dividers'
+import useSWRInfinite from 'swr/infinite'
+import { fetcher, makeUrlParam } from '@/app/lib/util'
+import { DATA_LIMIT } from '@/app/lib/data'
+import { Toast } from '../../components/Toasts'
 export const EpisodeWrapper = ({
   season,
-  search,
+  search
 }: {
-  season: string;
-  search?: string;
+  season: string
+  search?: string
 }) => {
   const {
     data: episodeDataList,
     isLoading,
     size,
     setSize,
+    isValidating
   } = useSWRInfinite<ListResType<EpisodeInterface[]>>(
     (page: number, previousPageData: ListResType<EpisodeInterface[]>) => {
       if (previousPageData && previousPageData.data.length < DATA_LIMIT)
-        return null;
+        return null
 
-      return makeUrlParam("/api/episode/list", {
+      return makeUrlParam('/api/episode/list', {
         page: page + 1,
         season,
-        search,
-      });
+        search
+      })
     },
     fetcher,
-    { revalidateFirstPage: false },
-  );
+    { revalidateFirstPage: false }
+  )
 
-  const { isBottom, setIsBottom } = useSpyScroll("layout");
+  const { isBottom, setIsBottom } = useSpyScroll('layout')
   useEffect(() => {
     if (isBottom) {
-      setSize(size + 1);
-      setIsBottom(false);
+      setSize(size + 1)
+      setIsBottom(false)
     }
-  }, [isBottom, setSize, size, setIsBottom]);
+  }, [isBottom, setSize, size, setIsBottom])
 
-  const dataCount = episodeDataList?.flatMap((ele) => ele.data).length;
+  const dataCount = episodeDataList?.flatMap((ele) => ele.data).length
 
   if (dataCount == 0)
-    return <Typography>검색결과가 존재하지 않습니다.</Typography>;
+    return <Typography>검색결과가 존재하지 않습니다.</Typography>
   return (
     <Stack
       flexWrap="wrap"
       direction="row"
       rowGap={1}
       className="w-full"
-      id={`episode-${season}-container`}
-    >
+      id={`episode-${season}-container`}>
       {isLoading
         ? Array(2)
             .fill(0)
@@ -62,16 +63,18 @@ export const EpisodeWrapper = ({
         : episodeDataList
             ?.flatMap((ele) => ele.data)
             .map((episode, i) => {
-              return <EpisodeCard key={i} data={episode} />;
+              return <EpisodeCard key={i} data={episode} />
             })}
+
+      <Toast init_show={isValidating} message="로딩 중입니다." />
     </Stack>
-  );
-};
+  )
+}
 
 const EpisodeCard = memo(function EpisodeCard({
-  data,
+  data
 }: {
-  data: EpisodeInterface;
+  data: EpisodeInterface
 }) {
   return (
     <div className="w-full lg:w-6/12">
@@ -82,7 +85,7 @@ const EpisodeCard = memo(function EpisodeCard({
             height={300}
             className="mb-2 w-full"
             src={data.img_src}
-            alt={data.description ?? ""}
+            alt={data.description ?? ''}
             priority
           />
           {/* <Skeleton variant="rounded" height={100} className="mb-2 w-full" /> */}
@@ -97,13 +100,13 @@ const EpisodeCard = memo(function EpisodeCard({
         </div>
         <div className="w-full">
           <Typography variant="body2">
-            출연 : {data.actor.join(", ")}
+            출연 : {data.actor.join(', ')}
           </Typography>
         </div>
       </Paper>
     </div>
-  );
-});
+  )
+})
 
 const EpisodeCard_Skeleton = () => {
   return (
@@ -132,5 +135,5 @@ const EpisodeCard_Skeleton = () => {
         </div>
       </Paper>
     </div>
-  );
-};
+  )
+}

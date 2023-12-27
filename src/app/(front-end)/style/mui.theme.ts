@@ -1,5 +1,5 @@
+import { colors } from '@/app/(front-end)/style/colors'
 import { PaletteMode, ThemeOptions, createTheme } from '@mui/material'
-import { colors } from './colors'
 
 export const getDesignTokens = (mode: PaletteMode): ThemeOptions => {
   return {

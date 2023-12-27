@@ -1,8 +1,7 @@
 'use client'
 
-import { Chip, ListItem, Paper, Stack, Typography } from '@mui/material'
 import { TagInterface } from '../../lib/types'
-import { useSearch } from '../lib/hooks'
+import { FaMinus } from 'react-icons/fa'
 
 export default function RecentSearchTag({
   tags,
@@ -24,19 +23,21 @@ export default function RecentSearchTag({
   if (tags.length == 0) return <></>
   return (
     <>
-      <Typography variant="caption">최근검색어</Typography>
-      <Stack direction="row-reverse" spacing={1} className="justify-end">
+      <small>최근검색어</small>
+      <div className="flex justify-end flex-row-reverse">
         {tags.map((e) => (
-          <Chip
-            color="default"
+          <div
             key={e.searchText + e.priority}
-            className="m-1"
-            label={e.searchText}
-            onClick={() => handleClick(e.searchText)}
-            onDelete={() => handleDelete(e.searchText)}
-          />
+            className="flex m-1 border-2 pl-1 pr-1 rounded-lg flex-wrap gap-2">
+            <button onClick={() => handleClick(e.searchText)}>
+              <small>{e.searchText}</small>
+            </button>
+            <button onClick={() => handleDelete(e.searchText)}>
+              <FaMinus />
+            </button>
+          </div>
         ))}
-      </Stack>
+      </div>
     </>
   )
 }

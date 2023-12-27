@@ -4,10 +4,8 @@ import {
   Card,
   CardActions,
   CardContent,
-  CardMedia,
   Chip,
   Skeleton,
-  Stack,
   Typography
 } from '@mui/material'
 import { ListResType, MemeType, SearchInterface } from '../../../lib/types'
@@ -16,11 +14,12 @@ import { useSpyScroll } from '../../lib/hooks'
 import NothingSearch from '../../components/NothingSearch'
 import { useSetRecoilState } from 'recoil'
 import { StateDrawerOpen, StateImageCard } from '@/app/(front-end)/lib/atoms'
-import clsx from 'clsx'
 import { ImageCard_Drawer } from './ImageCardDetail'
 import { fetcher, makeUrlParam } from '@/app/lib/util'
 import useSWRInfinite from 'swr/infinite'
 import { Toast } from '../../components/Toasts'
+import Image from 'next/image'
+import clsx from 'clsx'
 
 export function ImageCardWrapper({
   searchParams
@@ -49,10 +48,10 @@ export function ImageCardWrapper({
   const { isBottom, setIsBottom } = useSpyScroll('layout')
   useEffect(() => {
     if (isBottom) {
-      setSize(size + 1)
       setIsBottom(false)
+      setSize(size + 1)
     }
-  }, [isBottom, setSize, size, setIsBottom])
+  }, [isBottom])
 
   if (isLoading)
     return (
@@ -66,7 +65,7 @@ export function ImageCardWrapper({
   if (totalCnt == 0) return <NothingSearch />
   return (
     <div>
-      <Typography variant="caption">총 {totalCnt}개</Typography>
+      <small>총 {totalCnt}개</small>
       <StackLayout>
         {memeInfos
           ?.flatMap((ele) => ele.data)
@@ -100,26 +99,31 @@ const ImageCard = memo(function ImageCard({
     // addParams("key", data.card_key);
   }
   return (
-    <Card className="w-5/12 md:w-3/12" onClick={handleClick}>
-      <CardMedia image={data.img_src} sx={{ height: 200 }} />
-      <CardContent>
+    <div
+      className="w-5/12 md:w-3/12 h-96 overflow-hidden"
+      onClick={handleClick}>
+      <div className="relative rounded-md w-full h-60 overflow-hidden">
+        <Image
+          src={data.img_src}
+          fill={true}
+          sizes="33vw"
+          style={{ objectFit: 'cover' }}
+          alt={data.alt ?? ''}
+          priority={true}
+        />
+      </div>
+      <div className="flex flex-wrap h-20">
         {data.tag.map((tag) => (
-          <Chip
+          <div
             key={tag}
-            label={tag}
-            size="small"
-            className="m-1"
-            color={
-              searchText && tag.includes(searchText) ? 'primary' : 'default'
-            }
-          />
+            className={clsx('flex m-1 border-2 pl-1 pr-1 rounded-lg', {
+              'bg-primary text-white': searchText && tag.includes(searchText)
+            })}>
+            <p>{tag}</p>
+          </div>
         ))}
-      </CardContent>
-      <CardActions>
-        {/* <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button> */}
-      </CardActions>
-    </Card>
+      </div>
+    </div>
   )
 })
 
@@ -152,13 +156,8 @@ const ImageCard_Skeleton = memo(function ImageCard_Skeleton({
 
 const StackLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <Stack
-      gap={3}
-      flexWrap="wrap"
-      direction="row"
-      justifyContent="flex-start"
-      alignItems="stretch">
+    <div className="flex flex-wrap gap-3 flex-row justify-start items-stretch">
       {children}
-    </Stack>
+    </div>
   )
 }

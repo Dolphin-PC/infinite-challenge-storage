@@ -20,7 +20,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       <SWRDevTools>
         <RecoilRoot>
           <ThemeWrapper>
-            <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+            <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+              {children}
+            </AppRouterCacheProvider>
           </ThemeWrapper>
         </RecoilRoot>
       </SWRDevTools>

@@ -30,7 +30,8 @@
     ".next/types/**/*.ts",
     "crawling_node/firebase.js",
     "src/app/(front-end)/(pages)/meme/[key]",
-    "crawling_node/util.js"
+    "crawling_node/util.js",
+    "src/app/(front-end)/_document.js"
   ],
   "exclude": ["node_modules", ".next"]
 }

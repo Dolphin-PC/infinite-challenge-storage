@@ -7,7 +7,12 @@ import ReactDOM from 'react-dom'
 export default function Loading() {
   return (
     <LoadingPortal>
-      <CircularProgress color="inherit" />
+      <div className="absolute left-1/2 top-1/2 w-full">
+        <div className="flex flex-col items-center justify-center w-32">
+          <CircularProgress color="inherit" />
+          <p>Loading...</p>
+        </div>
+      </div>
     </LoadingPortal>
   )
 }

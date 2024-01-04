@@ -35,7 +35,8 @@
     "crawling_node/firebase.js",
     "src/app/(front-end)/(pages)/meme/[key]",
     "crawling_node/util.js",
-    "src/app/(front-end)/_document.js"
+    "src/app/(front-end)/_document.js",
+    "app/(front-end)/(pages)/episode_info/@season/@pararel/default.tsx"
   ],
   "exclude": ["node_modules", ".next"]
 }

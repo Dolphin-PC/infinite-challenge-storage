@@ -1,20 +1,25 @@
-"use client";
+'use client'
 
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { ChangeEvent, useState } from "react";
-import { useParameter } from "../../lib/hooks";
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import { useState } from 'react'
+import { useParameter } from '../../lib/hooks'
 
 export default function SeasonSelect({
-  url_season = "",
+  url_season = ''
 }: {
-  url_season?: string;
+  url_season?: string
 }) {
-  const [season, setSeason] = useState(url_season);
-  const { addParams } = useParameter();
+  const [season, setSeason] = useState(url_season)
+  const { addParams, removeParams } = useParameter()
 
   function handleChange(value: string) {
-    setSeason(value);
-    addParams("season", value);
+    if (['season1', 'season2', 'season3'].includes(value)) {
+      setSeason(value)
+      addParams('season', value)
+    } else {
+      setSeason('')
+      removeParams('season')
+    }
   }
   return (
     <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
@@ -23,8 +28,7 @@ export default function SeasonSelect({
         color="primary"
         value={season}
         label="Season"
-        onChange={(e) => handleChange(e.target.value)}
-      >
+        onChange={(e) => handleChange(e.target.value)}>
         <MenuItem value="">
           <em>전체</em>
         </MenuItem>
@@ -33,5 +37,5 @@ export default function SeasonSelect({
         <MenuItem value="season3">시즌 3</MenuItem>
       </Select>
     </FormControl>
-  );
+  )
 }

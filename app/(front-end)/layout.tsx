@@ -10,6 +10,7 @@ import {
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import Providers from './providers'
+import { ReactNode } from 'react'
 
 config.autoAddCss = false
 
@@ -34,11 +35,7 @@ const ScriptTag = () => {
   return <script dangerouslySetInnerHTML={{ __html: codeToRunOnClient }} />
 }
 
-export default function RootLayout({
-  children
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout(props: { children: ReactNode }) {
   return (
     <html lang="kr">
       <body className={`${inter.className}`} suppressHydrationWarning={true}>
@@ -49,7 +46,7 @@ export default function RootLayout({
               <Sidenav />
             </div>
             <div id="layout" className="flex-grow md:overflow-scroll">
-              {children}
+              {props.children}
             </div>
           </div>
           <div id="toast"></div>

@@ -23,6 +23,7 @@ export const metadata: Metadata = {
   description: '우리가 사랑한 무한도전 정보를 모아둔 저장소 사이트입니다.'
 }
 
+// body태그에 "dark" class 추가 여부 함수
 const ScriptTag = () => {
   const codeToRunOnClient = `(function() {
     ${getInitialColorMode.toString()}

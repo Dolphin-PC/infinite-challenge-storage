@@ -1,10 +1,10 @@
 import { PaletteColorOptions, PaletteOptions } from '@mui/material'
 
 const dark_palette: PaletteColorOptions = {
-  light: '#bba5a7',
   main: '#4b2d34',
+  light: '#bba5a7',
   dark: '#3a2128',
-  contrastText: '#000'
+  contrastText: '#fff'
 }
 
 const light_palette: PaletteColorOptions = {

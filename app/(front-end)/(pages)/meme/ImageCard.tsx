@@ -112,15 +112,16 @@ const ImageCard = memo(function ImageCard({
           priority={true}
         />
       </div>
-      <div className="flex flex-wrap h-20">
+      <div className="flex flex-wrap h-20 gap-2 pt-2">
         {data.tag.map((tag) => (
-          <div
-            key={tag}
-            className={clsx('flex m-1 border-2 pl-1 pr-1 rounded-lg', {
-              'bg-primary text-white': searchText && tag.includes(searchText)
-            })}>
-            <p>{tag}</p>
-          </div>
+          <Chip key={tag} label={tag} color="primary" />
+          // <div
+          //   key={tag}
+          //   className={clsx('flex m-1 border-2 pl-1 pr-1 rounded-lg', {
+          //     'bg-primary text-white': searchText && tag.includes(searchText)
+          //   })}>
+          //   <p>{tag}</p>
+          // </div>
         ))}
       </div>
     </div>

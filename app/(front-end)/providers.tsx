@@ -6,7 +6,8 @@ import { SWRDevTools } from 'swr-devtools'
 import { RecoilRoot, useRecoilState } from 'recoil'
 import { StateColorMode } from './lib/atoms'
 import { ThemeProvider } from 'styled-components'
-import { dark_theme, light_theme } from '@/src/app/(front-end)/style/mui.theme'
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
+import { dark_theme, light_theme } from './style/mui.theme'
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => new QueryClient())
@@ -15,7 +16,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     <QueryClientProvider client={queryClient}>
       <SWRDevTools>
         <RecoilRoot>
-          <ThemeWrapper>{children}</ThemeWrapper>
+          <AppRouterCacheProvider>
+            <ThemeWrapper>{children}</ThemeWrapper>
+          </AppRouterCacheProvider>
         </RecoilRoot>
       </SWRDevTools>
     </QueryClientProvider>

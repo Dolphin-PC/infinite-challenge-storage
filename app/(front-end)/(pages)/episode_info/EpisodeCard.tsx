@@ -43,7 +43,7 @@ export const EpisodeWrapper = ({
       setSize(size + 1)
       setIsBottom(false)
     }
-  }, [isBottom, setSize, size, setIsBottom])
+  }, [isBottom])
 
   const dataCount = episodeDataList?.flatMap((ele) => ele.data).length
 

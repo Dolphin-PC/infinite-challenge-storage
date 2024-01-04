@@ -4,6 +4,7 @@ import {
   Card,
   CardActions,
   CardContent,
+  CardMedia,
   Chip,
   Skeleton,
   Typography
@@ -91,17 +92,13 @@ const ImageCard = memo(function ImageCard({
 }) {
   const setDrawerOpen = useSetRecoilState(StateDrawerOpen)
   const setImageCardState = useSetRecoilState(StateImageCard)
-  // const { addParams } = useParameter();
 
   function handleClick() {
     setImageCardState(data)
     setDrawerOpen(true)
-    // addParams("key", data.card_key);
   }
   return (
-    <div
-      className="w-5/12 md:w-3/12 h-96 overflow-hidden"
-      onClick={handleClick}>
+    <Card className="w-5/12 md:w-3/12" onClick={handleClick}>
       <div className="relative rounded-md w-full h-60 overflow-hidden">
         <Image
           src={data.img_src}
@@ -112,22 +109,22 @@ const ImageCard = memo(function ImageCard({
           priority={true}
         />
       </div>
-      <div className="flex flex-wrap h-20 gap-2 pt-2">
-        {data.tag.map((tag) => (
-          <Chip key={tag} label={tag} color="primary" />
-          // <div
-          //   key={tag}
-          //   className={clsx('flex m-1 border-2 pl-1 pr-1 rounded-lg', {
-          //     'bg-primary text-white': searchText && tag.includes(searchText)
-          //   })}>
-          //   <p>{tag}</p>
-          // </div>
-        ))}
-      </div>
-    </div>
+      <CardContent className="flex flex-wrap gap-2">
+        {data.tag.map((tag) => {
+          return (
+            <Chip
+              key={tag}
+              label={tag}
+              color={
+                searchText && tag.includes(searchText) ? 'primary' : 'default'
+              }
+            />
+          )
+        })}
+      </CardContent>
+    </Card>
   )
 })
-
 const ImageCard_Skeleton = memo(function ImageCard_Skeleton({
   count = 3
 }: {
@@ -145,10 +142,6 @@ const ImageCard_Skeleton = memo(function ImageCard_Skeleton({
                 <Skeleton variant="rectangular" width={210} height={30} />
               </Typography>
             </CardContent>
-            <CardActions>
-              <Skeleton variant="rectangular" width={50} height={30} />
-              <Skeleton variant="rectangular" width={50} height={30} />
-            </CardActions>
           </Card>
         ))}
     </StackLayout>

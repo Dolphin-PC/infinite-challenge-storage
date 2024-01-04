@@ -20,6 +20,10 @@
     ],
     "paths": {
       "@/*": ["./*"],
+      "@front/*": ["./app/(front-end)/*"],
+      "@front-component/*": ["./app/(front-end)/components/*"],
+      "@front-lib/*": ["./app/(front-end)/lib/*"],
+      "@front-page/*": ["./app/(front-end)/(pages)/*"],
       "@prisma": ["./prisma/index"]
     }
   },

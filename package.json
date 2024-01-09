@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "prisma:generate": "yarn pnpify prisma generate",
-    "db-studio": "npx prisma studio"
+    "db-studio": "npx prisma studio",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@babel/runtime": "^7.23.6",

@@ -45,7 +45,7 @@ export default function RootLayout(props: { children: ReactNode }) {
             <div className="w-full flex-none md:w-64">
               <Sidenav />
             </div>
-            <div id="layout" className="flex-grow md:overflow-scroll">
+            <div id="layout" className="flex-grow md:overflow-y-scroll">
               {props.children}
             </div>
           </div>

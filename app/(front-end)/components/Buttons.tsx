@@ -1,15 +1,14 @@
-import { ReactNode, memo, useEffect, useState } from 'react'
+import { ReactNode, useState } from 'react'
 import {
   copyString,
   downloadImage,
-  getImageUrltoObject,
   kakaoInit,
   kakaoShare
 } from '../../lib/util'
-import { AutoToasts, Toast, ToastsPortal } from './Toasts'
-import { Button, Typography } from '@mui/material'
+import { Toast } from './Toasts'
+import { Button } from '@mui/material'
 import Script from 'next/script'
-import { MemeType, MemeLifeInterface } from '../../lib/types'
+import { MemeType } from '../../lib/types'
 
 export const ButtonUrlCopy = ({ url }: { url: string }): ReactNode => {
   const [show, setShow] = useState(false)
@@ -24,11 +23,7 @@ export const ButtonUrlCopy = ({ url }: { url: string }): ReactNode => {
   }
   return (
     <Button onClick={handleClick} variant="contained" color="primary">
-      <Toast
-        init_show={show}
-        message="URL이 복사되었습니다."
-        hide_seconds={3}
-      />
+      <Toast init_show={show} message="URL이 복사되었습니다." />
       <div className="flex flex-col items-center">
         {/* link icon */}
         <svg

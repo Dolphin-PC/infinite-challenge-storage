@@ -41,6 +41,7 @@ const RAW_RUNTIME_STATE =
           ["@mui/material-nextjs", "virtual:6aa187963771f6bb037f452a7b1b983f6d7d374ccaf35e989267974fdb8f82460619d257b6456da42b926908004ab17dba049c80e1653e84cd17186dc6f7762a#npm:5.15.0"],\
           ["@mui/styles", "virtual:6aa187963771f6bb037f452a7b1b983f6d7d374ccaf35e989267974fdb8f82460619d257b6456da42b926908004ab17dba049c80e1653e84cd17186dc6f7762a#npm:5.15.2"],\
           ["@prisma/client", "virtual:6aa187963771f6bb037f452a7b1b983f6d7d374ccaf35e989267974fdb8f82460619d257b6456da42b926908004ab17dba049c80e1653e84cd17186dc6f7762a#npm:5.7.0"],\
+          ["@prisma/nextjs-monorepo-workaround-plugin", "npm:5.7.1"],\
           ["@svgr/webpack", "npm:8.1.0"],\
           ["@tailwindcss/typography", "virtual:6aa187963771f6bb037f452a7b1b983f6d7d374ccaf35e989267974fdb8f82460619d257b6456da42b926908004ab17dba049c80e1653e84cd17186dc6f7762a#npm:0.5.10"],\
           ["@tanstack/react-query", "virtual:6aa187963771f6bb037f452a7b1b983f6d7d374ccaf35e989267974fdb8f82460619d257b6456da42b926908004ab17dba049c80e1653e84cd17186dc6f7762a#npm:5.14.1"],\
@@ -6098,6 +6099,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@prisma/nextjs-monorepo-workaround-plugin", [\
+      ["npm:5.7.1", {\
+        "packageLocation": "../../.yarn/berry/cache/@prisma-nextjs-monorepo-workaround-plugin-npm-5.7.1-078daeddc5-10c0.zip/node_modules/@prisma/nextjs-monorepo-workaround-plugin/",\
+        "packageDependencies": [\
+          ["@prisma/nextjs-monorepo-workaround-plugin", "npm:5.7.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@protobufjs/aspromise", [\
       ["npm:1.1.2", {\
         "packageLocation": "../../.yarn/berry/cache/@protobufjs-aspromise-npm-1.1.2-71d00b938f-10c0.zip/node_modules/@protobufjs/aspromise/",\
@@ -10048,6 +10058,7 @@ const RAW_RUNTIME_STATE =
           ["@mui/material-nextjs", "virtual:6aa187963771f6bb037f452a7b1b983f6d7d374ccaf35e989267974fdb8f82460619d257b6456da42b926908004ab17dba049c80e1653e84cd17186dc6f7762a#npm:5.15.0"],\
           ["@mui/styles", "virtual:6aa187963771f6bb037f452a7b1b983f6d7d374ccaf35e989267974fdb8f82460619d257b6456da42b926908004ab17dba049c80e1653e84cd17186dc6f7762a#npm:5.15.2"],\
           ["@prisma/client", "virtual:6aa187963771f6bb037f452a7b1b983f6d7d374ccaf35e989267974fdb8f82460619d257b6456da42b926908004ab17dba049c80e1653e84cd17186dc6f7762a#npm:5.7.0"],\
+          ["@prisma/nextjs-monorepo-workaround-plugin", "npm:5.7.1"],\
           ["@svgr/webpack", "npm:8.1.0"],\
           ["@tailwindcss/typography", "virtual:6aa187963771f6bb037f452a7b1b983f6d7d374ccaf35e989267974fdb8f82460619d257b6456da42b926908004ab17dba049c80e1653e84cd17186dc6f7762a#npm:0.5.10"],\
           ["@tanstack/react-query", "virtual:6aa187963771f6bb037f452a7b1b983f6d7d374ccaf35e989267974fdb8f82460619d257b6456da42b926908004ab17dba049c80e1653e84cd17186dc6f7762a#npm:5.14.1"],\

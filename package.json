@@ -25,6 +25,7 @@
     "@mui/material-nextjs": "^5.15.0",
     "@mui/styles": "^5.15.2",
     "@prisma/client": "^5.7.0",
+    "@prisma/nextjs-monorepo-workaround-plugin": "^5.7.1",
     "@svgr/webpack": "^8.1.0",
     "@tanstack/react-query": "^5.8.4",
     "@vercel/postgres": "^0.5.1",

@@ -2841,6 +2841,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@prisma/nextjs-monorepo-workaround-plugin@npm:^5.7.1":
+  version: 5.7.1
+  resolution: "@prisma/nextjs-monorepo-workaround-plugin@npm:5.7.1"
+  checksum: 73b1de697174a7cf3409536ef85a16183582521e17027f859cd6a14e5920911d71a2bffdbb07d73b68854d724e3d22b84ade6ddad092e2e19914a61d2da02e31
+  languageName: node
+  linkType: hard
+
 "@protobufjs/aspromise@npm:^1.1.1, @protobufjs/aspromise@npm:^1.1.2":
   version: 1.1.2
   resolution: "@protobufjs/aspromise@npm:1.1.2"
@@ -5940,6 +5947,7 @@ __metadata:
     "@mui/material-nextjs": "npm:^5.15.0"
     "@mui/styles": "npm:^5.15.2"
     "@prisma/client": "npm:^5.7.0"
+    "@prisma/nextjs-monorepo-workaround-plugin": "npm:^5.7.1"
     "@svgr/webpack": "npm:^8.1.0"
     "@tailwindcss/typography": "npm:^0.5.10"
     "@tanstack/react-query": "npm:^5.8.4"
